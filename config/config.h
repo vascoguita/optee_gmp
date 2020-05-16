@@ -40,7 +40,7 @@ see https://www.gnu.org/licenses/.
 #define GMP_MPARAM_H_SUGGEST "./mpn/generic/gmp-mparam.h"
 
 /* Define to 1 if you have the `alarm' function. */
-#define HAVE_ALARM 1
+#define HAVE_ALARM 0
 
 /* Define to 1 if alloca() works (via gmp-impl.h). */
 #define HAVE_ALLOCA 1
@@ -70,10 +70,10 @@ see https://www.gnu.org/licenses/.
 /* #undef HAVE_CALLING_CONVENTIONS */
 
 /* Define to 1 if you have the `clock' function. */
-#define HAVE_CLOCK 1
+#define HAVE_CLOCK 0
 
 /* Define to 1 if you have the `clock_gettime' function */
-#define HAVE_CLOCK_GETTIME 1
+#define HAVE_CLOCK_GETTIME 0
 
 /* Define to 1 if you have the `cputime' function. */
 /* #undef HAVE_CPUTIME */
@@ -125,19 +125,19 @@ see https://www.gnu.org/licenses/.
 /* #undef HAVE_FCNTL_H */
 
 /* Define to 1 if you have the <float.h> header file. */
-#define HAVE_FLOAT_H 1
+#define HAVE_FLOAT_H 0
 
 /* Define to 1 if you have the `getpagesize' function. */
-#define HAVE_GETPAGESIZE 1
+#define HAVE_GETPAGESIZE 0
 
 /* Define to 1 if you have the `getrusage' function. */
-#define HAVE_GETRUSAGE 1
+#define HAVE_GETRUSAGE 0
 
 /* Define to 1 if you have the `getsysinfo' function. */
 /* #undef HAVE_GETSYSINFO */
 
 /* Define to 1 if you have the `gettimeofday' function. */
-#define HAVE_GETTIMEOFDAY 1
+#define HAVE_GETTIMEOFDAY 0
 
 /* Define to 1 if the compiler accepts gcc style __attribute__ ((visibility))
    and __attribute__ ((alias)) */
@@ -248,10 +248,10 @@ see https://www.gnu.org/licenses/.
 #define HAVE_MEMSET 1
 
 /* Define to 1 if you have the `mmap' function. */
-#define HAVE_MMAP 1
+#define HAVE_MMAP 0
 
 /* Define to 1 if you have the `mprotect' function. */
-#define HAVE_MPROTECT 1
+#define HAVE_MPROTECT 0
 
 /* Define to 1 each of the following for which a native (ie. CPU specific)
     implementation of the corresponding routine exists.  */
@@ -376,16 +376,16 @@ see https://www.gnu.org/licenses/.
 /* #undef HAVE_NATIVE_mpn_xnor_n */
 
 /* Define to 1 if you have the `nl_langinfo' function. */
-#define HAVE_NL_LANGINFO 1
+#define HAVE_NL_LANGINFO 0
 
 /* Define to 1 if you have the <nl_types.h> header file. */
 /* #undef HAVE_NL_TYPES_H */
 
 /* Define to 1 if you have the `obstack_vprintf' function. */
-#define HAVE_OBSTACK_VPRINTF 1
+#define HAVE_OBSTACK_VPRINTF 0
 
 /* Define to 1 if you have the `popen' function. */
-#define HAVE_POPEN 1
+#define HAVE_POPEN 0
 
 /* Define to 1 if you have the `processor_info' function. */
 /* #undef HAVE_PROCESSOR_INFO */
@@ -398,25 +398,25 @@ see https://www.gnu.org/licenses/.
 /* #undef HAVE_PSTAT_GETPROCESSOR */
 
 /* Define to 1 if the system has the type `ptrdiff_t'. */
-#define HAVE_PTRDIFF_T 1
+#define HAVE_PTRDIFF_T 0
 
 /* Define to 1 if the system has the type `quad_t'. */
 /* #undef HAVE_QUAD_T */
 
 /* Define to 1 if you have the `raise' function. */
-#define HAVE_RAISE 1
+#define HAVE_RAISE 0
 
 /* Define to 1 if you have the `read_real_time' function. */
 /* #undef HAVE_READ_REAL_TIME */
 
 /* Define to 1 if you have the `sigaction' function. */
-#define HAVE_SIGACTION 1
+#define HAVE_SIGACTION 0
 
 /* Define to 1 if you have the `sigaltstack' function. */
-#define HAVE_SIGALTSTACK 1
+#define HAVE_SIGALTSTACK 0
 
 /* Define to 1 if you have the `sigstack' function. */
-#define HAVE_SIGSTACK 1
+#define HAVE_SIGSTACK 0
 
 /* Tune directory speed_cyclecounter, undef=none, 1=32bits, 2=64bits) */
 /* #undef HAVE_SPEED_CYCLECOUNTER */
@@ -440,7 +440,7 @@ see https://www.gnu.org/licenses/.
 #define HAVE_STRCHR 1
 
 /* Define to 1 if you have the `strerror' function. */
-#define HAVE_STRERROR 1
+#define HAVE_STRERROR 0
 
 /* Define to 1 if you have the <strings.h> header file. */
 #define HAVE_STRINGS_H 1
@@ -452,16 +452,16 @@ see https://www.gnu.org/licenses/.
 #define HAVE_STRNLEN 1
 
 /* Define to 1 if you have the `strtol' function. */
-#define HAVE_STRTOL 1
+#define HAVE_STRTOL 0
 
 /* Define to 1 if you have the `strtoul' function. */
 #define HAVE_STRTOUL 1
 
 /* Define to 1 if you have the `sysconf' function. */
-#define HAVE_SYSCONF 1
+#define HAVE_SYSCONF 0
 
 /* Define to 1 if you have the `sysctl' function. */
-#define HAVE_SYSCTL 1
+#define HAVE_SYSCTL 0
 
 /* Define to 1 if you have the `sysctlbyname' function. */
 /* #undef HAVE_SYSCTLBYNAME */
@@ -479,7 +479,7 @@ see https://www.gnu.org/licenses/.
 /* #undef HAVE_SYS_MMAN_H */
 
 /* Define to 1 if you have the <sys/param.h> header file. */
-#define HAVE_SYS_PARAM_H 1
+#define HAVE_SYS_PARAM_H 0
 
 /* Define to 1 if you have the <sys/processor.h> header file. */
 /* #undef HAVE_SYS_PROCESSOR_H */
@@ -515,7 +515,7 @@ see https://www.gnu.org/licenses/.
 #define HAVE_SYS_TYPES_H 1
 
 /* Define to 1 if you have the `times' function. */
-#define HAVE_TIMES 1
+#define HAVE_TIMES 0
 
 /* Define to 1 if the system has the type `uint_least32_t'. */
 #define HAVE_UINT_LEAST32_T 1
@@ -581,7 +581,7 @@ see https://www.gnu.org/licenses/.
 /* #undef SSCANF_WRITABLE_INPUT */
 
 /* Define to 1 if you have the ANSI C header files. */
-#define STDC_HEADERS 1
+#define STDC_HEADERS 0
 
 /* Define to 1 if you can safely include both <sys/time.h> and <time.h>. */
 /* #undef TIME_WITH_SYS_TIME */

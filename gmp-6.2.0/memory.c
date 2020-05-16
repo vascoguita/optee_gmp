@@ -30,6 +30,7 @@ see https://www.gnu.org/licenses/.  */
 
 #include <stdio.h>
 #include <stdlib.h> /* for malloc, realloc, free */
+#include <tee_internal_api.h>
 
 #include "gmp-impl.h"
 
@@ -53,7 +54,7 @@ __gmp_default_allocate (size_t size)
   ret = malloc (size);
   if (ret == 0)
     {
-      fprintf (stderr, "GNU MP: Cannot allocate memory (size=%lu)\n", (long) size);
+      EMSG("GNU MP: Cannot allocate memory (size=%lu)\n", (long) size);
       abort ();
     }
 
@@ -83,13 +84,13 @@ __gmp_default_reallocate (void *oldptr, size_t old_size, size_t new_size)
       mp_ptr p = oldptr;
       if (p[-1] != (0xdeadbeef << 31) + 0xdeafdeed)
 	{
-	  fprintf (stderr, "gmp: (realloc) data clobbered before allocation block\n");
+	  EMSG("gmp: (realloc) data clobbered before allocation block\n");
 	  abort ();
 	}
       if (old_size % GMP_LIMB_BYTES == 0)
 	if (p[old_size / GMP_LIMB_BYTES] != ~((0xdeadbeef << 31) + 0xdeafdeed))
 	  {
-	    fprintf (stderr, "gmp: (realloc) data clobbered after allocation block\n");
+	    EMSG("gmp: (realloc) data clobbered after allocation block\n");
 	    abort ();
 	  }
       oldptr = p - 1;
@@ -101,7 +102,7 @@ __gmp_default_reallocate (void *oldptr, size_t old_size, size_t new_size)
   ret = realloc (oldptr, new_size);
   if (ret == 0)
     {
-      fprintf (stderr, "GNU MP: Cannot reallocate memory (old_size=%lu new_size=%lu)\n", (long) old_size, (long) new_size);
+      EMSG("GNU MP: Cannot reallocate memory (old_size=%lu new_size=%lu)\n", (long) old_size, (long) new_size);
       abort ();
     }
 
@@ -128,13 +129,13 @@ __gmp_default_free (void *blk_ptr, size_t blk_size)
       {
 	if (p[-1] != (0xdeadbeef << 31) + 0xdeafdeed)
 	  {
-	    fprintf (stderr, "gmp: (free) data clobbered before allocation block\n");
+	    EMSG("gmp: (free) data clobbered before allocation block\n");
 	    abort ();
 	  }
 	if (blk_size % GMP_LIMB_BYTES == 0)
 	  if (p[blk_size / GMP_LIMB_BYTES] != ~((0xdeadbeef << 31) + 0xdeafdeed))
 	    {
-	      fprintf (stderr, "gmp: (free) data clobbered after allocation block\n");
+	      EMSG("gmp: (free) data clobbered after allocation block\n");
 	      abort ();
 	    }
       }
