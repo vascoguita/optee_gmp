@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Copyright 2012 Free Software Foundation, Inc.
 
 This file is part of the GNU MP Library test suite.
@@ -82,10 +83,10 @@ main (int argc, char **argv)
 	  gmp_fprintf (stderr,
 		       "mpn_broot returned bad result: %u limbs\n",
 		       (unsigned) n);
-	  gmp_fprintf (stderr, "k   = %Mx\n", k);
-	  gmp_fprintf (stderr, "a   = %Nx\n", ap, n);
-	  gmp_fprintf (stderr, "r   = %Nx\n", rp, n);
-	  gmp_fprintf (stderr, "r^k = %Nx\n", pp, n);
+	  gmp_EMSG("k   = %Mx\n", k);
+	  gmp_EMSG("a   = %Nx\n", ap, n);
+	  gmp_EMSG("r   = %Nx\n", rp, n);
+	  gmp_EMSG("r^k = %Nx\n", pp, n);
 	  abort ();
 	}
     }
@@ -96,9 +97,9 @@ main (int argc, char **argv)
       gmp_fprintf (stderr,
 		   "mpn_broot returned bad result: %u limbs\n",
 		   (unsigned) MAX_LIMBS);
-      gmp_fprintf (stderr, "k   = %Mx\n", 1);
-      gmp_fprintf (stderr, "a   = %Nx\n", ap, MAX_LIMBS);
-      gmp_fprintf (stderr, "r   = %Nx\n", rp, MAX_LIMBS);
+      gmp_EMSG("k   = %Mx\n", 1);
+      gmp_EMSG("a   = %Nx\n", ap, MAX_LIMBS);
+      gmp_EMSG("r   = %Nx\n", rp, MAX_LIMBS);
       abort ();
     }
 

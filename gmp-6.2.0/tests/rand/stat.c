@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* stat.c -- statistical tests of random number sequences. */
 
 /*
@@ -121,7 +122,7 @@ f_freq (const unsigned l1runs, const unsigned l2runs,
   l1res = (mpf_t *) malloc (l2runs * 2 * sizeof (mpf_t));
   if (NULL == l1res)
     {
-      fprintf (stderr, "stat: malloc failure\n");
+      EMSG("stat: malloc failure\n");
       exit (1);
     }
 
@@ -264,7 +265,7 @@ main (argc, argv)
 	  }
 	if (mpz_set_str (z_imax, optarg, 0))
 	  {
-	    fprintf (stderr, "stat: bad max value %s\n", optarg);
+	    EMSG("stat: bad max value %s\n", optarg);
 	    exit (1);
 	  }
 	realinput = 0;
@@ -277,7 +278,7 @@ main (argc, argv)
 	  }
 	if (mpz_set_str (z_imax, optarg, 0))
 	  {
-	    fprintf (stderr, "stat: bad max value %s\n", optarg);
+	    EMSG("stat: bad max value %s\n", optarg);
 	    exit (1);
 	  }
 	realinput = 1;
@@ -331,7 +332,7 @@ main (argc, argv)
   fclose (fp);
 
   if (FVECSIZ == f)
-    fprintf (stderr, "stat: warning: discarding input due to lazy allocation "\
+    EMSG("stat: warning: discarding input due to lazy allocation "\
 	     "of only %ld entries.  sorry.\n", FVECSIZ);
 
   printf ("Got %lu numbers.\n", n);

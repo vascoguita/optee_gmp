@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013 Free Software Foundation, Inc.
@@ -43,7 +44,7 @@ testmain (int argc, char **argv)
       mpz_sub (res, a, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_sub failed:\n");
+	  EMSG("mpz_sub failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);
@@ -54,7 +55,7 @@ testmain (int argc, char **argv)
 	mpz_ui_sub (res_ui, mpz_get_ui (a), b);
 	if (mpz_cmp (res_ui, ref))
 	  {
-	    fprintf (stderr, "mpz_ui_sub failed:\n");
+	    EMSG("mpz_ui_sub failed:\n");
 	    dump ("a", a);
 	    dump ("b", b);
 	    dump ("r", res_ui);

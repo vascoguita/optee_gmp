@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013, 2018 Free Software Foundation, Inc.
@@ -78,7 +79,7 @@ testmain (int argc, char **argv)
       mpq_mul (resq, aq, bq);
       if (!mpq_equal (resq, refq))
 	{
-	  fprintf (stderr, "mpq_mul failed [%i]:\n", i);
+	  EMSG("mpq_mul failed [%i]:\n", i);
 	  dump ("an", an);
 	  dump ("ad", ad);
 	  dump ("bn", bn);
@@ -98,7 +99,7 @@ testmain (int argc, char **argv)
 	  mpq_inv (resq, resq);
 	  if (!mpq_equal (resq, refq))
 	    {
-	      fprintf (stderr, "mpq_div failed [%i]:\n", i);
+	      EMSG("mpq_div failed [%i]:\n", i);
 	      dump ("an", an);
 	      dump ("ad", ad);
 	      dump ("bn", bn);
@@ -114,7 +115,7 @@ testmain (int argc, char **argv)
 	  mpq_div (resq, aq, bq);
 	  if (!mpq_equal (resq, refq))
 	    {
-	      fprintf (stderr, "mpq_swap failed [%i]:\n", i);
+	      EMSG("mpq_swap failed [%i]:\n", i);
 	      dump ("an", an);
 	      dump ("ad", ad);
 	      dump ("bn", bn);
@@ -137,7 +138,7 @@ testmain (int argc, char **argv)
       mpq_set_ui (refq, 0, 1);
       if (!mpq_equal (resq, refq))
 	{
-	  fprintf (stderr, "mpq_abs failed [%i]:\n", i);
+	  EMSG("mpq_abs failed [%i]:\n", i);
 	      dump ("an", an);
 	      dump ("ad", ad);
 	      dump ("resn", mpq_numref (resq));
@@ -150,7 +151,7 @@ testmain (int argc, char **argv)
       mpq_neg (refq, refq);
       if (!mpq_equal (resq, refq))
 	{
-	  fprintf (stderr, "mpq_mul(sqr) failed [%i]:\n", i);
+	  EMSG("mpq_mul(sqr) failed [%i]:\n", i);
 	  dump ("an", an);
 	  dump ("ad", ad);
 	  dump ("bn", bn);

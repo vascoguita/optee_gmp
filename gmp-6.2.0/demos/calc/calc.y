@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 %{
 /* A simple integer desk calculator using yacc and gmp.
 
@@ -107,7 +108,7 @@ mpz_ptr  sp = stack[0];
 #define CHECK_OVERFLOW()                                                  \
   if (sp >= stack[numberof(stack)])	/* FIXME */			\
     {                                                                     \
-      fprintf (stderr,                                                    \
+      EMSG(                                                   \
                "Value stack overflow, too much nesting in expression\n"); \
       YYERROR;                                                            \
     }
@@ -115,7 +116,7 @@ mpz_ptr  sp = stack[0];
 #define CHECK_EMPTY()                                                   \
   if (sp != stack[0])                                                   \
     {                                                                   \
-      fprintf (stderr, "Oops, expected the value stack to be empty\n"); \
+      EMSG("Oops, expected the value stack to be empty\n"); \
       sp = stack[0];                                                    \
     }
 
@@ -125,7 +126,7 @@ mpz_t  variable[26];
 #define CHECK_VARIABLE(var)                                             \
   if ((var) < 0 || (var) >= numberof (variable))                        \
     {                                                                   \
-      fprintf (stderr, "Oops, bad variable somehow: %d\n", var);        \
+      EMSG("Oops, bad variable somehow: %d\n", var);        \
       YYERROR;                                                          \
     }
 
@@ -133,7 +134,7 @@ mpz_t  variable[26];
 #define CHECK_UI(name,z)                        \
   if (! mpz_fits_ulong_p (z))                   \
     {                                           \
-      fprintf (stderr, "%s too big\n", name);   \
+      EMSG("%s too big\n", name);   \
       YYERROR;                                  \
     }
 
@@ -248,7 +249,7 @@ e:
         CHECK_OVERFLOW ();
         if (mpz_set_str (sp, $1, ibase) != 0)
           {
-            fprintf (stderr, "Invalid number: %s\n", $1);
+            EMSG("Invalid number: %s\n", $1);
             YYERROR;
           }
       };
@@ -265,7 +266,7 @@ lcmlist:
 
 yyerror (char *s)
 {
-  fprintf (stderr, "%s\n", s);
+  EMSG("%s\n", s);
 }
 
 int calc_option_readline = -1;
@@ -293,7 +294,7 @@ main (int argc, char *argv[])
         }
       else
         {
-          fprintf (stderr, "Unrecognised option: %s\n", argv[i]);
+          EMSG("Unrecognised option: %s\n", argv[i]);
           exit (1);
         }
     }
@@ -303,7 +304,7 @@ main (int argc, char *argv[])
 #else
   if (calc_option_readline == 1)
     {
-      fprintf (stderr, "Readline support not available\n");
+      EMSG("Readline support not available\n");
       exit (1);
     }
 #endif

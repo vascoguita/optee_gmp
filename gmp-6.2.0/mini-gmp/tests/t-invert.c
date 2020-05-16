@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2016 Free Software Foundation, Inc.
@@ -51,7 +52,7 @@ test_2by1(const mpz_t u)
   /* Should have 0 < B^2 - m u <= u */
   if (mpz_sgn (t) <= 0 || mpz_cmp (t, u) > 0)
     {
-      fprintf (stderr, "mpn_invert_limb failed:\n");
+      EMSG("mpn_invert_limb failed:\n");
       dump ("u", u);
       dump ("m", m);
       dump ("p", p);
@@ -87,7 +88,7 @@ test_3by2(const mpz_t u)
   /* Should have 0 < B^3 - m u <= u */
   if (mpz_sgn (t) <= 0 || mpz_cmp (t, u) > 0)
     {
-      fprintf (stderr, "mpn_invert_3by2 failed:\n");
+      EMSG("mpn_invert_3by2 failed:\n");
       dump ("u", u);
       dump ("m", m);
       dump ("p", p);

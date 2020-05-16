@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpn_hgcd_appr.
 
 Copyright 1991, 1993, 1994, 1996, 1997, 2000-2004, 2011 Free Software
@@ -59,7 +60,7 @@ main (int argc, char **argv)
 	verbose_flag = 1;
       else
 	{
-	  fprintf (stderr, "Invalid argument.\n");
+	  EMSG("Invalid argument.\n");
 	  return 1;
 	}
     }
@@ -231,8 +232,8 @@ one_test (mpz_t a, mpz_t b, int i)
       || hgcd_tp[-1] != marker[2]
       || hgcd_tp[hgcd_scratch] != marker[3])
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      fprintf (stderr, "scratch space overwritten!\n");
+      EMSG("ERROR in test %d\n", i);
+      EMSG("scratch space overwritten!\n");
 
       if (hgcd_init_tp[-1] != marker[0])
 	gmp_fprintf (stderr,
@@ -261,12 +262,12 @@ one_test (mpz_t a, mpz_t b, int i)
   if (!hgcd_appr_valid_p (a, b, res[0], &ref, ref_r0, ref_r1,
 			  res[1], &hgcd))
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      fprintf (stderr, "Invalid results for hgcd and hgcd_ref\n");
-      fprintf (stderr, "op1=");                 debug_mp (a, -16);
-      fprintf (stderr, "op2=");                 debug_mp (b, -16);
-      fprintf (stderr, "hgcd_ref: %ld\n", (long) res[0]);
-      fprintf (stderr, "mpn_hgcd_appr: %ld\n", (long) res[1]);
+      EMSG("ERROR in test %d\n", i);
+      EMSG("Invalid results for hgcd and hgcd_ref\n");
+      EMSG("op1=");                 debug_mp (a, -16);
+      EMSG("op2=");                 debug_mp (b, -16);
+      EMSG("hgcd_ref: %ld\n", (long) res[0]);
+      EMSG("mpn_hgcd_appr: %ld\n", (long) res[1]);
       abort ();
     }
 
@@ -413,7 +414,7 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
       if (!res1)
 	return 1;
 
-      fprintf (stderr, "mpn_hgcd_appr returned 1 when no reduction possible.\n");
+      EMSG("mpn_hgcd_appr returned 1 when no reduction possible.\n");
       return 0;
     }
 
@@ -427,12 +428,12 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
 
   if (mpz_size (ref_r0) <= s)
     {
-      fprintf (stderr, "ref_r0 too small!!!: "); debug_mp (ref_r0, 16);
+      EMSG("ref_r0 too small!!!: "); debug_mp (ref_r0, 16);
       return 0;
     }
   if (mpz_size (ref_r1) <= s)
     {
-      fprintf (stderr, "ref_r1 too small!!!: "); debug_mp (ref_r1, 16);
+      EMSG("ref_r1 too small!!!: "); debug_mp (ref_r1, 16);
       return 0;
     }
 
@@ -440,7 +441,7 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
   dbits = mpz_sizeinbase (t, 2);
   if (dbits > s*GMP_NUMB_BITS)
     {
-      fprintf (stderr, "ref |r0 - r1| too large!!!: "); debug_mp (t, 16);
+      EMSG("ref |r0 - r1| too large!!!: "); debug_mp (t, 16);
       return 0;
     }
 
@@ -472,7 +473,7 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
       if (mpz_sgn (appr_r0) <= 0
 	  || mpz_size (appr_r0) <= s)
 	{
-	  fprintf (stderr, "appr_r0 too small: "); debug_mp (appr_r0, 16);
+	  EMSG("appr_r0 too small: "); debug_mp (appr_r0, 16);
 	  return 0;
 	}
 
@@ -482,7 +483,7 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
       if (mpz_sgn (appr_r1) <= 0
 	  || mpz_size (appr_r1) <= s)
 	{
-	  fprintf (stderr, "appr_r1 too small: "); debug_mp (appr_r1, 16);
+	  EMSG("appr_r1 too small: "); debug_mp (appr_r1, 16);
 	  return 0;
 	}
     }
@@ -491,7 +492,7 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
   abits = mpz_sizeinbase (t, 2);
   if (abits < dbits)
     {
-      fprintf (stderr, "|r0 - r1| too small: "); debug_mp (t, 16);
+      EMSG("|r0 - r1| too small: "); debug_mp (t, 16);
       return 0;
     }
 
@@ -508,14 +509,14 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
   }
 
   if (verbose_flag && abits > dbits)
-    fprintf (stderr, "n = %u: sbits = %u: ref #(r0-r1): %u, appr #(r0-r1): %u excess: %d, margin: %u\n",
+    EMSG("n = %u: sbits = %u: ref #(r0-r1): %u, appr #(r0-r1): %u excess: %d, margin: %u\n",
 	     (unsigned) n, (unsigned) s*GMP_NUMB_BITS,
 	     (unsigned) dbits, (unsigned) abits,
 	     (int) (abits - s * GMP_NUMB_BITS), (unsigned) margin);
 
   if (abits > s*GMP_NUMB_BITS + margin)
     {
-      fprintf (stderr, "appr |r0 - r1| much larger than minimal (by %u bits, margin = %u bits)\n",
+      EMSG("appr |r0 - r1| much larger than minimal (by %u bits, margin = %u bits)\n",
 	       (unsigned) (abits - s*GMP_NUMB_BITS), (unsigned) margin);
       return 0;
     }
@@ -545,11 +546,11 @@ hgcd_appr_valid_p (mpz_t a, mpz_t b, mp_size_t res0,
       || mpz_cmp (appr_r1, ref_r1) != 0
       || !hgcd_ref_equal (ref, &appr))
     {
-      fprintf (stderr, "appr_r0: "); debug_mp (appr_r0, 16);
-      fprintf (stderr, "ref_r0: "); debug_mp (ref_r0, 16);
+      EMSG("appr_r0: "); debug_mp (appr_r0, 16);
+      EMSG("ref_r0: "); debug_mp (ref_r0, 16);
 
-      fprintf (stderr, "appr_r1: "); debug_mp (appr_r1, 16);
-      fprintf (stderr, "ref_r1: "); debug_mp (ref_r1, 16);
+      EMSG("appr_r1: "); debug_mp (appr_r1, 16);
+      EMSG("ref_r1: "); debug_mp (ref_r1, 16);
 
       return 0;
     }

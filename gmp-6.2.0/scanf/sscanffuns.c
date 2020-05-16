@@ -87,37 +87,7 @@ step (const char **sp, int n)
   (*sp) += n;
 }
 
-static int
-get (const char **sp)
-{
-  const char  *s;
-  int  c;
-  s = *sp;
-  c = (unsigned char) *s++;
-  if (c == '\0')
-    return EOF;
-  *sp = s;
-  return c;
-}
-
-static void
-unget (int c, const char **sp)
-{
-  const char  *s;
-  s = *sp;
-  if (c == EOF)
-    {
-      ASSERT (*s == '\0');
-      return;
-    }
-  s--;
-  ASSERT ((unsigned char) *s == c);
-  *sp = s;
-}
-
 const struct gmp_doscan_funs_t  __gmp_sscanf_funs = {
   (gmp_doscan_scan_t)  scan,
   (gmp_doscan_step_t)  step,
-  (gmp_doscan_get_t)   get,
-  (gmp_doscan_unget_t) unget,
 };

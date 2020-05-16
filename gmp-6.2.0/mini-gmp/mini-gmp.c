@@ -278,7 +278,6 @@ const int mp_bits_per_limb = GMP_LIMB_BITS;
 static void
 gmp_die (const char *msg)
 {
-  fprintf (stderr, "%s\n", msg);
   abort();
 }
 

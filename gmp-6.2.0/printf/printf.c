@@ -32,17 +32,3 @@ see https://www.gnu.org/licenses/.  */
 #include <stdio.h>
 
 #include "gmp-impl.h"
-
-
-int
-gmp_printf (const char *fmt, ...)
-{
-  va_list  ap;
-  int      ret;
-
-  va_start (ap, fmt);
-
-  ret = __gmp_doprnt (&__gmp_fprintf_funs, stdout, fmt, ap);
-  va_end (ap);
-  return ret;
-}

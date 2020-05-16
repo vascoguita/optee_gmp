@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, Free Software Foundation, Inc.
@@ -120,7 +121,7 @@ testmain (int argc, char **argv)
       mpz_gcd (g, a, b);
       if (mpz_cmp (g, s))
 	{
-	  fprintf (stderr, "mpz_gcd failed:\n");
+	  EMSG("mpz_gcd failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", g);
@@ -150,7 +151,7 @@ testmain (int argc, char **argv)
       mpz_gcdext (g, s, t, a, b);
       if (!gcdext_valid_p (a, b, g, s, t))
 	{
-	  fprintf (stderr, "mpz_gcdext failed:\n");
+	  EMSG("mpz_gcdext failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("g", g);
@@ -162,7 +163,7 @@ testmain (int argc, char **argv)
       mpz_gcd (s, a, b);
       if (mpz_cmp (g, s))
 	{
-	  fprintf (stderr, "mpz_gcd failed:\n");
+	  EMSG("mpz_gcd failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", g);

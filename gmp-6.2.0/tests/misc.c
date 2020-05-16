@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Miscellaneous test program support routines.
 
 Copyright 2000-2003, 2005, 2013, 2015, 2019 Free Software Foundation, Inc.
@@ -56,9 +57,9 @@ tests_start (void)
 
   if (strcmp (gmp_version, version) != 0)
     {
-      fprintf (stderr, "tests are not linked to the newly compiled library\n");
-      fprintf (stderr, "  local version is: %s\n", version);
-      fprintf (stderr, "  linked version is: %s\n", gmp_version);
+      EMSG("tests are not linked to the newly compiled library\n");
+      EMSG("  local version is: %s\n", version);
+      EMSG("  linked version is: %s\n", gmp_version);
       abort ();
     }
 
@@ -303,9 +304,9 @@ mpz_set_str_or_abort (mpz_ptr z, const char *str, int base)
 {
   if (mpz_set_str (z, str, base) != 0)
     {
-      fprintf (stderr, "ERROR: mpz_set_str failed\n");
-      fprintf (stderr, "   str  = \"%s\"\n", str);
-      fprintf (stderr, "   base = %d\n", base);
+      EMSG("ERROR: mpz_set_str failed\n");
+      EMSG("   str  = \"%s\"\n", str);
+      EMSG("   base = %d\n", base);
       abort();
     }
 }
@@ -315,9 +316,9 @@ mpq_set_str_or_abort (mpq_ptr q, const char *str, int base)
 {
   if (mpq_set_str (q, str, base) != 0)
     {
-      fprintf (stderr, "ERROR: mpq_set_str failed\n");
-      fprintf (stderr, "   str  = \"%s\"\n", str);
-      fprintf (stderr, "   base = %d\n", base);
+      EMSG("ERROR: mpq_set_str failed\n");
+      EMSG("   str  = \"%s\"\n", str);
+      EMSG("   base = %d\n", base);
       abort();
     }
 }
@@ -327,9 +328,9 @@ mpf_set_str_or_abort (mpf_ptr f, const char *str, int base)
 {
   if (mpf_set_str (f, str, base) != 0)
     {
-      fprintf (stderr, "ERROR mpf_set_str failed\n");
-      fprintf (stderr, "   str  = \"%s\"\n", str);
-      fprintf (stderr, "   base = %d\n", base);
+      EMSG("ERROR mpf_set_str failed\n");
+      EMSG("   str  = \"%s\"\n", str);
+      EMSG("   base = %d\n", base);
       abort();
     }
 }

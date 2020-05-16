@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012-2014, 2016, 2018 Free Software Foundation, Inc.
@@ -103,19 +104,19 @@ test_small (void)
 	{
 	  if (res != 0)
 	    {
-	      fprintf (stderr, "mpq_set_str returned -1, input: %s\n",
+	      EMSG("mpq_set_str returned -1, input: %s\n",
 		       data[i].input);
 	      abort ();
 	    }
 	  if (mpq_set_str (b, data[i].decimal, 10) != 0)
 	    {
-	      fprintf (stderr, "mpq_set_str returned -1, decimal input: %s\n",
+	      EMSG("mpq_set_str returned -1, decimal input: %s\n",
 		       data[i].input);
 	      abort ();
 	    }
 	  if (!mpq_equal (a, b))
 	    {
-	      fprintf (stderr, "mpq_set_str failed for input: %s\n",
+	      EMSG("mpq_set_str failed for input: %s\n",
 		       data[i].input);
 
 	      dump ("got_num", mpq_numref (a));
@@ -127,7 +128,7 @@ test_small (void)
 	}
       else if (res != -1)
 	{
-	  fprintf (stderr, "mpq_set_str returned %d, invalid input: %s\n",
+	  EMSG("mpq_set_str returned %d, invalid input: %s\n",
 		   res, data[i].input);
 	  abort ();
 	}
@@ -168,7 +169,7 @@ testmain (int argc, char **argv)
 	  hex_mpq_random_str_op (MAXBITS, (i&1 || base > 36) ? base: -base, &ap, &rp);
 	  if (mpq_set_str (a, ap, 16) != 0)
 	    {
-	      fprintf (stderr, "mpq_set_str failed on input %s\n", ap);
+	      EMSG("mpq_set_str failed on input %s\n", ap);
 	      abort ();
 	    }
 
@@ -178,12 +179,12 @@ testmain (int argc, char **argv)
 	  bp = mpq_get_str (NULL, (i&1 || base > 36) ? base: -base, a);
 	  if (strcmp (bp, rp))
 	    {
-	      fprintf (stderr, "mpz_get_str failed:\n");
+	      EMSG("mpz_get_str failed:\n");
 	      dump ("a_num", mpq_numref (a));
 	      dump ("a_den", mpq_denref (a));
-	      fprintf (stderr, "b = %s\n", bp);
-	      fprintf (stderr, "  base = %d\n", base);
-	      fprintf (stderr, "r = %s\n", rp);
+	      EMSG("b = %s\n", bp);
+	      EMSG("  base = %d\n", base);
+	      EMSG("r = %s\n", rp);
 	      abort ();
 	    }
 
@@ -195,11 +196,11 @@ testmain (int argc, char **argv)
 	      tn = mpq_out_str (tmp, (i&1 || base > 36) ? base: -base, a);
 	      if (tn != rn)
 		{
-		  fprintf (stderr, "mpq_out_str, bad return value:\n");
+		  EMSG("mpq_out_str, bad return value:\n");
 		  dump ("a_num", mpq_numref (a));
 		  dump ("a_den", mpq_denref (a));
-		  fprintf (stderr, "r = %s\n", rp);
-		  fprintf (stderr, "  base %d, correct size %u, got %u\n",
+		  EMSG("r = %s\n", rp);
+		  EMSG("  base %d, correct size %u, got %u\n",
 			   base, (unsigned) rn, (unsigned)tn);
 		  abort ();
 		}
@@ -216,12 +217,12 @@ testmain (int argc, char **argv)
 
 	      if (memcmp (bp, rp, rn) != 0)
 		{
-		  fprintf (stderr, "mpq_out_str failed:\n");
+		  EMSG("mpq_out_str failed:\n");
 		  dump ("a_num", mpq_numref (a));
 		  dump ("a_den", mpq_denref (a));
-		  fprintf (stderr, "b = %s\n", bp);
-		  fprintf (stderr, "  base = %d\n", base);
-		  fprintf (stderr, "r = %s\n", rp);
+		  EMSG("b = %s\n", bp);
+		  EMSG("  base = %d\n", base);
+		  EMSG("r = %s\n", rp);
 		  abort ();
 		}
 	    }
@@ -230,11 +231,11 @@ testmain (int argc, char **argv)
 
 	  if (!mpq_equal (a, b))
 	    {
-	      fprintf (stderr, "mpq_set_str failed:\n");
-	      fprintf (stderr, "r = %s\n", rp);
-	      fprintf (stderr, "  base = %d\n", base);
-	      fprintf (stderr, "r = %s\n", ap);
-	      fprintf (stderr, "  base = 16\n");
+	      EMSG("mpq_set_str failed:\n");
+	      EMSG("r = %s\n", rp);
+	      EMSG("  base = %d\n", base);
+	      EMSG("r = %s\n", ap);
+	      EMSG("  base = 16\n");
 	      dump ("b_num", mpq_numref (b));
 	      dump ("b_den", mpq_denref (b));
 	      dump ("r_num", mpq_numref (a));

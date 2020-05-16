@@ -31,23 +31,3 @@ see https://www.gnu.org/licenses/.  */
 
 #include <stdio.h>
 #include "gmp-impl.h"
-
-
-size_t
-mpq_out_str (FILE *stream, int base, mpq_srcptr q)
-{
-  size_t  written;
-
-  if (stream == NULL)
-    stream = stdout;
-
-  written = mpz_out_str (stream, base, mpq_numref (q));
-
-  if (mpz_cmp_ui (mpq_denref (q), 1) != 0)
-    {
-      putc ('/', stream);
-      written += 1 + mpz_out_str (stream, base, mpq_denref (q));
-    }
-
-  return ferror (stream) ? 0 : written;
-}

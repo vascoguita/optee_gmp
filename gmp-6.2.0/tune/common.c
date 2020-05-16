@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Shared speed subroutines.
 
 Copyright 1999-2006, 2008-2017, 2019 Free Software Foundation, Inc.
@@ -171,7 +172,7 @@ speed_measure (double (*fun) (struct speed_params *s), struct speed_params *s)
 	      zeros++;
 	      if (zeros > max_zeros)
 		{
-		  fprintf (stderr, "Fatal error: too many (%d) failed measurements (0.0)\n", zeros);
+		  EMSG("Fatal error: too many (%d) failed measurements (0.0)\n", zeros);
 		  abort ();
 		}
 	     if (s->reps < 10000)
@@ -192,8 +193,8 @@ speed_measure (double (*fun) (struct speed_params *s), struct speed_params *s)
 			 / MAX (t[i], speed_unittime));
 	  if (reps_d > 2e9 || reps_d < 1.0)
 	    {
-	      fprintf (stderr, "Fatal error: new reps bad: %.2f\n", reps_d);
-	      fprintf (stderr, "  (old reps %u, unittime %.4g, precision %d, t[i] %.4g)\n",
+	      EMSG("Fatal error: new reps bad: %.2f\n", reps_d);
+	      EMSG("  (old reps %u, unittime %.4g, precision %d, t[i] %.4g)\n",
 		       s->reps, speed_unittime, speed_precision, t[i]);
 	      abort ();
 	    }
@@ -222,14 +223,14 @@ speed_measure (double (*fun) (struct speed_params *s), struct speed_params *s)
 	}
     }
 
-  fprintf (stderr, "speed_measure() could not get %d results within %.1f%%\n",
+  EMSG("speed_measure() could not get %d results within %.1f%%\n",
 	   e, (TOLERANCE-1.0)*100.0);
-  fprintf (stderr, "    unsorted         sorted\n");
-  fprintf (stderr, "  %.12f    %.12f    is about %.1f%%\n",
+  EMSG("    unsorted         sorted\n");
+  EMSG("  %.12f    %.12f    is about %.1f%%\n",
 	   t_unsorted[0]*(TOLERANCE-1.0), t[0]*(TOLERANCE-1.0),
 	   100*(TOLERANCE-1.0));
   for (i = 0; i < numberof (t); i++)
-    fprintf (stderr, "  %.09f       %.09f\n", t_unsorted[i], t[i]);
+    EMSG("  %.09f       %.09f\n", t_unsorted[i], t[i]);
 
   return -1.0;
 }
@@ -281,7 +282,7 @@ speed_operand_src (struct speed_params *s, mp_ptr ptr, mp_size_t size)
 {
   if (s->src_num >= numberof (s->src))
     {
-      fprintf (stderr, "speed_operand_src: no room left in s->src[]\n");
+      EMSG("speed_operand_src: no room left in s->src[]\n");
       abort ();
     }
   s->src[s->src_num].ptr = ptr;
@@ -295,7 +296,7 @@ speed_operand_dst (struct speed_params *s, mp_ptr ptr, mp_size_t size)
 {
   if (s->dst_num >= numberof (s->dst))
     {
-      fprintf (stderr, "speed_operand_dst: no room left in s->dst[]\n");
+      EMSG("speed_operand_dst: no room left in s->dst[]\n");
       abort ();
     }
   s->dst[s->dst_num].ptr = ptr;

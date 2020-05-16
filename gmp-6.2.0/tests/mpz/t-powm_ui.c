@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_powm_ui, mpz_mul, mpz_mod.
 
 Copyright 1991, 1993, 1994, 1996, 1997, 2000-2002, 2013 Free Software
@@ -79,8 +80,8 @@ main (int argc, char **argv)
 
 #if 0
       putc ('\n', stderr);
-      gmp_fprintf (stderr, "B = 0x%Zx\n", base);
-      gmp_fprintf (stderr, "M = 0x%Zx\n", mod);
+      gmp_EMSG("B = 0x%Zx\n", base);
+      gmp_EMSG("M = 0x%Zx\n", mod);
 #endif
 
       exp2 = mpz_getlimbn (exp, (mp_size_t) 0);
@@ -104,18 +105,18 @@ main (int argc, char **argv)
       MPZ_CHECK_FORMAT (r1);
 
 #if 0
-      gmp_fprintf (stderr, "R   = 0x%Zx\n", r1);
-      gmp_fprintf (stderr, "REF = 0x%Zx\n", r2);
+      gmp_EMSG("R   = 0x%Zx\n", r1);
+      gmp_EMSG("REF = 0x%Zx\n", r2);
 #endif
 
       if (mpz_cmp (r1, r2) != 0)
 	{
-	  fprintf (stderr, "\ntest %d: Incorrect results for operands:\n", i);
-	  gmp_fprintf (stderr, "B = 0x%Zx\n", base);
-	  gmp_fprintf (stderr, "E = 0x%Zx\n", exp);
-	  gmp_fprintf (stderr, "M = 0x%Zx\n", mod);
-	  gmp_fprintf (stderr, "R   = 0x%Zx\n", r1);
-	  gmp_fprintf (stderr, "REF = 0x%Zx\n", r2);
+	  EMSG("\ntest %d: Incorrect results for operands:\n", i);
+	  gmp_EMSG("B = 0x%Zx\n", base);
+	  gmp_EMSG("E = 0x%Zx\n", exp);
+	  gmp_EMSG("M = 0x%Zx\n", mod);
+	  gmp_EMSG("R   = 0x%Zx\n", r1);
+	  gmp_EMSG("REF = 0x%Zx\n", r2);
 	  abort ();
 	}
     }

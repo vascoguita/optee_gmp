@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Tests matrix22_mul.
 
 Copyright 2008 Free Software Foundation, Inc.
@@ -149,8 +150,8 @@ one_test (const struct matrix *A, const struct matrix *B, int i)
   P.n = A->n + B->n + 1;
   if (!matrix_equal_p (&R, &P))
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      gmp_fprintf (stderr, "A = (%Nx, %Nx\n      %Nx, %Nx)\n"
+      EMSG("ERROR in test %d\n", i);
+      gmp_EMSG("A = (%Nx, %Nx\n      %Nx, %Nx)\n"
 		   "B = (%Nx, %Nx\n      %Nx, %Nx)\n"
 		   "R = (%Nx, %Nx (expected)\n      %Nx, %Nx)\n"
 		   "P = (%Nx, %Nx (incorrect)\n      %Nx, %Nx)\n",

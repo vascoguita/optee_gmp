@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpq_cmp_z.
 
 Copyright 1996, 2001, 2015 Free Software Foundation, Inc.
@@ -79,7 +80,7 @@ sizes_test (int m)
 
 		  if (ccref != SGN (cc))
 		    {
-		      fprintf (stderr, "i=%i, j=%i, k=%i, m=%i, s=%i\n; ccref= %i, cc= %i\n", i, j, k, m, s, ccref, cc);
+		      EMSG("i=%i, j=%i, k=%i, m=%i, s=%i\n; ccref= %i, cc= %i\n", i, j, k, m, s, ccref, cc);
 		      abort ();
 		    }
 

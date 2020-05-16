@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 Copyright 2017 Free Software Foundation, Inc.
 
@@ -60,7 +61,7 @@ the GNU MP Library test suite.  If not, see https://www.gnu.org/licenses/.  */
 
 int something_wrong (mp_limb_t er, mp_limb_t ec, mp_limb_t es)
 {
-  fprintf (stderr, "root = %lu , rem = {%lu , %lu}\n", (long unsigned) es,(long unsigned) ec,(long unsigned) er);
+  EMSG("root = %lu , rem = {%lu , %lu}\n", (long unsigned) es,(long unsigned) ec,(long unsigned) er);
   return -1;
 }
 
@@ -369,7 +370,7 @@ main (int argc, char **argv)
   for (;argc > 1;--argc,++argv)
     switch (*argv[1]) {
     default:
-      fprintf (stderr, "usage: sqrtrem_1_2 [x|c|s] [1|2] [q]\n");
+      EMSG("usage: sqrtrem_1_2 [x|c|s] [1|2] [q]\n");
       exit (1);
     case 'x':
       mode = 0;

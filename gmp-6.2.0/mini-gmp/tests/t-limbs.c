@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2014, 2016, Free Software Foundation, Inc.
@@ -73,7 +74,7 @@ testmain (int argc, char **argv)
       my_mpz_mul (res, a, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "my_mpz_mul failed:\n");
+	  EMSG("my_mpz_mul failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);
@@ -85,7 +86,7 @@ testmain (int argc, char **argv)
 	 above the result are zeroed. */
       if (mpz_size (b) > 0 && mpz_getlimbn (res, mpz_size(a)) != mpz_limbs_read (res) [mpz_size(a)])
 	{
-	  fprintf (stderr, "getlimbn - limbs_read differ.\n");
+	  EMSG("getlimbn - limbs_read differ.\n");
 	  abort ();
 	}
       if ((i % 4 == 0) && mpz_size (res) > 1)
@@ -93,13 +94,13 @@ testmain (int argc, char **argv)
 	  mpz_realloc2 (res, 1);
 	  if (mpz_cmp_ui (res, 0))
 	    {
-	      fprintf (stderr, "mpz_realloc2 did not clear res.\n");
+	      EMSG("mpz_realloc2 did not clear res.\n");
 	      abort ();
 	    }
 	  mpz_limbs_finish (ref, 0);
 	  if (mpz_cmp_d (ref, 0))
 	    {
-	      fprintf (stderr, "mpz_limbs_finish did not clear res.\n");
+	      EMSG("mpz_limbs_finish did not clear res.\n");
 	      abort ();
 	    }
 	}

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test that routines allow reusing a source variable as destination.
 
 Copyright 1996, 1999-2002, 2009, 2012 Free Software Foundation, Inc.
@@ -607,7 +608,7 @@ testmain (int argc, char **argv)
 
   if (failures != 0)
     {
-      fprintf (stderr, "mpz/reuse: %ld error%s\n", failures, "s" + (failures == 1));
+      EMSG("mpz/reuse: %ld error%s\n", failures, "s" + (failures == 1));
       exit (1);
     }
 
@@ -651,13 +652,13 @@ mpz_check_format (const mpz_t x)
 
   if (n > x->_mp_alloc)
     {
-      fprintf (stderr, "mpz_t size exceeds allocation!\n");
+      EMSG("mpz_t size exceeds allocation!\n");
       abort ();
     }
 
   if (n > 0 && x->_mp_d[n-1] == 0)
     {
-      fprintf (stderr, "Unnormalized mpz_t!\n");
+      EMSG("Unnormalized mpz_t!\n");
       abort ();
     }
 }

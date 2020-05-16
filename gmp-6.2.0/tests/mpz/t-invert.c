@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_invert.
 
 Copyright 1991, 1993, 1994, 1996, 1997, 2000-2005, 2008, 2009, 2012, 2014 Free
@@ -72,11 +73,11 @@ main (int argc, char **argv)
 
 	  if (mpz_cmp_ui (ainv, 0) < 0 || mpz_cmpabs (ainv, m) >= 0)
 	    {
-	      fprintf (stderr, "ERROR in test %d\n", test);
-	      gmp_fprintf (stderr, "Inverse out of range.\n");
-	      gmp_fprintf (stderr, "a = %Zx\n", a);
-	      gmp_fprintf (stderr, "1/a = %Zx\n", ainv);
-	      gmp_fprintf (stderr, "m = %Zx\n", m);
+	      EMSG("ERROR in test %d\n", test);
+	      gmp_EMSG("Inverse out of range.\n");
+	      gmp_EMSG("a = %Zx\n", a);
+	      gmp_EMSG("1/a = %Zx\n", ainv);
+	      gmp_EMSG("m = %Zx\n", m);
 	      abort ();
 	    }
 
@@ -85,10 +86,10 @@ main (int argc, char **argv)
 
 	  if (mpz_cmp_ui (t, mpz_cmpabs_ui (m, 1) != 0) != 0)
 	    {
-	      fprintf (stderr, "ERROR in test %d\n", test);
-	      gmp_fprintf (stderr, "a^(-1)*a != 1 (mod m)\n");
-	      gmp_fprintf (stderr, "a = %Zx\n", a);
-	      gmp_fprintf (stderr, "m = %Zx\n", m);
+	      EMSG("ERROR in test %d\n", test);
+	      gmp_EMSG("a^(-1)*a != 1 (mod m)\n");
+	      gmp_EMSG("a = %Zx\n", a);
+	      gmp_EMSG("m = %Zx\n", m);
 	      abort ();
 	    }
 	}
@@ -97,10 +98,10 @@ main (int argc, char **argv)
 	  mpz_gcd (t, a, m);
 	  if (mpz_cmp_ui (t, 1) == 0)
 	    {
-	      fprintf (stderr, "ERROR in test %d\n", test);
-	      gmp_fprintf (stderr, "Inverse exists, but was not found.\n");
-	      gmp_fprintf (stderr, "a = %Zx\n", a);
-	      gmp_fprintf (stderr, "m = %Zx\n", m);
+	      EMSG("ERROR in test %d\n", test);
+	      gmp_EMSG("Inverse exists, but was not found.\n");
+	      gmp_EMSG("a = %Zx\n", a);
+	      gmp_EMSG("m = %Zx\n", m);
 	      abort ();
 	    }
 	}

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 Copyright 2018-2019 Free Software Foundation, Inc.
 
@@ -103,7 +104,7 @@ mpz_t g;
 
 int something_wrong (mpz_t er, int exp)
 {
-  fprintf (stderr, "value = %lu , expected = %i\n", mpz_get_ui (er), exp);
+  EMSG("value = %lu , expected = %i\n", mpz_get_ui (er), exp);
   return -1;
 }
 
@@ -319,7 +320,7 @@ main (int argc, char **argv)
 
   if (begin >= end)
     {
-      fprintf (stderr, "usage: primes [n|p|c] [n0] <nMax>\n");
+      EMSG("usage: primes [n|p|c] [n0] <nMax>\n");
       exit (1);
     }
 

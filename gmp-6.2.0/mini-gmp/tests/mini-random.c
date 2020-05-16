@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2011, 2013, 2018 Free Software Foundation, Inc.
@@ -27,7 +28,7 @@ set_str (mpz_t r, const char *s)
 {
   if (mpz_set_str (r, s, 16) != 0)
     {
-      fprintf (stderr, "mpz_set_str failed on input %s\n", s);
+      EMSG("mpz_set_str failed on input %s\n", s);
       abort ();
     }
 }

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_cmp, mpz_mul.
 
 Copyright 1991, 1993, 1994, 1996, 1997, 2000-2004 Free Software Foundation,
@@ -181,11 +182,11 @@ dump_abort (int i, const char *s,
             mpz_t op1, mpz_t op2, mpz_t product, mpz_t ref_product)
 {
   mp_size_t b, e;
-  fprintf (stderr, "ERROR: %s in test %d\n", s, i);
-  fprintf (stderr, "op1          = "); debug_mp (op1);
-  fprintf (stderr, "op2          = "); debug_mp (op2);
-  fprintf (stderr, "    product  = "); debug_mp (product);
-  fprintf (stderr, "ref_product  = "); debug_mp (ref_product);
+  EMSG("ERROR: %s in test %d\n", s, i);
+  EMSG("op1          = "); debug_mp (op1);
+  EMSG("op2          = "); debug_mp (op2);
+  EMSG("    product  = "); debug_mp (product);
+  EMSG("ref_product  = "); debug_mp (ref_product);
   for (b = 0; b < ABSIZ(ref_product); b++)
     if (PTR(ref_product)[b] != PTR(product)[b])
       break;
@@ -206,13 +207,13 @@ debug_mp (mpz_t x)
       mpz_t q;
       mpz_init (q);
       mpz_tdiv_q_2exp (q, x, 4 * (mpz_sizeinbase (x, 16) - 25));
-      gmp_fprintf (stderr, "%ZX...", q);
+      gmp_EMSG("%ZX...", q);
       mpz_tdiv_r_2exp (q, x, 4 * 25);
-      gmp_fprintf (stderr, "%025ZX [%d]\n", q, (int) siz);
+      gmp_EMSG("%025ZX [%d]\n", q, (int) siz);
       mpz_clear (q);
     }
   else
     {
-      gmp_fprintf (stderr, "%ZX\n", x);
+      gmp_EMSG("%ZX\n", x);
     }
 }

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_gcd, mpz_gcdext, and mpz_gcd_ui.
 
 Copyright 1991, 1993, 1994, 1996, 1997, 2000-2005, 2008, 2009, 2012 Free
@@ -319,8 +320,8 @@ one_test (mpz_t op1, mpz_t op2, mpz_t ref, int i)
   */
 
   /*
-  fprintf (stderr, "op1=");  debug_mp (op1, -16);
-  fprintf (stderr, "op2=");  debug_mp (op2, -16);
+  EMSG("op1=");  debug_mp (op1, -16);
+  EMSG("op2=");  debug_mp (op2, -16);
   */
 
   mpz_gcdext (gcd1, s, NULL, op1, op2);
@@ -329,23 +330,23 @@ one_test (mpz_t op1, mpz_t op2, mpz_t ref, int i)
 
   if (ref && mpz_cmp (ref, gcd1) != 0)
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      fprintf (stderr, "mpz_gcdext returned incorrect result\n");
-      fprintf (stderr, "op1=");                 debug_mp (op1, -16);
-      fprintf (stderr, "op2=");                 debug_mp (op2, -16);
-      fprintf (stderr, "expected result:\n");   debug_mp (ref, -16);
-      fprintf (stderr, "mpz_gcdext returns:\n");debug_mp (gcd1, -16);
+      EMSG("ERROR in test %d\n", i);
+      EMSG("mpz_gcdext returned incorrect result\n");
+      EMSG("op1=");                 debug_mp (op1, -16);
+      EMSG("op2=");                 debug_mp (op2, -16);
+      EMSG("expected result:\n");   debug_mp (ref, -16);
+      EMSG("mpz_gcdext returns:\n");debug_mp (gcd1, -16);
       abort ();
     }
 
   if (!gcdext_valid_p(op1, op2, gcd1, s))
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      fprintf (stderr, "mpz_gcdext returned invalid result\n");
-      fprintf (stderr, "op1=");                 debug_mp (op1, -16);
-      fprintf (stderr, "op2=");                 debug_mp (op2, -16);
-      fprintf (stderr, "mpz_gcdext returns:\n");debug_mp (gcd1, -16);
-      fprintf (stderr, "s=");                   debug_mp (s, -16);
+      EMSG("ERROR in test %d\n", i);
+      EMSG("mpz_gcdext returned invalid result\n");
+      EMSG("op1=");                 debug_mp (op1, -16);
+      EMSG("op2=");                 debug_mp (op2, -16);
+      EMSG("mpz_gcdext returns:\n");debug_mp (gcd1, -16);
+      EMSG("s=");                   debug_mp (s, -16);
       abort ();
     }
 
@@ -354,12 +355,12 @@ one_test (mpz_t op1, mpz_t op2, mpz_t ref, int i)
 
   if (mpz_cmp (gcd2, gcd1) != 0)
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      fprintf (stderr, "mpz_gcd returned incorrect result\n");
-      fprintf (stderr, "op1=");                 debug_mp (op1, -16);
-      fprintf (stderr, "op2=");                 debug_mp (op2, -16);
-      fprintf (stderr, "expected result:\n");   debug_mp (gcd1, -16);
-      fprintf (stderr, "mpz_gcd returns:\n");   debug_mp (gcd2, -16);
+      EMSG("ERROR in test %d\n", i);
+      EMSG("mpz_gcd returned incorrect result\n");
+      EMSG("op1=");                 debug_mp (op1, -16);
+      EMSG("op2=");                 debug_mp (op2, -16);
+      EMSG("expected result:\n");   debug_mp (gcd1, -16);
+      EMSG("mpz_gcd returns:\n");   debug_mp (gcd2, -16);
       abort ();
     }
 
@@ -372,12 +373,12 @@ one_test (mpz_t op1, mpz_t op2, mpz_t ref, int i)
 	mpz_gcd_ui (gcd2, op1, mpz_get_ui (op2));
       if (mpz_cmp (gcd2, gcd1))
 	{
-	  fprintf (stderr, "ERROR in test %d\n", i);
-	  fprintf (stderr, "mpz_gcd_ui returned incorrect result\n");
-	  fprintf (stderr, "op1=");                 debug_mp (op1, -16);
-	  fprintf (stderr, "op2=");                 debug_mp (op2, -16);
-	  fprintf (stderr, "expected result:\n");   debug_mp (gcd1, -16);
-	  fprintf (stderr, "mpz_gcd_ui returns:\n");   debug_mp (gcd2, -16);
+	  EMSG("ERROR in test %d\n", i);
+	  EMSG("mpz_gcd_ui returned incorrect result\n");
+	  EMSG("op1=");                 debug_mp (op1, -16);
+	  EMSG("op2=");                 debug_mp (op2, -16);
+	  EMSG("expected result:\n");   debug_mp (gcd1, -16);
+	  EMSG("mpz_gcd_ui returns:\n");   debug_mp (gcd2, -16);
 	  abort ();
 	}
     }
@@ -394,12 +395,12 @@ one_test (mpz_t op1, mpz_t op2, mpz_t ref, int i)
   if (mpz_cmp (gcd1, gcd2) != 0
       || mpz_cmp (gcd2, temp1) != 0)
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      fprintf (stderr, "mpz_gcdext returned incorrect result\n");
-      fprintf (stderr, "op1=");                 debug_mp (op1, -16);
-      fprintf (stderr, "op2=");                 debug_mp (op2, -16);
-      fprintf (stderr, "expected result:\n");   debug_mp (gcd1, -16);
-      fprintf (stderr, "mpz_gcdext returns:\n");debug_mp (gcd2, -16);
+      EMSG("ERROR in test %d\n", i);
+      EMSG("mpz_gcdext returned incorrect result\n");
+      EMSG("op1=");                 debug_mp (op1, -16);
+      EMSG("op2=");                 debug_mp (op2, -16);
+      EMSG("expected result:\n");   debug_mp (gcd1, -16);
+      EMSG("mpz_gcdext returns:\n");debug_mp (gcd2, -16);
       abort ();
     }
 }

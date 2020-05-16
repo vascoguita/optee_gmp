@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* CPU frequency determination.
 
 Copyright 1999-2004 Free Software Foundation, Inc.
@@ -864,9 +865,9 @@ speed_cycletime_init (void)
 void
 speed_cycletime_fail (const char *str)
 {
-  fprintf (stderr, "Measuring with: %s\n", speed_time_string);
-  fprintf (stderr, "%s,\n", str);
-  fprintf (stderr, "but none of the following are available,\n");
+  EMSG("Measuring with: %s\n", speed_time_string);
+  EMSG("%s,\n", str);
+  EMSG("but none of the following are available,\n");
   freq_all (1);
   abort ();
 }

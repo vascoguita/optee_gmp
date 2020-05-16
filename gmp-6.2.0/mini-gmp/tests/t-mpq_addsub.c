@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013, 2018 Free Software Foundation, Inc.
@@ -69,13 +70,13 @@ testcmpui ()
 
 	      if ((!ref) != mpq_equal (q1, q2))
 		{
-		  fprintf (stderr, "mpz_equal failed: %i / %i = %i / %i ? %i\n", n1, d1, n2, d2, ref);
+		  EMSG("mpz_equal failed: %i / %i = %i / %i ? %i\n", n1, d1, n2, d2, ref);
 		  abort ();
 		}
 
 	      if (ref != fres)
 		{
-		  fprintf (stderr, "mpz_cmp_ui failed: %i / %i = %i / %i ? %i != %i\n", n1, d1, n2, d2, ref, fres);
+		  EMSG("mpz_cmp_ui failed: %i / %i = %i / %i ? %i != %i\n", n1, d1, n2, d2, ref, fres);
 		  abort ();
 		}
 	    }
@@ -115,7 +116,7 @@ testmain (int argc, char **argv)
       mpz_set_q (c, rr);
       if (mpz_cmp (c, q))
 	{
-	  fprintf (stderr, "mpz_set_q failed:\n");
+	  EMSG("mpz_set_q failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("c", c);
@@ -125,7 +126,7 @@ testmain (int argc, char **argv)
 
       if ((mpz_sgn (r) != 0) ^ (mpz_cmp_ui (mpq_denref (rr), 1) != 0))
 	{
-	  fprintf (stderr, "mpq_canonicalize failed:\n");
+	  EMSG("mpq_canonicalize failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", r);
@@ -145,7 +146,7 @@ testmain (int argc, char **argv)
 	    tst = - tst;
 	  if ((tst != mpz_sgn (r)) && ((tst < 0 && mpz_sgn (r) >= 0) || (tst > 0 && mpz_sgn (r) <= 0)))
 	    {
-	      fprintf (stderr, "mpq_cmp ii failed: %i %i\n", tst, mpz_sgn (r));
+	      EMSG("mpq_cmp ii failed: %i %i\n", tst, mpz_sgn (r));
 	      dump ("a", a);
 	      dump ("b", b);
 	      dump ("r", r);
@@ -163,7 +164,7 @@ testmain (int argc, char **argv)
 	    tst = mpq_cmp (rr, ff);
 	  if ((tst != mpz_sgn (q)) && ((tst < 0 && mpz_sgn (q) >= 0) || (tst > 0 && mpz_sgn (q) <= 0)))
 	    {
-	      fprintf (stderr, "mpq_cmp ff failed: %i %i\n", tst, mpz_sgn (q));
+	      EMSG("mpq_cmp ff failed: %i %i\n", tst, mpz_sgn (q));
 	      dump ("a", a);
 	      dump ("b", b);
 	      dump ("r", r);
@@ -184,7 +185,7 @@ testmain (int argc, char **argv)
 
       if (!mpq_equal (ii, rr))
 	{
-	  fprintf (stderr, "mpq_%s failed:\n", (i & 1) ? "sub" : "add");
+	  EMSG("mpq_%s failed:\n", (i & 1) ? "sub" : "add");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", r);

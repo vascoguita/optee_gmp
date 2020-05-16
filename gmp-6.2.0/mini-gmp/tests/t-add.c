@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, Free Software Foundation, Inc.
@@ -42,7 +43,7 @@ testmain (int argc, char **argv)
       mpz_add (res, a, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_add failed:\n");
+	  EMSG("mpz_add failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* statlib.c -- Statistical functions for testing the randomness of
    number sequences. */
 
@@ -259,7 +260,7 @@ x2 (mpf_t V,			/* result */
   for (f = 0; f < k; f++)
     {
       if (g_debug > DEBUG_2)
-	fprintf (stderr, "%u: P()=", f);
+	EMSG("%u: P()=", f);
       mpf_set_ui (f_t, X[f]);
       mpf_mul (f_t, f_t, f_t);	/* f_t = X[f]^2 */
       P (f_t2, f, x);		/* f_t2 = Pr(f) */
@@ -269,13 +270,13 @@ x2 (mpf_t V,			/* result */
       mpf_add (V, V, f_t);
       if (g_debug > DEBUG_2)
 	{
-	  fprintf (stderr, "\tV=");
+	  EMSG("\tV=");
 	  mpf_out_str (stderr, 10, 2, V);
-	  fprintf (stderr, "\t");
+	  EMSG("\t");
 	}
     }
   if (g_debug > DEBUG_2)
-    fprintf (stderr, "\n");
+    EMSG("\n");
   mpf_div_ui (V, V, n);
   mpf_sub_ui (V, V, n);
 
@@ -324,7 +325,7 @@ mpz_freqt (mpf_t V,
   v = (unsigned long int *) calloc (imax + 1, sizeof (unsigned long int));
   if (NULL == v)
     {
-      fprintf (stderr, "mpz_freqt(): out of memory\n");
+      EMSG("mpz_freqt(): out of memory\n");
       exit (1);
     }
 
@@ -336,7 +337,7 @@ mpz_freqt (mpf_t V,
       if (uitemp > imax)	/* sanity check */
 	{
 	  if (g_debug)
-	    fprintf (stderr, "mpz_freqt(): warning: input insanity: %u, "\
+	    EMSG("mpz_freqt(): warning: input insanity: %u, "\
 		     "ignored.\n", uitemp);
 	  usedn--;
 	  continue;
@@ -346,9 +347,9 @@ mpz_freqt (mpf_t V,
 
   if (g_debug > DEBUG_2)
     {
-      fprintf (stderr, "counts:\n");
+      EMSG("counts:\n");
       for (f = 0; f <= imax; f++)
-	fprintf (stderr, "%u:\t%lu\n", f, v[f]);
+	EMSG("%u:\t%lu\n", f, v[f]);
     }
 
   /* chi-square with k=imax+1 and P(x)=1/(imax+1) for all x.*/

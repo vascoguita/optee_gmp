@@ -33,10 +33,3 @@ see https://www.gnu.org/licenses/.  */
 #include <stdio.h>
 
 #include "gmp-impl.h"
-
-
-int
-gmp_vscanf (const char *fmt, va_list ap)
-{
-  return __gmp_doscan (&__gmp_fscanf_funs, stdin, fmt, ap);
-}

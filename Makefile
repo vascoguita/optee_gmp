@@ -47,7 +47,7 @@ install-gmp: make-gmp
 
 .PHONY: make-gmp
 make-gmp: modify-gmp
-	$(MAKE) -C $(GMP_ROOT) CFLAGS+=$(CFLAGS)
+	$(MAKE) -C $(GMP_ROOT)
 
 .PHONY: modify-gmp
 modify-gmp: configure-gmp

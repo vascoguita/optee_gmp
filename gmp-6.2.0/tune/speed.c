@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Speed measuring program.
 
 Copyright 1999-2003, 2005, 2006, 2008-2019 Free Software Foundation, Inc.
@@ -848,7 +849,7 @@ fopen_for_write (const char *filename)
   FILE  *fp;
   if ((fp = fopen (filename, "w")) == NULL)
     {
-      fprintf (stderr, "Cannot create %s\n", filename);
+      EMSG("Cannot create %s\n", filename);
       exit(1);
     }
   return fp;
@@ -864,7 +865,7 @@ fclose_written (FILE *fp, const char *filename)
 
   if (err)
     {
-      fprintf (stderr, "Error writing %s\n", filename);
+      EMSG("Error writing %s\n", filename);
       exit(1);
     }
 }
@@ -977,7 +978,7 @@ r_string (const char *s)
       mp_limb_t  l;
       if (n > GMP_LIMB_BITS)
         {
-          fprintf (stderr, "%ld bit parameter invalid (max %d bits)\n",
+          EMSG("%ld bit parameter invalid (max %d bits)\n",
                    n, GMP_LIMB_BITS);
           exit (1);
         }
@@ -988,7 +989,7 @@ r_string (const char *s)
     {
       if (n > GMP_LIMB_BITS)
         {
-          fprintf (stderr, "%ld bit parameter invalid (max %d bits)\n",
+          EMSG("%ld bit parameter invalid (max %d bits)\n",
                    n, GMP_LIMB_BITS);
           exit (1);
         }
@@ -996,7 +997,7 @@ r_string (const char *s)
     }
   else if (*s != '\0')
     {
-      fprintf (stderr, "invalid r parameter: %s\n", s_orig);
+      EMSG("invalid r parameter: %s\n", s_orig);
       exit (1);
     }
 
@@ -1065,7 +1066,7 @@ routine_find (struct choice_t *c, const char *s_orig)
         }
     }
 
-  fprintf (stderr, "Choice %s unrecognised\n", s_orig);
+  EMSG("Choice %s unrecognised\n", s_orig);
   exit (1);
 }
 
@@ -1141,9 +1142,9 @@ check_align_option (const char *name, mp_size_t align)
 {
   if (align < 0 || align > SPEED_TMP_ALLOC_ADJUST_MASK)
     {
-      fprintf (stderr, "Alignment request out of range: %s %ld\n",
+      EMSG("Alignment request out of range: %s %ld\n",
                name, (long) align);
-      fprintf (stderr, "  should be 0 to %d (limbs), inclusive\n",
+      EMSG("  should be 0 to %d (limbs), inclusive\n",
                SPEED_TMP_ALLOC_ADJUST_MASK);
       exit (1);
     }
@@ -1175,7 +1176,7 @@ main (int argc, char *argv[])
         else if (strcmp (optarg, "2fd") == 0)     option_data = DATA_2FD;
         else
           {
-            fprintf (stderr, "unrecognised data option: %s\n", optarg);
+            EMSG("unrecognised data option: %s\n", optarg);
             exit (1);
           }
         break;
@@ -1187,7 +1188,7 @@ main (int argc, char *argv[])
         if (option_unit != UNIT_SECONDS)
           {
           bad_unit:
-            fprintf (stderr, "cannot use more than one of -c, -C\n");
+            EMSG("cannot use more than one of -c, -C\n");
             exit (1);
           }
         option_unit = UNIT_CYCLES;
@@ -1200,7 +1201,7 @@ main (int argc, char *argv[])
         if (option_cmp != CMP_ABSOLUTE)
           {
           bad_cmp:
-            fprintf (stderr, "cannot use more than one of -d, -D, -r\n");
+            EMSG("cannot use more than one of -d, -D, -r\n");
             exit (1);
           }
         option_cmp = CMP_DIFFERENCE;
@@ -1215,7 +1216,7 @@ main (int argc, char *argv[])
         option_factor = atof (optarg);
         if (option_factor <= 1.0)
           {
-            fprintf (stderr, "-f factor must be > 1.0\n");
+            EMSG("-f factor must be > 1.0\n");
             exit (1);
           }
         break;
@@ -1263,7 +1264,7 @@ main (int argc, char *argv[])
                   || size_array[size_num].end < 0
                   || size_array[size_num].start > size_array[size_num].end)
                 {
-                  fprintf (stderr, "invalid size parameter: %s\n", s);
+                  EMSG("invalid size parameter: %s\n", s);
                   exit (1);
                 }
 
@@ -1275,7 +1276,7 @@ main (int argc, char *argv[])
         option_step = atol (optarg);
         if (option_step < 1)
           {
-            fprintf (stderr, "-t step must be >= 1\n");
+            EMSG("-t step must be >= 1\n");
             exit (1);
           }
         break;
@@ -1314,7 +1315,7 @@ main (int argc, char *argv[])
 
   if (size_num == 0)
     {
-      fprintf (stderr, "-s <size> must be specified\n");
+      EMSG("-s <size> must be specified\n");
       exit (1);
     }
 
@@ -1335,7 +1336,7 @@ main (int argc, char *argv[])
   if ((option_cmp == CMP_RATIO || option_cmp == CMP_DIFFERENCE) &&
       num_choices < 2)
     {
-      fprintf (stderr, "WARNING, -d or -r does nothing when only one routine requested\n");
+      EMSG("WARNING, -d or -r does nothing when only one routine requested\n");
     }
 
   speed_time_init ();

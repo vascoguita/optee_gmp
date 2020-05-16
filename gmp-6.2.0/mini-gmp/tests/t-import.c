@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2013 Free Software Foundation, Inc.
@@ -30,14 +31,14 @@ static void
 dump_bytes (const char *label, const unsigned char *s, size_t n)
 {
   size_t i;
-  fprintf (stderr, "%s:", label);
+  EMSG("%s:", label);
   for (i = 0; i < n; i++)
     {
       if (i && (i % 16) == 0)
-	fprintf (stderr, "\n");
-      fprintf (stderr, " %02x", s[i]);
+	EMSG("\n");
+      EMSG(" %02x", s[i]);
     }
-  fprintf (stderr, "\n");
+  EMSG("\n");
 }
 
 /* Tests both mpz_import and mpz_export. */
@@ -64,7 +65,7 @@ testmain (int argc, char **argv)
 	    mpz_import (res, in_count, order, size, endian, 0, input);
 	    if (mpz_cmp (a, res))
 	      {
-		fprintf (stderr, "mpz_import failed:\n"
+		EMSG("mpz_import failed:\n"
 			 "in_count %lu, out_count %lu, endian = %d, order = %d\n",
 			 (unsigned long) in_count, (unsigned long) out_count, endian, order);
 		dump ("a", a);
@@ -80,15 +81,15 @@ testmain (int argc, char **argv)
 		|| output[0] != 17
 		|| output[1+in_count*size] != 17)
 	      {
-		fprintf (stderr, "mpz_export failed:\n"
+		EMSG("mpz_export failed:\n"
 			 "in_count %lu, out_count %lu, endian = %d, order = %d\n",
 			 (unsigned long) in_count, (unsigned long) out_count, endian, order);
 		dump_bytes ("input", input, in_count * size);
 		dump_bytes ("output", output+1, out_count * size);
 		if (output[0] != 17)
-		  fprintf (stderr, "Overwrite at -1, value %02x\n", output[0]);
+		  EMSG("Overwrite at -1, value %02x\n", output[0]);
 		if (output[1+in_count*size] != 17)
-		  fprintf (stderr, "Overwrite at %lu, value %02x\n",
+		  EMSG("Overwrite at %lu, value %02x\n",
 			   (unsigned long) (in_count*size), output[1+in_count*size]);
 
 		abort ();

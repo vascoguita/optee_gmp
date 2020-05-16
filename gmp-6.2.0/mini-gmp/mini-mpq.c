@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* mini-mpq, a minimalistic implementation of a GNU GMP subset.
 
    Contributed to the GNU project by Marco Bodrato
@@ -60,7 +61,7 @@ mpz_roinit_normal_n (mpz_t x, mp_srcptr xp, mp_size_t xs)
 static void
 gmp_die (const char *msg)
 {
-  fprintf (stderr, "%s\n", msg);
+  EMSG("%s\n", msg);
   abort();
 }
 #endif

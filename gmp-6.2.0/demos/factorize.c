@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Factoring with Pollard's rho method.
 
 Copyright 1995, 1997-2003, 2005, 2009, 2012, 2015 Free Software
@@ -253,7 +254,7 @@ mp_prime_p (mpz_t n)
 	}
     }
 
-  fprintf (stderr, "Lucas prime test failure.  This should not happen\n");
+  EMSG("Lucas prime test failure.  This should not happen\n");
   abort ();
 
  ret1:

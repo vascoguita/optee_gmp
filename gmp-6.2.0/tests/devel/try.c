@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Run some tests on various mpn routines.
 
    THIS IS A TEST PROGRAM USED ONLY FOR DEVELOPMENT.  IT'S ALMOST CERTAIN TO
@@ -2040,7 +2041,7 @@ mprotect_maybe (void *addr, size_t len, int prot)
 #if HAVE_MPROTECT
   if (mprotect (addr, len, prot) != 0)
     {
-      fprintf (stderr, "Cannot mprotect %p 0x%X 0x%X: %s\n",
+      EMSG("Cannot mprotect %p 0x%X 0x%X: %s\n",
 	       addr, (unsigned) len, prot, strerror (errno));
       exit (1);
     }
@@ -2100,7 +2101,7 @@ malloc_region (struct region_t *r, mp_size_t n)
   p = (mp_ptr) mmap (NULL, nbytes, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANON, -1, 0);
   if (p == (void *) -1)
     {
-      fprintf (stderr, "Cannot mmap %#x anon bytes: %s\n",
+      EMSG("Cannot mmap %#x anon bytes: %s\n",
 	       (unsigned) nbytes, strerror (errno));
       exit (1);
     }
@@ -3422,7 +3423,7 @@ try_init (void)
   if ((pagesize = sysconf (_SC_PAGESIZE)) == -1)
     {
       /* According to the linux man page, sysconf doesn't set errno */
-      fprintf (stderr, "Cannot get sysconf _SC_PAGESIZE\n");
+      EMSG("Cannot get sysconf _SC_PAGESIZE\n");
       exit (1);
     }
 #else
@@ -3591,7 +3592,7 @@ main (int argc, char *argv[])
 	  else if (strcmp (optarg, "2fd") == 0)  option_data = DATA_2FD;
 	  else
 	    {
-	      fprintf (stderr, "unrecognised data option: %s\n", optarg);
+	      EMSG("unrecognised data option: %s\n", optarg);
 	      exit (1);
 	    }
 	  break;

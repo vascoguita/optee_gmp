@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* _mpz_realloc -- make the mpz_t have NEW_ALLOC digits allocated.
 
 Copyright 1991, 1993-1995, 2000, 2001, 2008, 2015 Free Software
@@ -45,7 +46,7 @@ _mpz_realloc (mpz_ptr m, mp_size_t new_alloc)
     {
       if (UNLIKELY (new_alloc > ULONG_MAX / GMP_NUMB_BITS))
 	{
-	  fprintf (stderr, "gmp: overflow in mpz type\n");
+	  EMSG("gmp: overflow in mpz type\n");
 	  abort ();
 	}
     }
@@ -53,7 +54,7 @@ _mpz_realloc (mpz_ptr m, mp_size_t new_alloc)
     {
       if (UNLIKELY (new_alloc > INT_MAX))
 	{
-	  fprintf (stderr, "gmp: overflow in mpz type\n");
+	  EMSG("gmp: overflow in mpz type\n");
 	  abort ();
 	}
     }

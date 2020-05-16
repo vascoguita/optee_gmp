@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Classify numbers as probable primes, primes or composites.
    With -q return true if the following argument is a (probable) prime.
 
@@ -26,8 +27,8 @@ char *progname;
 void
 print_usage_and_exit ()
 {
-  fprintf (stderr, "usage: %s -q nnn\n", progname);
-  fprintf (stderr, "usage: %s nnn ...\n", progname);
+  EMSG("usage: %s -q nnn\n", progname);
+  EMSG("usage: %s nnn ...\n", progname);
   exit (-1);
 }
 

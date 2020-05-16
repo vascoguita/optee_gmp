@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Demo program to run expression evaluation.
 
 Copyright 2000-2002, 2004 Free Software Foundation, Inc.
@@ -178,7 +179,7 @@ main (int argc, char *argv[])
                     if (arg == NULL)
                       {
                       need_arg:
-                        fprintf (stderr, "Need argument for -%c\n", opt);
+                        EMSG("Need argument for -%c\n", opt);
                         exit (1);
                       }
                   }
@@ -202,7 +203,7 @@ main (int argc, char *argv[])
                 if (arg[0] != '\0')
                   {
                     /* no "--foo" options */
-                    fprintf (stderr, "Unrecognised option --%s\n", arg);
+                    EMSG("Unrecognised option --%s\n", arg);
                     exit (1);
                   }
                 /* stop option interpretation at "--" */
@@ -217,7 +218,7 @@ main (int argc, char *argv[])
                   }
 
               default:
-                fprintf (stderr, "Unrecognised option -%c\n", opt);
+                EMSG("Unrecognised option -%c\n", opt);
                 exit (1);
               }
             }

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013, 2018 Free Software Foundation, Inc.
@@ -86,7 +87,7 @@ testmain (int argc, char **argv)
 	  div_qr[j] (q, r, a, b);
 	  if (mpz_cmp (r, rr) || mpz_cmp (q, rq))
 	    {
-	      fprintf (stderr, "mpz_%cdiv_qr failed:\n", name[j]);
+	      EMSG("mpz_%cdiv_qr failed:\n", name[j]);
 	      dump ("a", a);
 	      dump ("b", b);
 	      dump ("r   ", r);
@@ -99,7 +100,7 @@ testmain (int argc, char **argv)
 	  div_q[j] (q, a, b);
 	  if (mpz_cmp (q, rq))
 	    {
-	      fprintf (stderr, "mpz_%cdiv_q failed:\n", name[j]);
+	      EMSG("mpz_%cdiv_q failed:\n", name[j]);
 	      dump ("a", a);
 	      dump ("b", b);
 	      dump ("q   ", q);
@@ -110,7 +111,7 @@ testmain (int argc, char **argv)
 	  div_r[j] (r, a, b);
 	  if (mpz_cmp (r, rr))
 	    {
-	      fprintf (stderr, "mpz_%cdiv_r failed:\n", name[j]);
+	      EMSG("mpz_%cdiv_r failed:\n", name[j]);
 	      dump ("a", a);
 	      dump ("b", b);
 	      dump ("r   ", r);
@@ -123,7 +124,7 @@ testmain (int argc, char **argv)
 	      div_p = mpz_divisible_p (a, b);
 	      if ((mpz_sgn (r) == 0) ^ (div_p != 0))
 		{
-		  fprintf (stderr, "mpz_divisible_p failed:\n");
+		  EMSG("mpz_divisible_p failed:\n");
 		  dump ("a", a);
 		  dump ("b", b);
 		  dump ("r   ", r);
@@ -137,7 +138,7 @@ testmain (int argc, char **argv)
 	      mpz_mod (r, a, b);
 	      if (mpz_cmp (r, rr))
 		{
-		  fprintf (stderr, "mpz_mod failed:\n");
+		  EMSG("mpz_mod failed:\n");
 		  dump ("a", a);
 		  dump ("b", b);
 		  dump ("r   ", r);
@@ -151,7 +152,7 @@ testmain (int argc, char **argv)
 	      mpz_mod (r, a, b);
 	      if (mpz_cmp (r, rr))
 		{
-		  fprintf (stderr, "mpz_mod failed:\n");
+		  EMSG("mpz_mod failed:\n");
 		  dump ("a", a);
 		  dump ("b", b);
 		  dump ("r   ", r);
@@ -170,7 +171,7 @@ testmain (int argc, char **argv)
 	      if (rl != mpz_get_ui (rr)
 		  || mpz_cmp (r, rr) || mpz_cmp (q, rq))
 		{
-		  fprintf (stderr, "mpz_%cdiv_qr_ui failed:\n", name[j]);
+		  EMSG("mpz_%cdiv_qr_ui failed:\n", name[j]);
 		  dump ("a", a);
 		  dump ("b", b);
 		  fprintf(stderr, "rl   = %lx\n", rl);
@@ -185,7 +186,7 @@ testmain (int argc, char **argv)
 	      rl = div_q_ui[j] (q, a, mpz_get_ui (b));
 	      if (rl != mpz_get_ui (rr) || mpz_cmp (q, rq))
 		{
-		  fprintf (stderr, "mpz_%cdiv_q_ui failed:\n", name[j]);
+		  EMSG("mpz_%cdiv_q_ui failed:\n", name[j]);
 		  dump ("a", a);
 		  dump ("b", b);
 		  fprintf(stderr, "rl   = %lx\n", rl);
@@ -199,7 +200,7 @@ testmain (int argc, char **argv)
 	      rl = div_r_ui[j] (r, a, mpz_get_ui (b));
 	      if (rl != mpz_get_ui (rr) || mpz_cmp (r, rr))
 		{
-		  fprintf (stderr, "mpz_%cdiv_r_ui failed:\n", name[j]);
+		  EMSG("mpz_%cdiv_r_ui failed:\n", name[j]);
 		  dump ("a", a);
 		  dump ("b", b);
 		  fprintf(stderr, "rl   = %lx\n", rl);
@@ -211,7 +212,7 @@ testmain (int argc, char **argv)
 	      rl = div_ui[j] (a, mpz_get_ui (b));
 	      if (rl != mpz_get_ui (rr))
 		{
-		  fprintf (stderr, "mpz_%cdiv_ui failed:\n", name[j]);
+		  EMSG("mpz_%cdiv_ui failed:\n", name[j]);
 		  dump ("a", a);
 		  dump ("b", b);
 		  fprintf(stderr, "rl   = %lx\n", rl);
@@ -224,7 +225,7 @@ testmain (int argc, char **argv)
 		  div_p = mpz_divisible_ui_p (a, mpz_get_ui (b));
 		  if ((mpz_sgn (r) == 0) ^ (div_p != 0))
 		    {
-		      fprintf (stderr, "mpz_divisible_ui_p failed:\n");
+		      EMSG("mpz_divisible_ui_p failed:\n");
 		      dump ("a", a);
 		      dump ("b", b);
 		      dump ("r   ", r);
@@ -238,7 +239,7 @@ testmain (int argc, char **argv)
 		  mpz_mod_ui (r, a, mpz_get_ui (b));
 		  if (mpz_cmp (r, rr))
 		    {
-		      fprintf (stderr, "mpz_mod failed:\n");
+		      EMSG("mpz_mod failed:\n");
 		      dump ("a", a);
 		      dump ("b", b);
 		      dump ("r   ", r);

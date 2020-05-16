@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_remove.
 
 Copyright 1991, 1993, 1994, 1996, 1997, 2000, 2001, 2009, 2012, 2013 Free
@@ -77,13 +78,13 @@ main (int argc, char **argv)
 
       if (refpwr != pwr || mpz_cmp (refdest, dest) != 0)
 	{
-	  fprintf (stderr, "ERROR after %d tests\n", i);
-	  fprintf (stderr, "refpower = %lu\n", refpwr);
-	  fprintf (stderr, "   power = %lu\n", pwr);
-	  fprintf (stderr, "    op1 = "); debug_mp (dividend);
-	  fprintf (stderr, "    op2 = "); debug_mp (divisor);
-	  fprintf (stderr, "refdest = "); debug_mp (refdest);
-	  fprintf (stderr, "   dest = "); debug_mp (dest);
+	  EMSG("ERROR after %d tests\n", i);
+	  EMSG("refpower = %lu\n", refpwr);
+	  EMSG("   power = %lu\n", pwr);
+	  EMSG("    op1 = "); debug_mp (dividend);
+	  EMSG("    op2 = "); debug_mp (divisor);
+	  EMSG("refdest = "); debug_mp (refdest);
+	  EMSG("   dest = "); debug_mp (dest);
 	  abort ();
 	}
     }
@@ -134,13 +135,13 @@ debug_mp (mpz_t x)
       mpz_t q;
       mpz_init (q);
       mpz_tdiv_q_2exp (q, x, 4 * (mpz_sizeinbase (x, 16) - 25));
-      gmp_fprintf (stderr, "%ZX...", q);
+      gmp_EMSG("%ZX...", q);
       mpz_tdiv_r_2exp (q, x, 4 * 25);
-      gmp_fprintf (stderr, "%025ZX [%d]\n", q, (int) siz);
+      gmp_EMSG("%025ZX [%d]\n", q, (int) siz);
       mpz_clear (q);
     }
   else
     {
-      gmp_fprintf (stderr, "%ZX\n", x);
+      gmp_EMSG("%ZX\n", x);
     }
 }

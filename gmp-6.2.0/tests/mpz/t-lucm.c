@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_powm, mpz_lucas_mod.
 
 Copyright 1991, 1993, 1994, 1996, 1999-2001, 2009, 2012, 2018 Free Software
@@ -112,13 +113,13 @@ main (int argc, char **argv)
 
       if (mpz_cmp (r1, r2) != 0)
 	{
-	  fprintf (stderr, "\nIncorrect results in test %d for operands:\n", i);
+	  EMSG("\nIncorrect results in test %d for operands:\n", i);
 	  debug_mp (base, -16);
 	  debug_mp (exp, -16);
 	  debug_mp (mod, -16);
-	  fprintf (stderr, "mpz_powm result:\n");
+	  EMSG("mpz_powm result:\n");
 	  debug_mp (r1, -16);
-	  fprintf (stderr, "mpz_lucas_mod result (%d) Q=%ld:\n", res, Q);
+	  EMSG("mpz_lucas_mod result (%d) Q=%ld:\n", res, Q);
 	  debug_mp (r2, -16);
 	  abort ();
 	}

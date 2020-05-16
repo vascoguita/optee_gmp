@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Use mpz_kronecker_ui() to calculate an estimate for the quadratic
    class number h(d), for a given negative fundamental discriminant, using
    Dirichlet's analytic formula.
@@ -146,7 +147,7 @@ main (int argc, char *argv[])
 	  i++;
 	  if (i >= argc)
 	    {
-	      fprintf (stderr, "Missing argument to -p\n");
+	      EMSG("Missing argument to -p\n");
 	      exit (1);
 	    }
 	  p_limit = atoi (argv[i]);

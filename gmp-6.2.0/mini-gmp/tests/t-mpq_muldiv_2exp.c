@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013, 2018 Free Software Foundation, Inc.
@@ -82,7 +83,7 @@ testmain (int argc, char **argv)
       if (e2 + e != t1 - t2 || (t2 != 0 && t1 != 0) || mpz_scan1 (t, 0) != e
 	  || mpz_sizeinbase (t, 2) - 1 != e || mpz_cmp_si (mpq_numref (tq), -1) != 0)
 	{
-	  fprintf (stderr, "mpq_mul_2exp failed: %lu\n", e);
+	  EMSG("mpq_mul_2exp failed: %lu\n", e);
 	  dump ("na", a);
 	  dump ("da", b);
 	  dump ("nr", mpq_numref (rq));
@@ -99,8 +100,8 @@ testmain (int argc, char **argv)
       if (e2 != t1 - t2 + e || (t2 != 0 && t1 != 0) || mpz_scan1 (t, 0) != e
 	  || mpz_sizeinbase (t, 2) - 1 != e || mpz_cmp_ui (mpq_denref (aq), 1) != 0)
 	{
-	  fprintf (stderr, "mpq_div_2exp failed: %lu\n", e);
-	  fprintf (stderr, "%li %li %lu %zu\n", e2, t2, mpz_scan1 (t, 0), mpz_sizeinbase (t, 2));
+	  EMSG("mpq_div_2exp failed: %lu\n", e);
+	  EMSG("%li %li %lu %zu\n", e2, t2, mpz_scan1 (t, 0), mpz_sizeinbase (t, 2));
 	  dump ("na", a);
 	  dump ("da", b);
 	  dump ("nr", mpq_numref (rq));
@@ -115,7 +116,7 @@ testmain (int argc, char **argv)
 
       if (!mpq_equal (tq, rq))
 	{
-	  fprintf (stderr, "mpq_div_2exp failed on zero: %lu\n", e);
+	  EMSG("mpq_div_2exp failed on zero: %lu\n", e);
 	  abort ();
 	}
 
@@ -124,7 +125,7 @@ testmain (int argc, char **argv)
 
       if (!mpq_equal (rq, tq))
 	{
-	  fprintf (stderr, "mpq_mul_2exp failed on zero: %lu\n", e);
+	  EMSG("mpq_mul_2exp failed on zero: %lu\n", e);
 	  abort ();
 	}
     }

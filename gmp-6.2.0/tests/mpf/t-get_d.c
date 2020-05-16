@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpf_get_d and mpf_set_d.
 
 Copyright 1996, 1999-2001, 2009 Free Software Foundation, Inc.
@@ -86,7 +87,7 @@ main (int argc, char **argv)
       r = e/d;
       if (r < 0.99999999999999 || r > 1.00000000000001)
 	{
-	  fprintf (stderr, "should be one ulp from 1: %.16f\n", r);
+	  EMSG("should be one ulp from 1: %.16f\n", r);
 	  abort ();
 	}
       mpf_set (u, v);

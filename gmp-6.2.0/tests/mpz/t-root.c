@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_root, mpz_rootrem, and mpz_perfect_power_p.
 
 Copyright 1991, 1993, 1994, 1996, 2000, 2001, 2009, 2015 Free Software
@@ -51,20 +52,20 @@ check_one (mpz_t root1, mpz_t x2, unsigned long nth, int res, int i)
   /* Is power of result > argument?  */
   if (mpz_cmp (root1, root2) != 0 || mpz_cmp (x2, temp2) != 0 || mpz_cmpabs (temp, x2) > 0 || res == mpz_cmp_ui (rem2, 0))
     {
-      fprintf (stderr, "ERROR after test %d\n", i);
+      EMSG("ERROR after test %d\n", i);
       debug_mp (x2, 10);
       debug_mp (root1, 10);
       debug_mp (root2, 10);
-      fprintf (stderr, "nth: %lu ,res: %i\n", nth, res);
+      EMSG("nth: %lu ,res: %i\n", nth, res);
       abort ();
     }
 
   if (nth > 1 && mpz_cmp_ui (temp, 1L) > 0 && ! mpz_perfect_power_p (temp))
     {
-      fprintf (stderr, "ERROR in mpz_perfect_power_p after test %d\n", i);
+      EMSG("ERROR in mpz_perfect_power_p after test %d\n", i);
       debug_mp (temp, 10);
       debug_mp (root1, 10);
-      fprintf (stderr, "nth: %lu\n", nth);
+      EMSG("nth: %lu\n", nth);
       abort ();
     }
 
@@ -77,10 +78,10 @@ check_one (mpz_t root1, mpz_t x2, unsigned long nth, int res, int i)
       /* Is square of (result + 1) <= argument?  */
       if (mpz_cmp (temp2, x2) <= 0)
 	{
-	  fprintf (stderr, "ERROR after test %d\n", i);
+	  EMSG("ERROR after test %d\n", i);
 	  debug_mp (x2, 10);
 	  debug_mp (root1, 10);
-	  fprintf (stderr, "nth: %lu\n", nth);
+	  EMSG("nth: %lu\n", nth);
 	  abort ();
 	}
     }

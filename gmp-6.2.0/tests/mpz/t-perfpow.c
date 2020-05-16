@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_perfect_power_p.
 
    Contributed to the GNU project by Torbjorn Granlund and Martin Boij.
@@ -92,8 +93,8 @@ check_tests ()
       want = tests[i].want;
       if (got != want)
 	{
-	  fprintf (stderr, "mpz_perfect_power_p returns %d when %d was expected\n", got, want);
-	  fprintf (stderr, "fault operand: %s\n", tests[i].num_as_str);
+	  EMSG("mpz_perfect_power_p returns %d when %d was expected\n", got, want);
+	  EMSG("fault operand: %s\n", tests[i].num_as_str);
 	  abort ();
 	}
     }

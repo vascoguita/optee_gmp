@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Memory allocation used during tests.
 
 Copyright 2001, 2002, 2007, 2013 Free Software Foundation, Inc.
@@ -85,7 +86,7 @@ tests_allocate (size_t size)
 
   if (size == 0)
     {
-      fprintf (stderr, "tests_allocate(): attempt to allocate 0 bytes\n");
+      EMSG("tests_allocate(): attempt to allocate 0 bytes\n");
       abort ();
     }
 
@@ -115,7 +116,7 @@ tests_reallocate (void *ptr, size_t old_size, size_t new_size)
 
   if (new_size == 0)
     {
-      fprintf (stderr, "tests_reallocate(): attempt to reallocate %p to 0 bytes\n",
+      EMSG("tests_reallocate(): attempt to reallocate %p to 0 bytes\n",
 	       ptr);
       abort ();
     }
@@ -123,7 +124,7 @@ tests_reallocate (void *ptr, size_t old_size, size_t new_size)
   hp = tests_memory_find (ptr);
   if (hp == NULL)
     {
-      fprintf (stderr, "tests_reallocate(): attempt to reallocate bad pointer %p\n",
+      EMSG("tests_reallocate(): attempt to reallocate bad pointer %p\n",
 	       ptr);
       abort ();
     }
@@ -131,7 +132,7 @@ tests_reallocate (void *ptr, size_t old_size, size_t new_size)
 
   if (h->size != old_size)
     {
-      fprintf (stderr, "tests_reallocate(): bad old size %lu, should be %lu\n",
+      EMSG("tests_reallocate(): bad old size %lu, should be %lu\n",
 	       (unsigned long) old_size, (unsigned long) h->size);
       abort ();
     }
@@ -139,13 +140,13 @@ tests_reallocate (void *ptr, size_t old_size, size_t new_size)
   if (*((mp_limb_t *) ((gmp_intptr_t) ptr - sizeof (mp_limb_t)))
       != PATTERN1 - PTRLIMB (ptr))
     {
-      fprintf (stderr, "in realloc: redzone clobbered before block\n");
+      EMSG("in realloc: redzone clobbered before block\n");
       abort ();
     }
   PATTERN2_var = PATTERN2 - PTRLIMB (ptr);
   if (memcmp ((void *) ((gmp_intptr_t) ptr + h->size), &PATTERN2_var, sizeof (mp_limb_t)))
     {
-      fprintf (stderr, "in realloc: redzone clobbered after block\n");
+      EMSG("in realloc: redzone clobbered after block\n");
       abort ();
     }
 
@@ -170,7 +171,7 @@ tests_free_find (void *ptr)
   struct header  **hp = tests_memory_find (ptr);
   if (hp == NULL)
     {
-      fprintf (stderr, "tests_free(): attempt to free bad pointer %p\n",
+      EMSG("tests_free(): attempt to free bad pointer %p\n",
 	       ptr);
       abort ();
     }
@@ -189,13 +190,13 @@ tests_free_nosize (void *ptr)
   if (*((mp_limb_t *) ((gmp_intptr_t) ptr - sizeof (mp_limb_t)))
       != PATTERN1 - PTRLIMB (ptr))
     {
-      fprintf (stderr, "in free: redzone clobbered before block\n");
+      EMSG("in free: redzone clobbered before block\n");
       abort ();
     }
   PATTERN2_var = PATTERN2 - PTRLIMB (ptr);
   if (memcmp ((void *) ((gmp_intptr_t) ptr + h->size), &PATTERN2_var, sizeof (mp_limb_t)))
     {
-      fprintf (stderr, "in free: redzone clobbered after block\n");
+      EMSG("in free: redzone clobbered after block\n");
       abort ();
     }
 
@@ -212,7 +213,7 @@ tests_free (void *ptr, size_t size)
 
   if (h->size != size)
     {
-      fprintf (stderr, "tests_free(): bad size %lu, should be %lu\n",
+      EMSG("tests_free(): bad size %lu, should be %lu\n",
 	       (unsigned long) size, (unsigned long) h->size);
       abort ();
     }
@@ -234,13 +235,13 @@ tests_memory_end (void)
       struct header  *h;
       unsigned  count;
 
-      fprintf (stderr, "tests_memory_end(): not all memory freed\n");
+      EMSG("tests_memory_end(): not all memory freed\n");
 
       count = 0;
       for (h = tests_memory_list; h != NULL; h = h->next)
 	count++;
 
-      fprintf (stderr, "    %u blocks remaining\n", count);
+      EMSG("    %u blocks remaining\n", count);
       abort ();
     }
 }

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, Free Software Foundation, Inc.
@@ -41,11 +42,11 @@ testmain (int argc, char **argv)
       res = mpz_scan0 (a, b);
       if (res != ref)
 	{
-	  fprintf (stderr, "mpz_scan0 failed:\n");
+	  EMSG("mpz_scan0 failed:\n");
 	  dump ("a", a);
-	  fprintf (stderr, "b: %lu\n", b);
-	  fprintf (stderr, "r: %lu\n", res);
-	  fprintf (stderr, "ref: %lu\n", ref);
+	  EMSG("b: %lu\n", b);
+	  EMSG("r: %lu\n", res);
+	  EMSG("ref: %lu\n", ref);
 	  abort ();
 	}
       if (mpz_sgn (a) > 0 && ref < mpz_sizeinbase (a, 2))
@@ -53,11 +54,11 @@ testmain (int argc, char **argv)
 	  res = mpn_scan0 (a->_mp_d, b);
 	  if (res != ref)
 	    {
-	      fprintf (stderr, "mpn_scan0 failed:\n");
+	      EMSG("mpn_scan0 failed:\n");
 	      dump ("a", a);
-	      fprintf (stderr, "b: %lu\n", b);
-	      fprintf (stderr, "r: %lu\n", res);
-	      fprintf (stderr, "ref: %lu\n", ref);
+	      EMSG("b: %lu\n", b);
+	      EMSG("r: %lu\n", res);
+	      EMSG("ref: %lu\n", ref);
 	      abort ();
 	    }
 	}
@@ -65,11 +66,11 @@ testmain (int argc, char **argv)
       res = mpz_scan1 (a, b);
       if (res != ref)
 	{
-	  fprintf (stderr, "mpz_scan1 failed:\n");
+	  EMSG("mpz_scan1 failed:\n");
 	  dump ("a", a);
-	  fprintf (stderr, "b: %lu\n", b);
-	  fprintf (stderr, "r: %lu\n", res);
-	  fprintf (stderr, "ref: %lu\n", ref);
+	  EMSG("b: %lu\n", b);
+	  EMSG("r: %lu\n", res);
+	  EMSG("ref: %lu\n", ref);
 	  abort ();
 	}
       if (mpz_sgn (a) > 0 && ref != ~ (mp_bitcnt_t) 0)
@@ -77,11 +78,11 @@ testmain (int argc, char **argv)
 	  res = mpn_scan1 (a->_mp_d, b);
 	  if (res != ref)
 	    {
-	      fprintf (stderr, "mpn_scan1 failed:\n");
+	      EMSG("mpn_scan1 failed:\n");
 	      dump ("a", a);
-	      fprintf (stderr, "b: %lu\n", b);
-	      fprintf (stderr, "r: %lu\n", res);
-	      fprintf (stderr, "ref: %lu\n", ref);
+	      EMSG("b: %lu\n", b);
+	      EMSG("r: %lu\n", res);
+	      EMSG("ref: %lu\n", ref);
 	      abort ();
 	    }
 	}

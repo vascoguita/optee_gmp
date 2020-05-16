@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, Free Software Foundation, Inc.
@@ -43,7 +44,7 @@ testmain (int argc, char **argv)
       mpz_lcm (g, a, b);
       if (mpz_cmp (g, s))
 	{
-	  fprintf (stderr, "mpz_lcm failed:\n");
+	  EMSG("mpz_lcm failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", g);
@@ -56,7 +57,7 @@ testmain (int argc, char **argv)
 	  mpz_lcm_ui (g, a, mpz_get_ui (b));
 	  if (mpz_cmp (g, s))
 	    {
-	      fprintf (stderr, "mpz_lcm_ui failed:\n");
+	      EMSG("mpz_lcm_ui failed:\n");
 	      dump ("a", a);
 	      dump ("b", b);
 	      dump ("r", g);

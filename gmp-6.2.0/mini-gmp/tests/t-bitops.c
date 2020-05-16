@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, Free Software Foundation, Inc.
@@ -44,18 +45,18 @@ testmain (int argc, char **argv)
       mpz_setbit (res, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_setbit failed:\n");
+	  EMSG("mpz_setbit failed:\n");
 	  dump ("a", a);
-	  fprintf (stderr, "b: %lu\n", b);
+	  EMSG("b: %lu\n", b);
 	  dump ("r", res);
 	  dump ("ref", ref);
 	  abort ();
 	}
       if (!mpz_tstbit (res, b))
 	{
-	  fprintf (stderr, "mpz_tstbit failed (after mpz_setbit):\n");
+	  EMSG("mpz_tstbit failed (after mpz_setbit):\n");
 	  dump ("res", a);
-	  fprintf (stderr, "b: %lu\n", b);
+	  EMSG("b: %lu\n", b);
 	  abort ();
 	}
       mini_random_bit_op (OP_CLRBIT, MAXBITS, a, &b, ref);
@@ -63,18 +64,18 @@ testmain (int argc, char **argv)
       mpz_clrbit (res, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_clrbit failed:\n");
+	  EMSG("mpz_clrbit failed:\n");
 	  dump ("a", a);
-	  fprintf (stderr, "b: %lu\n", b);
+	  EMSG("b: %lu\n", b);
 	  dump ("r", res);
 	  dump ("ref", ref);
 	  abort ();
 	}
       if (mpz_tstbit (res, b))
 	{
-	  fprintf (stderr, "mpz_tstbit failed (after mpz_clrbit):\n");
+	  EMSG("mpz_tstbit failed (after mpz_clrbit):\n");
 	  dump ("res", a);
-	  fprintf (stderr, "b: %lu\n", b);
+	  EMSG("b: %lu\n", b);
 	  abort ();
 	}
       mini_random_bit_op (OP_COMBIT, MAXBITS, a, &b, ref);
@@ -83,18 +84,18 @@ testmain (int argc, char **argv)
       mpz_combit (res, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_combit failed:\n");
+	  EMSG("mpz_combit failed:\n");
 	  dump ("a", a);
-	  fprintf (stderr, "b: %lu\n", b);
+	  EMSG("b: %lu\n", b);
 	  dump ("r", res);
 	  dump ("ref", ref);
 	  abort ();
 	}
       if (mpz_tstbit (res, b) != mpz_tstbit (a, b))
 	{
-	  fprintf (stderr, "mpz_tstbit failed (after mpz_combit):\n");
+	  EMSG("mpz_tstbit failed (after mpz_combit):\n");
 	  dump ("res", a);
-	  fprintf (stderr, "b: %lu\n", b);
+	  EMSG("b: %lu\n", b);
 	  abort ();
 	}
     }

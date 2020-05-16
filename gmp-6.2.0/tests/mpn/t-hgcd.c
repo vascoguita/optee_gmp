@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpn_hgcd.
 
 Copyright 1991, 1993, 1994, 1996, 1997, 2000-2004 Free Software Foundation,
@@ -82,12 +83,12 @@ main (int argc, char **argv)
       res = one_test (op1, op2, -1-i);
       if (res != hgcd_values[i].res)
 	{
-	  fprintf (stderr, "ERROR in test %d\n", -1-i);
-	  fprintf (stderr, "Bad return code from hgcd\n");
-	  fprintf (stderr, "op1=");                 debug_mp (op1, -16);
-	  fprintf (stderr, "op2=");                 debug_mp (op2, -16);
-	  fprintf (stderr, "expected: %d\n", hgcd_values[i].res);
-	  fprintf (stderr, "hgcd:     %d\n", (int) res);
+	  EMSG("ERROR in test %d\n", -1-i);
+	  EMSG("Bad return code from hgcd\n");
+	  EMSG("op1=");                 debug_mp (op1, -16);
+	  EMSG("op2=");                 debug_mp (op2, -16);
+	  EMSG("expected: %d\n", hgcd_values[i].res);
+	  EMSG("hgcd:     %d\n", (int) res);
 	  abort ();
 	}
     }
@@ -242,12 +243,12 @@ one_test (mpz_t a, mpz_t b, int i)
 
   if (res[0] != res[1])
     {
-      fprintf (stderr, "ERROR in test %d\n", i);
-      fprintf (stderr, "Different return value from hgcd and hgcd_ref\n");
-      fprintf (stderr, "op1=");                 debug_mp (a, -16);
-      fprintf (stderr, "op2=");                 debug_mp (b, -16);
-      fprintf (stderr, "hgcd_ref: %ld\n", (long) res[0]);
-      fprintf (stderr, "mpn_hgcd: %ld\n", (long) res[1]);
+      EMSG("ERROR in test %d\n", i);
+      EMSG("Different return value from hgcd and hgcd_ref\n");
+      EMSG("op1=");                 debug_mp (a, -16);
+      EMSG("op2=");                 debug_mp (b, -16);
+      EMSG("hgcd_ref: %ld\n", (long) res[0]);
+      EMSG("mpn_hgcd: %ld\n", (long) res[1]);
       abort ();
     }
   if (res[0] > 0)
@@ -256,10 +257,10 @@ one_test (mpz_t a, mpz_t b, int i)
 	  || !mpz_mpn_equal (ref_r0, hgcd_r0->_mp_d, res[1])
 	  || !mpz_mpn_equal (ref_r1, hgcd_r1->_mp_d, res[1]))
 	{
-	  fprintf (stderr, "ERROR in test %d\n", i);
-	  fprintf (stderr, "mpn_hgcd and hgcd_ref returned different values\n");
-	  fprintf (stderr, "op1=");                 debug_mp (a, -16);
-	  fprintf (stderr, "op2=");                 debug_mp (b, -16);
+	  EMSG("ERROR in test %d\n", i);
+	  EMSG("mpn_hgcd and hgcd_ref returned different values\n");
+	  EMSG("op1=");                 debug_mp (a, -16);
+	  EMSG("op2=");                 debug_mp (b, -16);
 	  abort ();
 	}
     }

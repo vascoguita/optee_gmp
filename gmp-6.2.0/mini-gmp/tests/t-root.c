@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013 Free Software Foundation, Inc.
@@ -81,7 +82,7 @@ testmain (int argc, char **argv)
 
       if (!rootrem_valid_p (u, s, r, e))
 	{
-	  fprintf (stderr, "mpz_rootrem(%lu-th) failed:\n", e);
+	  EMSG("mpz_rootrem(%lu-th) failed:\n", e);
 	  dump ("u", u);
 	  dump ("root", s);
 	  dump ("rem", r);

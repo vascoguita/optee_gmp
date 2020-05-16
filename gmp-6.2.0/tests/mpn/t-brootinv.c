@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Copyright 2012, 2015 Free Software Foundation, Inc.
 
 This file is part of the GNU MP Library test suite.
@@ -82,11 +83,11 @@ main (int argc, char **argv)
 	  gmp_fprintf (stderr,
 		       "mpn_brootinv returned bad result: %u limbs\n",
 		       (unsigned) n);
-	  gmp_fprintf (stderr, "k     = %Mx\n", k);
-	  gmp_fprintf (stderr, "a     = %Nx\n", ap, n);
-	  gmp_fprintf (stderr, "r     = %Nx\n", rp, n);
-	  gmp_fprintf (stderr, "r^n   = %Nx\n", pp, n);
-	  gmp_fprintf (stderr, "a r^n = %Nx\n", app, n);
+	  gmp_EMSG("k     = %Mx\n", k);
+	  gmp_EMSG("a     = %Nx\n", ap, n);
+	  gmp_EMSG("r     = %Nx\n", rp, n);
+	  gmp_EMSG("r^n   = %Nx\n", pp, n);
+	  gmp_EMSG("a r^n = %Nx\n", app, n);
 	  abort ();
 	}
     }

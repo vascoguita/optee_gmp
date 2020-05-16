@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012-2014, 2016 Free Software Foundation, Inc.
@@ -101,19 +102,19 @@ test_small (void)
 	{
 	  if (res != 0)
 	    {
-	      fprintf (stderr, "mpz_set_str returned -1, input: %s\n",
+	      EMSG("mpz_set_str returned -1, input: %s\n",
 		       data[i].input);
 	      abort ();
 	    }
 	  if (mpz_set_str (b, data[i].decimal, 10) != 0)
 	    {
-	      fprintf (stderr, "mpz_set_str returned -1, decimal input: %s\n",
+	      EMSG("mpz_set_str returned -1, decimal input: %s\n",
 		       data[i].input);
 	      abort ();
 	    }
 	  if (mpz_cmp (a, b) != 0)
 	    {
-	      fprintf (stderr, "mpz_set_str failed for input: %s\n",
+	      EMSG("mpz_set_str failed for input: %s\n",
 		       data[i].input);
 
 	      dump ("got", a);
@@ -123,7 +124,7 @@ test_small (void)
 	}
       else if (res != -1)
 	{
-	  fprintf (stderr, "mpz_set_str returned %d, invalid input: %s\n",
+	  EMSG("mpz_set_str returned %d, invalid input: %s\n",
 		   res, data[i].input);
 	  abort ();
 	}
@@ -164,7 +165,7 @@ testmain (int argc, char **argv)
 	  hex_random_str_op (MAXBITS, (i&1 || base > 36) ? base: -base, &ap, &rp);
 	  if (mpz_set_str (a, ap, 16) != 0)
 	    {
-	      fprintf (stderr, "mpz_set_str failed on input %s\n", ap);
+	      EMSG("mpz_set_str failed on input %s\n", ap);
 	      abort ();
 	    }
 
@@ -174,21 +175,21 @@ testmain (int argc, char **argv)
 	  bn = mpz_sizeinbase (a, base ? base : 10);
 	  if (bn < arn || bn > (arn + 1))
 	    {
-	      fprintf (stderr, "mpz_sizeinbase failed:\n");
+	      EMSG("mpz_sizeinbase failed:\n");
 	      dump ("a", a);
-	      fprintf (stderr, "r = %s\n", rp);
-	      fprintf (stderr, "  base %d, correct size %u, got %u\n",
+	      EMSG("r = %s\n", rp);
+	      EMSG("  base %d, correct size %u, got %u\n",
 		       base, (unsigned) arn, (unsigned)bn);
 	      abort ();
 	    }
 	  bp = mpz_get_str (NULL, (i&1 || base > 36) ? base: -base, a);
 	  if (strcmp (bp, rp))
 	    {
-	      fprintf (stderr, "mpz_get_str failed:\n");
+	      EMSG("mpz_get_str failed:\n");
 	      dump ("a", a);
-	      fprintf (stderr, "b = %s\n", bp);
-	      fprintf (stderr, "  base = %d\n", base);
-	      fprintf (stderr, "r = %s\n", rp);
+	      EMSG("b = %s\n", bp);
+	      EMSG("  base = %d\n", base);
+	      EMSG("r = %s\n", rp);
 	      abort ();
 	    }
 
@@ -200,10 +201,10 @@ testmain (int argc, char **argv)
 	      tn = mpz_out_str (tmp, (i&1 || base > 36) ? base: -base, a);
 	      if (tn != rn)
 		{
-		  fprintf (stderr, "mpz_out_str, bad return value:\n");
+		  EMSG("mpz_out_str, bad return value:\n");
 		  dump ("a", a);
-		  fprintf (stderr, "r = %s\n", rp);
-		  fprintf (stderr, "  base %d, correct size %u, got %u\n",
+		  EMSG("r = %s\n", rp);
+		  EMSG("  base %d, correct size %u, got %u\n",
 			   base, (unsigned) rn, (unsigned)tn);
 		  abort ();
 		}
@@ -220,11 +221,11 @@ testmain (int argc, char **argv)
 
 	      if (memcmp (bp, rp, rn) != 0)
 		{
-		  fprintf (stderr, "mpz_out_str failed:\n");
+		  EMSG("mpz_out_str failed:\n");
 		  dump ("a", a);
-		  fprintf (stderr, "b = %s\n", bp);
-		  fprintf (stderr, "  base = %d\n", base);
-		  fprintf (stderr, "r = %s\n", rp);
+		  EMSG("b = %s\n", bp);
+		  EMSG("  base = %d\n", base);
+		  EMSG("r = %s\n", rp);
 		  abort ();
 		}
 	    }
@@ -233,11 +234,11 @@ testmain (int argc, char **argv)
 
 	  if (mpz_cmp (a, b))
 	    {
-	      fprintf (stderr, "mpz_set_str failed:\n");
-	      fprintf (stderr, "r = %s\n", rp);
-	      fprintf (stderr, "  base = %d\n", base);
-	      fprintf (stderr, "r = %s\n", ap);
-	      fprintf (stderr, "  base = 16\n");
+	      EMSG("mpz_set_str failed:\n");
+	      EMSG("r = %s\n", rp);
+	      EMSG("  base = %d\n", base);
+	      EMSG("r = %s\n", ap);
+	      EMSG("  base = 16\n");
 	      dump ("b", b);
 	      dump ("r", a);
 	      abort ();
@@ -257,12 +258,12 @@ testmain (int argc, char **argv)
 	      bn = mpn_get_str ((unsigned char *) bp, base, t, tn);
 	      if (bn != arn)
 		{
-		  fprintf (stderr, "mpn_get_str failed:\n");
-		  fprintf (stderr, "returned length: %lu (bad)\n", (unsigned long) bn);
-		  fprintf (stderr, "expected: %lu\n", (unsigned long) arn);
-		  fprintf (stderr, "  base = %d\n", base);
-		  fprintf (stderr, "r = %s\n", ap);
-		  fprintf (stderr, "  base = 16\n");
+		  EMSG("mpn_get_str failed:\n");
+		  EMSG("returned length: %lu (bad)\n", (unsigned long) bn);
+		  EMSG("expected: %lu\n", (unsigned long) arn);
+		  EMSG("  base = %d\n", base);
+		  EMSG("r = %s\n", ap);
+		  EMSG("  base = 16\n");
 		  dump ("b", b);
 		  dump ("r", a);
 		  abort ();
@@ -281,17 +282,17 @@ testmain (int argc, char **argv)
 		    value = digit - 'A' + 10;
 		  else
 		    {
-		      fprintf (stderr, "Internal error in test.\n");
+		      EMSG("Internal error in test.\n");
 		      abort();
 		    }
 		  if (bp[i] != value)
 		    {
-		      fprintf (stderr, "mpn_get_str failed:\n");
-		      fprintf (stderr, "digit %lu: %d (bad)\n", (unsigned long) i, bp[i]);
-		      fprintf (stderr, "expected: %d\n", value);
-		      fprintf (stderr, "  base = %d\n", base);
-		      fprintf (stderr, "r = %s\n", ap);
-		      fprintf (stderr, "  base = 16\n");
+		      EMSG("mpn_get_str failed:\n");
+		      EMSG("digit %lu: %d (bad)\n", (unsigned long) i, bp[i]);
+		      EMSG("expected: %d\n", value);
+		      EMSG("  base = %d\n", base);
+		      EMSG("r = %s\n", ap);
+		      EMSG("  base = 16\n");
 		      dump ("b", b);
 		      dump ("r", a);
 		      abort ();
@@ -300,11 +301,11 @@ testmain (int argc, char **argv)
 	      tn = mpn_set_str (t, (unsigned char *) bp, bn, base);
 	      if (tn != mpz_size (a) || mpn_cmp (t, a->_mp_d, tn))
 		{
-		  fprintf (stderr, "mpn_set_str failed:\n");
-		  fprintf (stderr, "r = %s\n", rp);
-		  fprintf (stderr, "  base = %d\n", base);
-		  fprintf (stderr, "r = %s\n", ap);
-		  fprintf (stderr, "  base = 16\n");
+		  EMSG("mpn_set_str failed:\n");
+		  EMSG("r = %s\n", rp);
+		  EMSG("  base = %d\n", base);
+		  EMSG("r = %s\n", ap);
+		  EMSG("  base = 16\n");
 		  dump ("r", a);
 		  abort ();
 		}

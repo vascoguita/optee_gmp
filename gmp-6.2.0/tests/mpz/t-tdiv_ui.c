@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_abs, mpz_add, mpz_cmp, mpz_cmp_ui, mpz_tdiv_qr_ui, mpz_tdiv_q_ui,
    mpz_tdiv_r_ui, mpz_tdiv_ui, mpz_mul_ui.
 
@@ -145,9 +146,9 @@ main (int argc, char **argv)
 void
 dump_abort (const char *str, mpz_t dividend, unsigned long divisor)
 {
-  fprintf (stderr, "ERROR: %s\n", str);
-  fprintf (stderr, "dividend = "); debug_mp (dividend, -16);
-  fprintf (stderr, "divisor  = %lX\n", divisor);
+  EMSG("ERROR: %s\n", str);
+  EMSG("dividend = "); debug_mp (dividend, -16);
+  EMSG("divisor  = %lX\n", divisor);
   abort();
 }
 

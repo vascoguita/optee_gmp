@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* gen.c -- Generate pseudorandom numbers.
 
 Copyright 1999, 2000, 2002 Free Software Foundation, Inc.
@@ -145,7 +146,7 @@ int main (argc, argv)
 	    || NULL == (str_adder = strtok (NULL, ","))
 	    || NULL == (str_m = strtok (NULL, ",")))
 	  {
-	    fprintf (stderr, "gen: bad LC scheme parameters: %s\n", optarg);
+	    EMSG("gen: bad LC scheme parameters: %s\n", optarg);
 	    exit (1);
 	  }
 #ifdef HAVE_STRTOUL
@@ -158,12 +159,12 @@ int main (argc, argv)
 
 	if (mpz_init_set_str (z_a, str_a, 0))
 	  {
-	    fprintf (stderr, "gen: bad LC scheme parameter `a': %s\n", str_a);
+	    EMSG("gen: bad LC scheme parameter `a': %s\n", str_a);
 	    exit (1);
 	  }
 	if (ULONG_MAX == ul_adder)
 	  {
-	    fprintf (stderr, "gen: bad LC scheme parameter `c': %s\n",
+	    EMSG("gen: bad LC scheme parameter `c': %s\n",
 		     str_adder);
 	    exit (1);
 	  }
@@ -206,7 +207,7 @@ int main (argc, argv)
       case 'm':			/* max for mpz_urandomm() */
 	if (mpz_set_str (z_mmax, optarg, 0))
 	  {
-	    fprintf (stderr, "gen: bad max value: %s\n", optarg);
+	    EMSG("gen: bad max value: %s\n", optarg);
 	    exit (1);
 	  }
 	break;
@@ -222,7 +223,7 @@ int main (argc, argv)
       case 's':			/* user provided seed */
 	if (mpz_set_str (z_seed, optarg, 0))
 	  {
-	    fprintf (stderr, "gen: bad seed argument %s\n", optarg);
+	    EMSG("gen: bad seed argument %s\n", optarg);
 	    exit (1);
 	  }
 	seed_from_user = 1;
@@ -232,7 +233,7 @@ int main (argc, argv)
 	size = atoi (optarg);
 	if (size < 1)
 	  {
-	    fprintf (stderr, "gen: bad size argument (-z %u)\n", size);
+	    EMSG("gen: bad size argument (-z %u)\n", size);
 	    exit (1);
 	  }
 	break;
@@ -242,7 +243,7 @@ int main (argc, argv)
 	str_xt = strchr (optarg, ',');
 	if (NULL == str_xt)
 	  {
-	    fprintf (stderr, "gen: bad exclusion parameters: %s\n", optarg);
+	    EMSG("gen: bad exclusion parameters: %s\n", optarg);
 	    exit (1);
 	  }
 	*str_xt++ = '\0';
@@ -263,9 +264,9 @@ int main (argc, argv)
   seed = mpz_get_ui (z_seed);
   if (printseed)
     {
-      fprintf (stderr, "gen: seed used: ");
+      EMSG("gen: seed used: ");
       mpz_out_str (stderr, output_radix, z_seed);
-      fprintf (stderr, "\n");
+      EMSG("\n");
     }
 
   mpf_set_prec (f1, size);
@@ -295,7 +296,7 @@ int main (argc, argv)
 	  break;
 
 	default:
-	  fprintf (stderr, "gen: unsupported algorithm\n");
+	  EMSG("gen: unsupported algorithm\n");
 	  exit (1);
 	}
 
@@ -313,12 +314,12 @@ int main (argc, argv)
       else
 	srandomdev ();
 #else
-      fprintf (stderr, "gen: unsupported algorithm\n");
+      EMSG("gen: unsupported algorithm\n");
 #endif
       break;
 
     default:
-      fprintf (stderr, "gen: random function not implemented\n");
+      EMSG("gen: random function not implemented\n");
       exit (1);
     }
 
@@ -331,7 +332,7 @@ int main (argc, argv)
 	if (mpf_set_str (f_xf, str_xf, 10) ||
 	    mpf_set_str (f_xt, str_xt, 10))
 	  {
-	    fprintf (stderr, "gen: bad exclusion-from (\"%s\") " \
+	    EMSG("gen: bad exclusion-from (\"%s\") " \
 		     "or exclusion-to (\"%s\") string.  no exclusion done.\n",
 		     str_xf, str_xt);
 	    do_exclude = 0;
@@ -339,7 +340,7 @@ int main (argc, argv)
 	break;
 
       default:
-	fprintf (stderr, "gen: exclusion not implemented for chosen " \
+	EMSG("gen: exclusion not implemented for chosen " \
 		 "randomization function.  all numbers included in sequence.\n");
       }
 
@@ -366,7 +367,7 @@ int main (argc, argv)
 	  if (binout)
 	    {
 	      /*fwrite ((unsigned int *) z1->_mp_d, 4, 1, stdout);*/
-	      fprintf (stderr, "gen: binary output for mpz_urandom* is broken\n");
+	      EMSG("gen: binary output for mpz_urandom* is broken\n");
 	      exit (1);
 	    }
 	  else
@@ -383,7 +384,7 @@ int main (argc, argv)
 	  if (binout)
 	    {
 	      /*fwrite ((unsigned int *) z1->_mp_d, 4, 1, stdout);*/
-	      fprintf (stderr, "gen: binary output for mpz_urandom* is broken\n");
+	      EMSG("gen: binary output for mpz_urandom* is broken\n");
 	      exit (1);
 	    }
 	  else
@@ -402,7 +403,7 @@ int main (argc, argv)
 	    break;
 	  if (binout)
 	    {
-	      fprintf (stderr, "gen: binary output for floating point numbers "\
+	      EMSG("gen: binary output for floating point numbers "\
 		       "not implemented\n");
 	      exit (1);
 	    }
@@ -451,7 +452,7 @@ int main (argc, argv)
 	  break;
 
 	default:
-	  fprintf (stderr, "gen: random function not implemented\n");
+	  EMSG("gen: random function not implemented\n");
 	  exit (1);
 	}
 

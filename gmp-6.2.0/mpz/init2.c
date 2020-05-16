@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* mpz_init2 -- initialize mpz, with requested size in bits.
 
 Copyright 2001, 2002, 2008 Free Software Foundation, Inc.
@@ -44,7 +45,7 @@ mpz_init2 (mpz_ptr x, mp_bitcnt_t bits)
     {
       if (UNLIKELY (new_alloc > INT_MAX))
 	{
-	  fprintf (stderr, "gmp: overflow in mpz type\n");
+	  EMSG("gmp: overflow in mpz type\n");
 	  abort ();
 	}
     }

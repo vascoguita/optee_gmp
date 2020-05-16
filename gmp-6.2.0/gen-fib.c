@@ -123,7 +123,6 @@ main (int argc, char *argv[])
 
   if (argc != 4)
     {
-      fprintf (stderr, "Usage: gen-fib <header|table> <limbbits> <nailbits>\n");
       exit (1);
     }
 
@@ -134,8 +133,6 @@ main (int argc, char *argv[])
       || nail_bits < 0
       || nail_bits >= limb_bits)
     {
-      fprintf (stderr, "Invalid limb/nail bits: %d %d\n",
-               limb_bits, nail_bits);
       exit (1);
     }
   numb_bits = limb_bits - nail_bits;
@@ -148,7 +145,6 @@ main (int argc, char *argv[])
     table (numb_bits);
   else
     {
-      fprintf (stderr, "Invalid header/table choice: %s\n", argv[1]);
       exit (1);
     }
 

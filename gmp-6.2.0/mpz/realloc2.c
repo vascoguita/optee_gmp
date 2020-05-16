@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* mpz_realloc2 -- change allocated data size.
 
 Copyright 2001, 2002, 2008, 2015 Free Software Foundation, Inc.
@@ -44,7 +45,7 @@ mpz_realloc2 (mpz_ptr m, mp_bitcnt_t bits)
     {
       if (UNLIKELY (new_alloc > INT_MAX))
 	{
-	  fprintf (stderr, "gmp: overflow in mpz type\n");
+	  EMSG("gmp: overflow in mpz type\n");
 	  abort ();
 	}
     }

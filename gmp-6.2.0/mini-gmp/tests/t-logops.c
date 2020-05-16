@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013 Free Software Foundation, Inc.
@@ -44,7 +45,7 @@ testlogops (int count)
       mpz_and (res, a, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_and failed:\n");
+	  EMSG("mpz_and failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);
@@ -56,7 +57,7 @@ testlogops (int count)
       mpz_ior (res, a, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_ior failed:\n");
+	  EMSG("mpz_ior failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);
@@ -68,7 +69,7 @@ testlogops (int count)
       mpz_xor (res, a, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_xor failed:\n");
+	  EMSG("mpz_xor failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);
@@ -89,12 +90,12 @@ testlogops (int count)
 
       if (mpz_popcount (res) + c != mpz_hamdist (a, b))
 	{
-	  fprintf (stderr, "mpz_popcount(r) + %lu and mpz_hamdist(a,b) differ:\n", c);
+	  EMSG("mpz_popcount(r) + %lu and mpz_hamdist(a,b) differ:\n", c);
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);
-	  fprintf (stderr, "mpz_popcount(r) = %lu:\n", mpz_popcount (res));
-	  fprintf (stderr, "mpz_hamdist(a,b) = %lu:\n", mpz_hamdist (a, b));
+	  EMSG("mpz_popcount(r) = %lu:\n", mpz_popcount (res));
+	  EMSG("mpz_hamdist(a,b) = %lu:\n", mpz_hamdist (a, b));
 	  abort ();
 	}
     }

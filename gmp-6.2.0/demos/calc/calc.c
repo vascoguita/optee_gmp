@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* original parser id follows */
 /* yysccsid[] = "@(#)yaccpar	1.9 (Berkeley) 02/21/93" */
 /* (use YYMAJOR/YYMINOR for ifdefs dependent on parser version) */
@@ -126,7 +127,7 @@ mpz_ptr  sp = stack[0];
 #define CHECK_OVERFLOW()                                                  \
   if (sp >= stack[numberof(stack)])	/* FIXME */			\
     {                                                                     \
-      fprintf (stderr,                                                    \
+      EMSG(                                                   \
                "Value stack overflow, too much nesting in expression\n"); \
       YYERROR;                                                            \
     }
@@ -134,7 +135,7 @@ mpz_ptr  sp = stack[0];
 #define CHECK_EMPTY()                                                   \
   if (sp != stack[0])                                                   \
     {                                                                   \
-      fprintf (stderr, "Oops, expected the value stack to be empty\n"); \
+      EMSG("Oops, expected the value stack to be empty\n"); \
       sp = stack[0];                                                    \
     }
 
@@ -144,7 +145,7 @@ mpz_t  variable[26];
 #define CHECK_VARIABLE(var)                                             \
   if ((var) < 0 || (var) >= numberof (variable))                        \
     {                                                                   \
-      fprintf (stderr, "Oops, bad variable somehow: %d\n", var);        \
+      EMSG("Oops, bad variable somehow: %d\n", var);        \
       YYERROR;                                                          \
     }
 
@@ -152,7 +153,7 @@ mpz_t  variable[26];
 #define CHECK_UI(name,z)                        \
   if (! mpz_fits_ulong_p (z))                   \
     {                                           \
-      fprintf (stderr, "%s too big\n", name);   \
+      EMSG("%s too big\n", name);   \
       YYERROR;                                  \
     }
 
@@ -655,7 +656,7 @@ static YYSTACKDATA yystack;
 
 yyerror (char *s)
 {
-  fprintf (stderr, "%s\n", s);
+  EMSG("%s\n", s);
 }
 
 int calc_option_readline = -1;
@@ -683,7 +684,7 @@ main (int argc, char *argv[])
         }
       else
         {
-          fprintf (stderr, "Unrecognised option: %s\n", argv[i]);
+          EMSG("Unrecognised option: %s\n", argv[i]);
           exit (1);
         }
     }
@@ -693,7 +694,7 @@ main (int argc, char *argv[])
 #else
   if (calc_option_readline == 1)
     {
-      fprintf (stderr, "Readline support not available\n");
+      EMSG("Readline support not available\n");
       exit (1);
     }
 #endif
@@ -1075,7 +1076,7 @@ case 44:
         CHECK_OVERFLOW ();
         if (mpz_set_str (sp, yystack.l_mark[0].str, ibase) != 0)
           {
-            fprintf (stderr, "Invalid number: %s\n", yystack.l_mark[0].str);
+            EMSG("Invalid number: %s\n", yystack.l_mark[0].str);
             YYERROR;
           }
       }

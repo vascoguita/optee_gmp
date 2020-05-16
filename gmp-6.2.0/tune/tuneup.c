@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Create tuned thresholds for various algorithms.
 
 Copyright 1999-2003, 2005, 2006, 2008-2017 Free Software Foundation, Inc.
@@ -688,10 +689,10 @@ one (mp_size_t *threshold, struct param_t *param)
          an error.  */
       if (s.size >= param->max_size && param->max_size >= DEFAULT_MAX_SIZE)
         {
-          fprintf (stderr, "%s\n", param->name);
-          fprintf (stderr, "sizes %ld to %ld total %d measurements\n",
+          EMSG("%s\n", param->name);
+          EMSG("sizes %ld to %ld total %d measurements\n",
                    (long) dat[0].size, (long) dat[ndat-1].size, ndat);
-          fprintf (stderr, "    max size reached before end of crossover\n");
+          EMSG("    max size reached before end of crossover\n");
           break;
         }
     }
@@ -2894,24 +2895,24 @@ all (void)
   mpn_random (s.xp_block, SPEED_BLOCK_SIZE);
   mpn_random (s.yp_block, SPEED_BLOCK_SIZE);
 
-  fprintf (stderr, "Parameters for %s\n", GMP_MPARAM_H_SUGGEST);
+  EMSG("Parameters for %s\n", GMP_MPARAM_H_SUGGEST);
 
   speed_time_init ();
-  fprintf (stderr, "Using: %s\n", speed_time_string);
+  EMSG("Using: %s\n", speed_time_string);
 
-  fprintf (stderr, "speed_precision %d", speed_precision);
+  EMSG("speed_precision %d", speed_precision);
   if (speed_unittime == 1.0)
-    fprintf (stderr, ", speed_unittime 1 cycle");
+    EMSG(", speed_unittime 1 cycle");
   else
-    fprintf (stderr, ", speed_unittime %.2e secs", speed_unittime);
+    EMSG(", speed_unittime %.2e secs", speed_unittime);
   if (speed_cycletime == 1.0 || speed_cycletime == 0.0)
-    fprintf (stderr, ", CPU freq unknown\n");
+    EMSG(", CPU freq unknown\n");
   else
-    fprintf (stderr, ", CPU freq %.2f MHz\n", 1e-6/speed_cycletime);
+    EMSG(", CPU freq %.2f MHz\n", 1e-6/speed_cycletime);
 
-  fprintf (stderr, "DEFAULT_MAX_SIZE %d, fft_max_size %ld\n",
+  EMSG("DEFAULT_MAX_SIZE %d, fft_max_size %ld\n",
            DEFAULT_MAX_SIZE, (long) option_fft_max_size);
-  fprintf (stderr, "\n");
+  EMSG("\n");
 
   time (&start_time);
   {

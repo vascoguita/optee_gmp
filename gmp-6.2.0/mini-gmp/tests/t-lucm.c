@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Tests the (internal) function mpz_lucas_mod
 
 Copyright 2018, Free Software Foundation, Inc.
@@ -48,7 +49,7 @@ testmain (int argc, char **argv)
       mini_random_lucm_op (MAXBITS, vr, qr, m, &Q, &b0, &resr);
       if (b0 == 0)
 	{
-	  fprintf (stderr, "lucas_mod: test disabled (%u tests done).\n", i);
+	  EMSG("lucas_mod: test disabled (%u tests done).\n", i);
 	  break;
 	}
       resm = mpz_lucas_mod (vm, qm, Q, b0, m);
@@ -57,8 +58,8 @@ testmain (int argc, char **argv)
 	{
 	  if (resm != 0 || mpz_cmp_ui (vm, 0) != 0)
 	    {
-	      fprintf (stderr, "mpz_lucas_mod wrong return value (%d != %d):\n", resr, resm);
-	      fprintf (stderr, "Q = %ld , b0 = %lu\n", Q, b0);
+	      EMSG("mpz_lucas_mod wrong return value (%d != %d):\n", resr, resm);
+	      EMSG("Q = %ld , b0 = %lu\n", Q, b0);
 	      dump ("m", m);
 	      dump ("vm", vm);
 	      dump ("qm", qm);
@@ -76,8 +77,8 @@ testmain (int argc, char **argv)
 	  if (mpz_cmp (qm, qr) != 0 ||
 	      (mpz_cmp (vm, vr) != 0 && mpz_cmp (vm, vt) != 0))
 	    {
-	      fprintf (stderr, "mpz_lucas_mod error:\n");
-	      fprintf (stderr, "Q = %ld , b0 = %lu\n", Q, b0);
+	      EMSG("mpz_lucas_mod error:\n");
+	      EMSG("Q = %ld , b0 = %lu\n", Q, b0);
 	      dump ("m", m);
 	      dump ("vm", vm);
 	      dump ("vr", vr);

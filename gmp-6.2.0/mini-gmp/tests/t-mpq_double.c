@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpq_set_d.
 
 Copyright 2001-2003, 2005, 2013, 2018 Free Software Foundation, Inc.
@@ -98,7 +99,7 @@ check_random (void)
       f = mpq_get_d (y);
       if (f != d)
 	{
-	  fprintf (stderr, "mpq_set_d/mpq_get_d failed:\n");
+	  EMSG("mpq_set_d/mpq_get_d failed:\n");
 	  goto dumperror;
 	}
 
@@ -109,14 +110,14 @@ check_random (void)
       f = mpq_get_d (z);
       if (f != d || !mpq_equal (y, z))
 	{
-	  fprintf (stderr, "mpq_set_d/mpq_get_d failed:\n");
+	  EMSG("mpq_set_d/mpq_get_d failed:\n");
 	dumperror:
 	  dump ("ny", mpq_numref (y));
 	  dump ("dy", mpq_denref (y));
-	  fprintf (stderr, "m = %lx, e = %i\n", m, e);
-	  fprintf (stderr, "d = %.35g\n", d);
-	  fprintf (stderr, "f = %.35g\n", f);
-	  fprintf (stderr, "f - d = %.35g\n", f - d);
+	  EMSG("m = %lx, e = %i\n", m, e);
+	  EMSG("d = %.35g\n", d);
+	  EMSG("f = %.35g\n", f);
+	  EMSG("f - d = %.35g\n", f - d);
 	  abort ();
 	}
 
@@ -139,7 +140,7 @@ check_random (void)
       if (f > 0 ? c < 0 : c > 0)
 #endif
 	{
-	  fprintf (stderr, "mpq_get_d/mpq_set_d failed: %i %i\n", i, c);
+	  EMSG("mpq_get_d/mpq_set_d failed: %i %i\n", i, c);
 	  goto dumperror;
 	}
     }
@@ -191,13 +192,13 @@ check_data (void)
       mpq_canonicalize (r);
       if (!mpq_equal (x, r))
 	{
-	  fprintf (stderr, "mpq_set_d failed: %li / %lu != %g\n", data[i].n, data[i].d, data[i].y);
+	  EMSG("mpq_set_d failed: %li / %lu != %g\n", data[i].n, data[i].d, data[i].y);
 	  abort ();
 	}
       d = mpq_get_d (r);
       if (d != data[i].y)
 	{
-	  fprintf (stderr, "mpq_get_d failed: %li / %lu != %g\n", data[i].n, data[i].d, data[i].y);
+	  EMSG("mpq_get_d failed: %li / %lu != %g\n", data[i].n, data[i].d, data[i].y);
 	  abort ();
 	}
     }

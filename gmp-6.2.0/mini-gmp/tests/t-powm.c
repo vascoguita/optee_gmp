@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, Free Software Foundation, Inc.
@@ -44,7 +45,7 @@ testmain (int argc, char **argv)
       mpz_powm (res, b, e, m);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_powm failed:\n");
+	  EMSG("mpz_powm failed:\n");
 	  dump ("b", b);
 	  dump ("e", e);
 	  dump ("m", m);

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test conversion using mpz_get_str and mpz_set_str.
 
 Copyright 1993, 1994, 1996, 1999-2002, 2006, 2007 Free Software Foundation,
@@ -112,11 +113,11 @@ main (int argc, char **argv)
 
       if (mpz_cmp (op1, op2))
 	{
-	  fprintf (stderr, "ERROR, op1 and op2 different in test %d\n", i);
-	  fprintf (stderr, "str  = %s\n", str);
-	  fprintf (stderr, "base = %d\n", base);
-	  fprintf (stderr, "op1  = "); debug_mp (op1, -16);
-	  fprintf (stderr, "op2  = "); debug_mp (op2, -16);
+	  EMSG("ERROR, op1 and op2 different in test %d\n", i);
+	  EMSG("str  = %s\n", str);
+	  EMSG("base = %d\n", base);
+	  EMSG("op1  = "); debug_mp (op1, -16);
+	  EMSG("op2  = "); debug_mp (op2, -16);
 	  abort ();
 	}
 
@@ -142,11 +143,11 @@ main (int argc, char **argv)
 
       if (strcasecmp (str, bp) != 0)
 	{
-	  fprintf (stderr, "ERROR, str and buf different in test %d\n", i);
-	  fprintf (stderr, "str  = %s\n", str);
-	  fprintf (stderr, "buf  = %s\n", buf);
-	  fprintf (stderr, "base = %d\n", base);
-	  fprintf (stderr, "op1  = "); debug_mp (op1, -16);
+	  EMSG("ERROR, str and buf different in test %d\n", i);
+	  EMSG("str  = %s\n", str);
+	  EMSG("buf  = %s\n", buf);
+	  EMSG("base = %d\n", base);
+	  EMSG("op1  = "); debug_mp (op1, -16);
 	  abort ();
 	}
 

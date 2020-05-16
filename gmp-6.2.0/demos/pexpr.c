@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Program for computing integer expressions using the GNU Multiple Precision
    Arithmetic Library.
 
@@ -303,7 +304,7 @@ main (int argc, char **argv)
 	  base = atoi (arg + 2);
 	  if (base < 2 || base > 62)
 	    {
-	      fprintf (stderr, "error: invalid output base\n");
+	      EMSG("error: invalid output base\n");
 	      exit (-1);
 	    }
 	}
@@ -341,7 +342,7 @@ main (int argc, char **argv)
 	}
       else
 	{
-	  fprintf (stderr, "error: unknown option `%s'\n", arg);
+	  EMSG("error: unknown option `%s'\n", arg);
 	  exit (-1);
 	}
       argv++;
@@ -357,16 +358,16 @@ main (int argc, char **argv)
       jmpval = setjmp (errjmpbuf);
       if (jmpval != 0)
 	{
-	  fprintf (stderr, "error: %s%s\n", error, newline);
-	  fprintf (stderr, "       %s%s\n", argv[i], newline);
+	  EMSG("error: %s%s\n", error, newline);
+	  EMSG("       %s%s\n", argv[i], newline);
 	  if (! flag_html)
 	    {
 	      /* ??? Dunno how to align expression position with arrow in
 		 HTML ??? */
-	      fprintf (stderr, "       ");
+	      EMSG("       ");
 	      for (s = jmpval - (long) argv[i]; --s >= 0; )
 		putc (' ', stderr);
-	      fprintf (stderr, "^\n");
+	      EMSG("^\n");
 	    }
 
 	  errcode |= 1;
@@ -380,15 +381,15 @@ main (int argc, char **argv)
 	  fprintf (stderr,
 		   "error: garbage where end of expression expected%s\n",
 		   newline);
-	  fprintf (stderr, "       %s%s\n", argv[i], newline);
+	  EMSG("       %s%s\n", argv[i], newline);
 	  if (! flag_html)
 	    {
 	      /* ??? Dunno how to align expression position with arrow in
 		 HTML ??? */
-	      fprintf (stderr, "        ");
+	      EMSG("        ");
 	      for (s = str - argv[i]; --s; )
 		putc (' ', stderr);
-	      fprintf (stderr, "^\n");
+	      EMSG("^\n");
 	    }
 
 	  errcode |= 1;
@@ -399,16 +400,16 @@ main (int argc, char **argv)
       /* Set up error handler for evaluating expression.  */
       if (setjmp (errjmpbuf))
 	{
-	  fprintf (stderr, "error: %s%s\n", error, newline);
-	  fprintf (stderr, "       %s%s\n", argv[i], newline);
+	  EMSG("error: %s%s\n", error, newline);
+	  EMSG("       %s%s\n", argv[i], newline);
 	  if (! flag_html)
 	    {
 	      /* ??? Dunno how to align expression position with arrow in
 		 HTML ??? */
-	      fprintf (stderr, "       ");
+	      EMSG("       ");
 	      for (s = str - argv[i]; --s >= 0; )
 		putc (' ', stderr);
-	      fprintf (stderr, "^\n");
+	      EMSG("^\n");
 	    }
 
 	  errcode |= 2;

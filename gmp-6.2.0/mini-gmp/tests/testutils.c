@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2013-2015, 2018 Free Software Foundation, Inc.
@@ -61,7 +62,7 @@ block_check  (void *p)
 
   if (memcmp ((char *)p + size, block_end, sizeof(block_end)) != 0)
     {
-      fprintf (stderr, "red zone overwritten.\n");
+      EMSG("red zone overwritten.\n");
       abort ();
     }
   total_alloc -= size;
@@ -74,7 +75,7 @@ tu_alloc (size_t size)
   size_t *block = (size_t *) malloc (sizeof(size_t) + size + sizeof(block_end));
   if (!block)
     {
-      fprintf (stderr, "Virtual memory exhausted.\n");
+      EMSG("Virtual memory exhausted.\n");
       abort ();
     }
 
@@ -88,7 +89,7 @@ tu_realloc (void *p, size_t old_size, size_t new_size)
   block = (size_t *) realloc (block, sizeof(size_t) + new_size + sizeof(block_end));
   if (!block)
     {
-      fprintf (stderr, "Virtual memory exhausted.\n");
+      EMSG("Virtual memory exhausted.\n");
       abort ();
     }
 
@@ -124,7 +125,7 @@ main (int argc, char **argv)
 
   if (total_alloc != 0)
     {
-      fprintf (stderr, "Memory leaked: %lu bytes.\n",
+      EMSG("Memory leaked: %lu bytes.\n",
 	       (unsigned long) total_alloc);
       abort ();
     }
@@ -144,7 +145,7 @@ testhalves (int count, void (*tested_fun) (int))
   (*tested_fun) (count / 2);
   if (initial_alloc != total_alloc)
     {
-      fprintf (stderr, "First half, memory leaked: %lu bytes.\n",
+      EMSG("First half, memory leaked: %lu bytes.\n",
 	       (unsigned long) total_alloc - initial_alloc);
       abort ();
     }
@@ -157,7 +158,7 @@ void
 dump (const char *label, const mpz_t x)
 {
   char *buf = mpz_get_str (NULL, 16, x);
-  fprintf (stderr, "%s: %s\n", label, buf);
+  EMSG("%s: %s\n", label, buf);
   testfree (buf);
 }
 
@@ -166,9 +167,9 @@ mpz_set_str_or_abort (mpz_ptr z, const char *str, int base)
 {
   if (mpz_set_str (z, str, base) != 0)
     {
-      fprintf (stderr, "ERROR: mpz_set_str failed\n");
-      fprintf (stderr, "   str  = \"%s\"\n", str);
-      fprintf (stderr, "   base = %d\n", base);
+      EMSG("ERROR: mpz_set_str failed\n");
+      EMSG("   str  = \"%s\"\n", str);
+      EMSG("   base = %d\n", base);
       abort();
     }
 }

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2014, Free Software Foundation, Inc.
@@ -77,23 +78,23 @@ mpz_mpn_sqrtrem (mpz_t s, mpz_t r, const mpz_t u)
 
   if (sp [sn] != 11)
     {
-      fprintf (stderr, "mpn_sqrtrem buffer overrun on sp.\n");
+      EMSG("mpn_sqrtrem buffer overrun on sp.\n");
       abort ();
     }
   if (un & 1) {
     if ((ret != 0) != (mpz_size (r) != 0)) {
-      fprintf (stderr, "mpn_sqrtrem wrong return value with NULL.\n");
+      EMSG("mpn_sqrtrem wrong return value with NULL.\n");
       abort ();
     }
   } else {
     mpz_limbs_finish (r, ret);
     if ((size_t) ret != mpz_size (r)) {
-      fprintf (stderr, "mpn_sqrtrem wrong return value.\n");
+      EMSG("mpn_sqrtrem wrong return value.\n");
       abort ();
     }
     if (rp [un] != 19)
       {
-	fprintf (stderr, "mpn_sqrtrem buffer overrun on rp.\n");
+	EMSG("mpn_sqrtrem buffer overrun on rp.\n");
 	abort ();
       }
   }
@@ -113,13 +114,13 @@ testmain (int argc, char **argv)
   mpz_init_set_si (u, -1);
   if (mpz_perfect_square_p (u))
     {
-      fprintf (stderr, "mpz_perfect_square_p failed on -1.\n");
+      EMSG("mpz_perfect_square_p failed on -1.\n");
       abort ();
     }
 
   if (!mpz_perfect_square_p (s))
     {
-      fprintf (stderr, "mpz_perfect_square_p failed on 0.\n");
+      EMSG("mpz_perfect_square_p failed on 0.\n");
       abort ();
     }
 
@@ -130,7 +131,7 @@ testmain (int argc, char **argv)
 
       if (!sqrtrem_valid_p (u, s, r))
 	{
-	  fprintf (stderr, "mpz_sqrtrem failed:\n");
+	  EMSG("mpz_sqrtrem failed:\n");
 	  dump ("u", u);
 	  dump ("sqrt", s);
 	  dump ("rem", r);
@@ -141,7 +142,7 @@ testmain (int argc, char **argv)
 
       if (!sqrtrem_valid_p (u, s, r))
 	{
-	  fprintf (stderr, "mpn_sqrtrem failed:\n");
+	  EMSG("mpn_sqrtrem failed:\n");
 	  dump ("u", u);
 	  dump ("sqrt", s);
 	  dump ("rem", r);
@@ -157,7 +158,7 @@ testmain (int argc, char **argv)
 	  mpz_perfect_square_p (u) :
 	  mpn_perfect_square_p (mpz_limbs_read (u), mpz_size (u)))
 	{
-	  fprintf (stderr, "mp%s_perfect_square_p failed on non square:\n",
+	  EMSG("mp%s_perfect_square_p failed on non square:\n",
 		   (mpz_sgn (u) <= 0 || (i & 1)) ? "z" : "n");
 	  dump ("u", u);
 	  abort ();
@@ -168,7 +169,7 @@ testmain (int argc, char **argv)
 	    mpz_perfect_square_p (u) :
 	    mpn_perfect_square_p (mpz_limbs_read (u), mpz_size (u))))
 	{
-	  fprintf (stderr, "mp%s_perfect_square_p failed on square:\n",
+	  EMSG("mp%s_perfect_square_p failed on square:\n",
 		   (mpz_sgn (u) <= 0 || (i & 1)) ? "z" : "n");
 	  dump ("u", u);
 	  abort ();

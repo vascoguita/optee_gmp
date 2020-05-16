@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Copyright 2013-2015 Free Software Foundation, Inc.
 
 This file is part of the GNU MP Library test suite.
@@ -120,7 +121,7 @@ main (int argc, char **argv)
       rres = mpz_invert (r, a, m);
       if ( (test & 4) && !rres)
 	{
-	  gmp_fprintf (stderr, "test %d: Not invertible!\n"
+	  gmp_EMSG("test %d: Not invertible!\n"
 		       "m = %Zd\n"
 		       "a = %Zd\n", test, m, a);
 	  abort ();
@@ -140,17 +141,17 @@ main (int argc, char **argv)
 
       if (rres != tres || (rres == 1 && !mpz_eq_mpn (tp, n, r)) || ran != scratch[itch])
 	{
-	  gmp_fprintf (stderr, "Test %d failed.\n"
+	  gmp_EMSG("Test %d failed.\n"
 		       "m = %Zd\n"
 		       "a = %Zd\n", test, m, a);
-	  fprintf (stderr, "ref ret: %d\n"
+	  EMSG("ref ret: %d\n"
 		  "got ret: %d\n", rres, tres);
 	  if (rres)
-	    gmp_fprintf (stderr, "ref: %Zd\n", r);
+	    gmp_EMSG("ref: %Zd\n", r);
 	  if (tres)
-	    gmp_fprintf (stderr, "got: %Nd\n", tp, n);
+	    gmp_EMSG("got: %Nd\n", tp, n);
 	  if (ran != scratch[itch])
-	    fprintf (stderr, "scratch[itch] changed.\n");
+	    EMSG("scratch[itch] changed.\n");
 	  abort ();
 	}
     }

@@ -70,7 +70,6 @@ main (int argc, char *argv[])
 
   if (argc < 2)
     {
-      fprintf (stderr, "usage: %s bits endprime\n", argv[0]);
       exit (1);
     }
 

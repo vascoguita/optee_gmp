@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Test mpz_add, mpz_sub, mpz_add_ui, mpz_sub_ui, and mpz_ui_sub.
 
 Copyright 2002 Free Software Foundation, Inc.
@@ -108,9 +109,9 @@ main (int argc, char **argv)
 void
 dump_abort (int i, const char *s, mpz_t op1, mpz_t op2)
 {
-  fprintf (stderr, "ERROR: %s in test %d\n", s, i);
-  fprintf (stderr, "op1 = "); debug_mp (op1, -16);
-  fprintf (stderr, "op2 = "); debug_mp (op2, -16);
+  EMSG("ERROR: %s in test %d\n", s, i);
+  EMSG("op1 = "); debug_mp (op1, -16);
+  EMSG("op2 = "); debug_mp (op2, -16);
   abort();
 }
 

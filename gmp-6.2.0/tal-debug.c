@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* TMP_ALLOC routines for debugging.
 
 Copyright 2000, 2001, 2004 Free Software Foundation, Inc.
@@ -65,7 +66,7 @@ __gmp_tmp_debug_mark (const char *file, int line,
   if (strcmp (mark_name, decl_name) != 0)
     {
       __gmp_assert_header (file, line);
-      fprintf (stderr, "GNU MP: TMP_MARK(%s) but TMP_DECL(%s) is in scope\n",
+      EMSG("GNU MP: TMP_MARK(%s) but TMP_DECL(%s) is in scope\n",
                mark_name, decl_name);
       abort ();
     }
@@ -73,11 +74,11 @@ __gmp_tmp_debug_mark (const char *file, int line,
   if (*markp != NULL)
     {
       __gmp_assert_header (file, line);
-      fprintf (stderr, "GNU MP: Repeat of TMP_MARK(%s)\n", mark_name);
+      EMSG("GNU MP: Repeat of TMP_MARK(%s)\n", mark_name);
       if (mark->file != NULL && mark->file[0] != '\0' && mark->line != -1)
         {
           __gmp_assert_header (mark->file, mark->line);
-          fprintf (stderr, "previous was here\n");
+          EMSG("previous was here\n");
         }
       abort ();
     }
@@ -101,7 +102,7 @@ __gmp_tmp_debug_alloc (const char *file, int line, int dummy,
   if (mark == NULL)
     {
       __gmp_assert_header (file, line);
-      fprintf (stderr, "GNU MP: TMP_ALLOC without TMP_MARK(%s)\n", decl_name);
+      EMSG("GNU MP: TMP_ALLOC without TMP_MARK(%s)\n", decl_name);
       abort ();
     }
 
@@ -124,7 +125,7 @@ __gmp_tmp_debug_free (const char *file, int line, int dummy,
   if (mark == NULL)
     {
       __gmp_assert_header (file, line);
-      fprintf (stderr, "GNU MP: TMP_FREE(%s) without TMP_MARK(%s)\n",
+      EMSG("GNU MP: TMP_FREE(%s) without TMP_MARK(%s)\n",
                free_name, decl_name);
       abort ();
     }
@@ -132,7 +133,7 @@ __gmp_tmp_debug_free (const char *file, int line, int dummy,
   if (strcmp (free_name, decl_name) != 0)
     {
       __gmp_assert_header (file, line);
-      fprintf (stderr, "GNU MP: TMP_FREE(%s) when TMP_DECL(%s) is in scope\n",
+      EMSG("GNU MP: TMP_FREE(%s) when TMP_DECL(%s) is in scope\n",
                free_name, decl_name);
       abort ();
     }

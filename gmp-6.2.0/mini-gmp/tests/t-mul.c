@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2014, Free Software Foundation, Inc.
@@ -50,7 +51,7 @@ testmain (int argc, char **argv)
       mpz_mul (res, a, b);
       if (mpz_cmp (res, ref))
 	{
-	  fprintf (stderr, "mpz_mul failed:\n");
+	  EMSG("mpz_mul failed:\n");
 	  dump ("a", a);
 	  dump ("b", b);
 	  dump ("r", res);
@@ -68,7 +69,7 @@ testmain (int argc, char **argv)
 	      mpz_roinit_n (tz, t, 2*an);
 	      if (mpz_cmpabs (tz, ref))
 		{
-		  fprintf (stderr, "mpn_mul_n failed:\n");
+		  EMSG("mpn_mul_n failed:\n");
 		  dump ("a", a);
 		  dump ("b", b);
 		  dump ("ref", ref);
@@ -80,7 +81,7 @@ testmain (int argc, char **argv)
 	mpz_mul_si (res_ui, a, mpz_get_si (b));
 	if (mpz_cmp (res_ui, ref))
 	  {
-	    fprintf (stderr, "mpz_mul_si failed:\n");
+	    EMSG("mpz_mul_si failed:\n");
 	    dump ("a", a);
 	    dump ("b", b);
 	    dump ("r", res_ui);
@@ -98,7 +99,7 @@ testmain (int argc, char **argv)
 	  mpz_roinit_n (tz, t, 2*an);
 	  if (mpz_cmp (tz, ref))
 	    {
-	      fprintf (stderr, "mpn (squaring) failed:\n");
+	      EMSG("mpn (squaring) failed:\n");
 	      dump ("a", a);
 	      dump ("ref", ref);
 	      abort ();

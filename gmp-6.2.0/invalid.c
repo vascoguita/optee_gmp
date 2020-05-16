@@ -43,14 +43,6 @@ see https://www.gnu.org/licenses/.  */
 
 #include "gmp-impl.h"
 
-
-/* Incidentally, kill is not available on mingw, but that's ok, it has raise
-   and we'll be using that.  */
-#if ! HAVE_RAISE
-#define raise(sig)   kill (getpid(), sig)
-#endif
-
-
 /* __gmp_invalid_operation is for an invalid floating point operation, like
    mpz_set_d on a NaN or Inf.  It's done as a subroutine to minimize code in
    places raising an exception.
@@ -77,6 +69,5 @@ see https://www.gnu.org/licenses/.  */
 void
 __gmp_invalid_operation (void)
 {
-  raise (SIGFPE);
   abort ();
 }

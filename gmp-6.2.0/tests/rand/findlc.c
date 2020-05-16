@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 Copyright 2000 Free Software Foundation, Inc.
 
@@ -171,9 +172,9 @@ main (int argc, char *argv[])
 
   if (debug)
     {
-      fprintf (stderr, "low_merit = ");
+      EMSG("low_merit = ");
       mpf_out_str (stderr, 10, 2, low_merit);
-      fprintf (stderr, "; high_merit = ");
+      EMSG("; high_merit = ");
       mpf_out_str (stderr, 10, 2, high_merit);
       fputs ("\n", stderr);
     }

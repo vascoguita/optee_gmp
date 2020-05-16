@@ -1,0 +1,9 @@
+CFG_TEE_TA_LOG_LEVEL ?= 4
+CPPFLAGS += -DCFG_TEE_TA_LOG_LEVEL=$(CFG_TEE_TA_LOG_LEVEL)
+
+BINARY = 55c0bb95-7d18-4096-b989-671aa6008856
+
+CFLAGS += -I$(TA_DEV_KIT_DIR)/include
+LDADD += $(TA_DEV_KIT_DIR)/lib/libgmp.a
+
+include $(TA_DEV_KIT_DIR)/mk/ta_dev_kit.mk

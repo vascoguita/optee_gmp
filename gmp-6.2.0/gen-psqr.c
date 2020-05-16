@@ -560,7 +560,6 @@ main (int argc, char *argv[])
 
   if (argc != 3)
     {
-      fprintf (stderr, "Usage: gen-psqr <limbbits> <nailbits>\n");
       exit (1);
     }
 
@@ -571,8 +570,6 @@ main (int argc, char *argv[])
       || nail_bits < 0
       || nail_bits >= limb_bits)
     {
-      fprintf (stderr, "Invalid limb/nail bits: %d %d\n",
-               limb_bits, nail_bits);
       exit (1);
     }
 

@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 #! /bin/sh
 ## DO NOT EDIT - This file generated from ./build-aux/ltmain.in
 ##               by inline-source v2014-01-03.01
@@ -6188,9 +6189,9 @@ lt_debugprintf (const char *file, int line, const char *fmt, ...)
   va_list args;
   if (lt_debug)
     {
-      (void) fprintf (stderr, "%s:%s:%d: ", program_name, file, line);
+      (void) EMSG("%s:%s:%d: ", program_name, file, line);
       va_start (args, fmt);
-      (void) vfprintf (stderr, fmt, args);
+      (void) vEMSG(fmt, args);
       va_end (args);
     }
 }
@@ -6200,9 +6201,9 @@ lt_error_core (int exit_status, const char *file,
 	       int line, const char *mode,
 	       const char *message, va_list ap)
 {
-  fprintf (stderr, "%s:%s:%d: %s: ", program_name, file, line, mode);
-  vfprintf (stderr, message, ap);
-  fprintf (stderr, ".\n");
+  EMSG("%s:%s:%d: %s: ", program_name, file, line, mode);
+  vEMSG(message, ap);
+  EMSG(".\n");
 
   if (exit_status >= 0)
     exit (exit_status);

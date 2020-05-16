@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* List and count primes.
    Written by tege while on holiday in Rodupp, August 2001.
    Between 10 and 500 times faster than previous program.
@@ -156,7 +157,7 @@ main (int argc, char *argv[])
     }
   else
     {
-      fprintf (stderr, "usage: %s [-c] [-p] [-g] [from [+]]to\n", progname);
+      EMSG("usage: %s [-c] [-p] [-g] [from [+]]to\n", progname);
       exit (1);
     }
 

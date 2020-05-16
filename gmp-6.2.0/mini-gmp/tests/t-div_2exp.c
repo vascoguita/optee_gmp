@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, Free Software Foundation, Inc.
@@ -67,9 +68,9 @@ testmain (int argc, char **argv)
 	  div[j] (res, a, b);
 	  if (mpz_cmp (ref, res))
 	    {
-	      fprintf (stderr, "mpz_%s_2exp failed:\n", name[j]);
+	      EMSG("mpz_%s_2exp failed:\n", name[j]);
 	      dump ("a", a);
-	      fprintf (stderr, "b: %lu\n", b);
+	      EMSG("b: %lu\n", b);
 	      dump ("r", res);
 	      dump ("ref", ref);
 	      abort ();

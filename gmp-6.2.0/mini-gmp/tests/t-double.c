@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /*
 
 Copyright 2012, 2013, 2018 Free Software Foundation, Inc.
@@ -67,7 +68,7 @@ test_matissa (void)
     mpz_set_d (y, d);
     if (mpz_cmp_d (y, d) != 0)
       {
-	fprintf (stderr, "mpz_cmp_d (y, d) failed:\n"
+	EMSG("mpz_cmp_d (y, d) failed:\n"
 		 "d = %.20g\n"
 		 "i = %i\n"
 		 "c = %i\n",
@@ -80,7 +81,7 @@ test_matissa (void)
 #if defined(HAVE_EXACT_P)
     if ((mpz_get_d_exact_p (x) != 0) != (cmp == 0))
       {
-	fprintf (stderr, "Not all bits converted:\n"
+	EMSG("Not all bits converted:\n"
 		 "d = %.20g\n"
 		 "i = %i\n"
 		 "c = %i\n",
@@ -91,7 +92,7 @@ test_matissa (void)
 
     if (cmp < 0)
       {
-	fprintf (stderr, "mpz_get_d failed:\n"
+	EMSG("mpz_get_d failed:\n"
 		 "d = %.20g\n"
 		 "i = %i\n"
 		 "c = %i\n",
@@ -102,7 +103,7 @@ test_matissa (void)
       {
 	if (mpz_cmp_d (x, d) <= 0)
 	  {
-	    fprintf (stderr, "mpz_cmp_d (x, d) failed:\n"
+	    EMSG("mpz_cmp_d (x, d) failed:\n"
 		     "d = %.20g\n"
 		     "i = %i\n"
 		     "c = %i\n",
@@ -149,7 +150,7 @@ testmain (int argc, char **argv)
       s = mpz_get_str (NULL, 16, x);
       if (strcmp (s, values[i].s) != 0)
 	{
-	  fprintf (stderr, "mpz_set_d failed:\n"
+	  EMSG("mpz_set_d failed:\n"
 		   "d = %.20g\n"
 		   "s = %s\n"
 		   "r = %s\n",
@@ -180,18 +181,18 @@ testmain (int argc, char **argv)
       f = mpz_get_d (x);
       if (f != floor (d))
 	{
-	  fprintf (stderr, "mpz_set_d/mpz_get_d failed:\n");
+	  EMSG("mpz_set_d/mpz_get_d failed:\n");
 	  goto dumperror;
 	}
       if ((f == d) ? (mpz_cmp_d (x, d) != 0) : (mpz_cmp_d (x, d) >= 0))
 	{
-	  fprintf (stderr, "mpz_cmp_d (x, d) failed:\n");
+	  EMSG("mpz_cmp_d (x, d) failed:\n");
 	  goto dumperror;
 	}
       f = d + 1.0;
       if (f > d && ! (mpz_cmp_d (x, f) < 0))
 	{
-	  fprintf (stderr, "mpz_cmp_d (x, f) failed:\n");
+	  EMSG("mpz_cmp_d (x, f) failed:\n");
 	  goto dumperror;
 	}
 
@@ -201,24 +202,24 @@ testmain (int argc, char **argv)
       f = mpz_get_d (x);
       if (f != ceil (d))
 	{
-	  fprintf (stderr, "mpz_set_d/mpz_get_d failed:\n");
+	  EMSG("mpz_set_d/mpz_get_d failed:\n");
 	dumperror:
 	  dump ("x", x);
-	  fprintf (stderr, "m = %lx, e = %i\n", m, e);
-	  fprintf (stderr, "d = %.15g\n", d);
-	  fprintf (stderr, "f = %.15g\n", f);
-	  fprintf (stderr, "f - d = %.5g\n", f - d);
+	  EMSG("m = %lx, e = %i\n", m, e);
+	  EMSG("d = %.15g\n", d);
+	  EMSG("f = %.15g\n", f);
+	  EMSG("f - d = %.5g\n", f - d);
 	  abort ();
 	}
       if ((f == d) ? (mpz_cmp_d (x, d) != 0) : (mpz_cmp_d (x, d) <= 0))
 	{
-	  fprintf (stderr, "mpz_cmp_d (x, d) failed:\n");
+	  EMSG("mpz_cmp_d (x, d) failed:\n");
 	  goto dumperror;
 	}
       f = d - 1.0;
       if (f < d && ! (mpz_cmp_d (x, f) > 0))
 	{
-	  fprintf (stderr, "mpz_cmp_d (x, f) failed:\n");
+	  EMSG("mpz_cmp_d (x, f) failed:\n");
 	  goto dumperror;
 	}
     }

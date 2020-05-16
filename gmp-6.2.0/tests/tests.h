@@ -1,3 +1,4 @@
+#include <tee_internal_api.h>
 /* Tests support prototypes etc.
 
 Copyright 2000-2004, 2008-2013 Free Software Foundation, Inc.
@@ -418,7 +419,7 @@ istringstream : public std::istrstream {
       count = strtol (argv[1], &end, 0);				\
       if (*end || count <= 0)						\
 	{								\
-	  fprintf (stderr, "Invalid test count: %s.\n", argv[1]);	\
+	  EMSG("Invalid test count: %s.\n", argv[1]);	\
 	  exit (1);							\
 	}								\
       argv++;								\
@@ -431,7 +432,7 @@ istringstream : public std::istrstream {
       repfactor = strtod (envval, &end);				\
       if (*end || repfactor <= 0)					\
 	{								\
-	  fprintf (stderr, "Invalid repfactor: %f.\n", repfactor);	\
+	  EMSG("Invalid repfactor: %f.\n", repfactor);	\
 	  exit (1);							\
 	}								\
       count *= repfactor;						\
