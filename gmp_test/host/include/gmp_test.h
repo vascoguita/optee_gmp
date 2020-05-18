@@ -1,5 +1,5 @@
-#ifndef MEDICAL_RECORDS_H
-#define MEDICAL_RECORDS_H
+#ifndef GMP_TEST_H
+#define GMP_TEST_H
 
 #include <stdio.h>
 #include <tee_client_api.h>

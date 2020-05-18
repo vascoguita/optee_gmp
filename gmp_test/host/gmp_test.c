@@ -6,9 +6,9 @@
 
 #include <tee_client_api.h>
 
-#include <medical_records_ta.h>
+#include <gmp_test_ta.h>
 
-#include <medical_records.h>
+#include <gmp_test.h>
 
 int main(int argc, char *argv[]) {
 	TEEC_Context ctx;
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
 }
 
 void prepare_tee_session(TEEC_Context *ctx, TEEC_Session *sess) {
-	TEEC_UUID uuid = TA_MEDICAL_RECORDS_UUID;
+	TEEC_UUID uuid = TA_GMP_TEST_UUID;
 	uint32_t origin;
 	TEEC_Result res;
 

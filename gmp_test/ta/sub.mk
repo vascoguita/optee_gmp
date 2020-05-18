@@ -1,3 +1,3 @@
-srcs-y += medical_records_ta.c
+srcs-y += gmp_test_ta.c
 
 global-incdirs-y += include/

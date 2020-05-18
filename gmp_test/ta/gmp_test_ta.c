@@ -1,6 +1,6 @@
 #include <tee_internal_api.h>
 
-#include <medical_records_ta.h>
+#include <gmp_test_ta.h>
 
 #include <gmp.h>
 #include <stdlib.h>
