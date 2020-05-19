@@ -130,10 +130,10 @@ CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libprintf_la_LIBADD =
 am_libprintf_la_OBJECTS = asprintf.lo asprntffuns.lo doprnt.lo \
-	doprntf.lo doprnti.lo fprintf.lo obprintf.lo obvprintf.lo \
-	obprntffuns.lo printf.lo printffuns.lo snprintf.lo \
+	doprntf.lo doprnti.lo obprintf.lo obvprintf.lo \
+	obprntffuns.lo snprintf.lo \
 	snprntffuns.lo sprintf.lo sprintffuns.lo vasprintf.lo \
-	vfprintf.lo vprintf.lo vsnprintf.lo vsprintf.lo \
+	vsnprintf.lo vsprintf.lo \
 	repl-vsnprintf.lo
 libprintf_la_OBJECTS = $(am_libprintf_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)

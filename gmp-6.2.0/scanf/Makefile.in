@@ -129,8 +129,8 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 LTLIBRARIES = $(noinst_LTLIBRARIES)
 libscanf_la_LIBADD =
-am_libscanf_la_OBJECTS = doscan.lo fscanf.lo fscanffuns.lo scanf.lo \
-	sscanf.lo sscanffuns.lo vfscanf.lo vscanf.lo vsscanf.lo
+am_libscanf_la_OBJECTS = doscan.lo \
+	sscanf.lo sscanffuns.lo vsscanf.lo
 libscanf_la_OBJECTS = $(am_libscanf_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -361,8 +361,8 @@ top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -D__GMP_WITHIN_GMP -I$(top_srcdir)
 noinst_LTLIBRARIES = libscanf.la
 libscanf_la_SOURCES = \
-  doscan.c fscanf.c fscanffuns.c scanf.c sscanf.c sscanffuns.c \
-  vfscanf.c vscanf.c vsscanf.c
+  doscan.c sscanf.c sscanffuns.c \
+  vsscanf.c
 
 all: all-am
 

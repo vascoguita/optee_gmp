@@ -50,14 +50,13 @@ libmpz_la_SOURCES = aors.h aors_ui.h fits_s.h mul_i.h \
   fits_uint.c fits_ulong.c fits_ushort.c \
   gcd.c gcd_ui.c gcdext.c get_d.c get_d_2exp.c get_si.c \
   get_str.c get_ui.c getlimbn.c hamdist.c \
-  import.c init.c init2.c inits.c inp_raw.c inp_str.c \
+  import.c init.c init2.c inits.c \
   invert.c ior.c iset.c iset_d.c iset_si.c iset_str.c iset_ui.c \
   jacobi.c kronsz.c kronuz.c kronzs.c kronzu.c \
   lcm.c lcm_ui.c limbs_read.c limbs_write.c limbs_modify.c limbs_finish.c \
   lucnum_ui.c lucnum2_ui.c lucmod.c mfac_uiui.c millerrabin.c \
   mod.c mul.c mul_2exp.c mul_si.c mul_ui.c n_pow_ui.c neg.c nextprime.c \
-  oddfac_1.c \
-  out_raw.c out_str.c perfpow.c perfsqr.c popcount.c pow_ui.c powm.c \
+  oddfac_1.c perfpow.c perfsqr.c popcount.c pow_ui.c powm.c \
   powm_sec.c powm_ui.c pprime_p.c prodlimbs.c primorial_ui.c random.c random2.c \
   realloc.c realloc2.c remove.c roinit_n.c root.c rootrem.c rrandomb.c \
   scan0.c scan1.c set.c set_d.c set_f.c set_q.c set_si.c set_str.c \

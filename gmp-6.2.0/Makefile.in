@@ -114,7 +114,6 @@
 # libgmpxx.so.3.0.4) incrementing, to make it clear which GMP it's from.
 
 
-
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -189,7 +188,6 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@WANT_CXX_TRUE@am__append_1 = gmpxx.pc
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
@@ -203,7 +201,7 @@ am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
  configure.lineno config.status.lineno
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
-CONFIG_CLEAN_FILES = gmp.h gmp.pc gmpxx.pc gmp-mparam.h
+CONFIG_CLEAN_FILES = gmp.h gmp.pc gmp-mparam.h
 CONFIG_CLEAN_VPATH_FILES =
 am__vpath_adj_setup = srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`;
 am__vpath_adj = case $$p in \
@@ -251,12 +249,6 @@ libgmp_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
 	$(libgmp_la_LDFLAGS) $(LDFLAGS) -o $@
 am__dirstamp = $(am__leading_dot)dirstamp
-am_libgmpxx_la_OBJECTS = cxx/dummy.lo
-libgmpxx_la_OBJECTS = $(am_libgmpxx_la_OBJECTS)
-libgmpxx_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(libgmpxx_la_LDFLAGS) $(LDFLAGS) -o $@
-@WANT_CXX_TRUE@am_libgmpxx_la_rpath = -rpath $(libdir)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -289,29 +281,9 @@ LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \
 AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
-am__v_CCLD_1 = 
-CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
-	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
-LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) \
-	$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
-	$(AM_CXXFLAGS) $(CXXFLAGS)
-AM_V_CXX = $(am__v_CXX_@AM_V@)
-am__v_CXX_ = $(am__v_CXX_@AM_DEFAULT_V@)
-am__v_CXX_0 = @echo "  CXX     " $@;
-am__v_CXX_1 = 
-CXXLD = $(CXX)
-CXXLINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
-am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
-am__v_CXXLD_0 = @echo "  CXXLD   " $@;
-am__v_CXXLD_1 = 
-SOURCES = $(libgmp_la_SOURCES) $(EXTRA_libgmp_la_SOURCES) \
-	$(libgmpxx_la_SOURCES)
-DIST_SOURCES = $(libgmp_la_SOURCES) $(EXTRA_libgmp_la_SOURCES) \
-	$(libgmpxx_la_SOURCES)
+am__v_CCLD_1 =
+SOURCES = $(libgmp_la_SOURCES) $(EXTRA_libgmp_la_SOURCES)
+DIST_SOURCES = $(libgmp_la_SOURCES) $(EXTRA_libgmp_la_SOURCES)
 RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \
 	ctags-recursive dvi-recursive html-recursive info-recursive \
 	install-data-recursive install-dvi-recursive \
@@ -326,7 +298,6 @@ am__can_run_installinfo = \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
 DATA = $(pkgconfig_DATA)
-am__include_HEADERS_DIST = gmpxx.h
 HEADERS = $(include_HEADERS) $(nodist_includeexec_HEADERS)
 RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\
   distclean-recursive maintainer-clean-recursive
@@ -359,7 +330,7 @@ CTAGS = ctags
 CSCOPE = cscope
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.in \
-	$(srcdir)/gmp-h.in $(srcdir)/gmp.pc.in $(srcdir)/gmpxx.pc.in \
+	$(srcdir)/gmp-h.in $(srcdir)/gmp.pc.in \
 	AUTHORS COPYING ChangeLog INSTALL NEWS README compile \
 	config.guess config.sub install-sh ltmain.sh missing
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -423,9 +394,6 @@ CFLAGS = @CFLAGS@
 CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CPP_FOR_BUILD = @CPP_FOR_BUILD@
-CXX = @CXX@
-CXXCPP = @CXXCPP@
-CXXFLAGS = @CXXFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFN_LONG_LONG_LIMB = @DEFN_LONG_LONG_LIMB@
 DEFS = @DEFS@
@@ -465,7 +433,6 @@ LEX = @LEX@
 LEXLIB = @LEXLIB@
 LEX_OUTPUT_ROOT = @LEX_OUTPUT_ROOT@
 LIBCURSES = @LIBCURSES@
-LIBGMPXX_LDFLAGS = @LIBGMPXX_LDFLAGS@
 LIBGMP_DLL = @LIBGMP_DLL@
 LIBGMP_LDFLAGS = @LIBGMP_LDFLAGS@
 LIBM = @LIBM@
@@ -517,7 +484,6 @@ abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_AR = @ac_ct_AR@
 ac_ct_CC = @ac_ct_CC@
-ac_ct_CXX = @ac_ct_CXX@
 ac_ct_DUMPBIN = @ac_ct_DUMPBIN@
 am__leading_dot = @am__leading_dot@
 am__tar = @am__tar@
@@ -568,10 +534,7 @@ top_srcdir = @top_srcdir@
 LIBGMP_LT_CURRENT = 14
 LIBGMP_LT_REVISION = 0
 LIBGMP_LT_AGE = 4
-LIBGMPXX_LT_CURRENT = 10
-LIBGMPXX_LT_REVISION = 0
-LIBGMPXX_LT_AGE = 6
-SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune doc
+SUBDIRS = mpn mpz mpq mpf printf scanf rand tune
 
 # Put asl.h here for now.
 
@@ -593,14 +556,13 @@ SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune doc
 
 # Distribute mini-gmp. Test sources copied by dist-hook.
 EXTRA_DIST = configfsf.guess configfsf.sub .gdbinit INSTALL.autoconf \
-	COPYING.LESSERv3 COPYINGv2 COPYINGv3 asl.h gmpxx.h bootstrap.c \
+	COPYING.LESSERv3 COPYINGv2 COPYINGv3 asl.h bootstrap.c \
 	gen-fac.c gen-fib.c gen-bases.c gen-trialdivtab.c \
 	gen-jacobitab.c gen-psqr.c mini-gmp/README mini-gmp/mini-gmp.c \
 	mini-gmp/mini-gmp.h mini-gmp/mini-mpq.c mini-gmp/mini-mpq.h \
 	mini-gmp/tests/Makefile mini-gmp/tests/run-tests
 pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = gmp.pc $(am__append_1)
-@WANT_CXX_TRUE@GMPXX_HEADERS_OPTION = gmpxx.h
 
 # gmp.h is architecture dependent, mainly since it encodes the limb size used
 # in libgmp.  For that reason it belongs under $exec_prefix not $prefix,
@@ -612,9 +574,8 @@ pkgconfig_DATA = gmp.pc $(am__append_1)
 # to address that.
 #
 includeexecdir = $(exec_prefix)/include
-include_HEADERS = $(GMPXX_HEADERS_OPTION)
 nodist_includeexec_HEADERS = gmp.h
-lib_LTLIBRARIES = libgmp.la $(GMPXX_LTLIBRARIES_OPTION)
+lib_LTLIBRARIES = libgmp.la
 BUILT_SOURCES = gmp.h fac_table.h fib_table.h mpn/fib_table.c \
 	mp_bases.h mpn/mp_bases.c trialdivtab.h mpn/jacobitab.h \
 	mpn/perfsqr.h
@@ -631,7 +592,7 @@ MPF_OBJECTS = mpf/init$U.lo mpf/init2$U.lo mpf/inits$U.lo mpf/set$U.lo	    \
   mpf/set_z$U.lo mpf/iset$U.lo mpf/iset_ui$U.lo mpf/iset_si$U.lo	    \
   mpf/iset_str$U.lo mpf/iset_d$U.lo mpf/clear$U.lo mpf/clears$U.lo	    \
   mpf/get_str$U.lo mpf/dump$U.lo mpf/size$U.lo mpf/eq$U.lo mpf/reldiff$U.lo \
-  mpf/sqrt$U.lo mpf/random2$U.lo mpf/inp_str$U.lo mpf/out_str$U.lo	    \
+  mpf/sqrt$U.lo mpf/random2$U.lo    \
   mpf/add$U.lo mpf/add_ui$U.lo mpf/sub$U.lo mpf/sub_ui$U.lo mpf/ui_sub$U.lo \
   mpf/mul$U.lo mpf/mul_ui$U.lo mpf/div$U.lo mpf/div_ui$U.lo mpf/cmp_z$U.lo  \
   mpf/cmp$U.lo mpf/cmp_d$U.lo mpf/cmp_ui$U.lo mpf/cmp_si$U.lo		    \
@@ -671,7 +632,7 @@ MPZ_OBJECTS = mpz/abs$U.lo mpz/add$U.lo mpz/add_ui$U.lo			\
   mpz/get_si$U.lo mpz/get_str$U.lo mpz/get_ui$U.lo mpz/getlimbn$U.lo	\
   mpz/hamdist$U.lo							\
   mpz/import$U.lo mpz/init$U.lo mpz/init2$U.lo mpz/inits$U.lo		\
-  mpz/inp_raw$U.lo mpz/inp_str$U.lo mpz/invert$U.lo			\
+  mpz/invert$U.lo			\
   mpz/ior$U.lo mpz/iset$U.lo mpz/iset_d$U.lo mpz/iset_si$U.lo		\
   mpz/iset_str$U.lo mpz/iset_ui$U.lo mpz/jacobi$U.lo mpz/kronsz$U.lo	\
   mpz/kronuz$U.lo mpz/kronzs$U.lo mpz/kronzu$U.lo			\
@@ -681,7 +642,7 @@ MPZ_OBJECTS = mpz/abs$U.lo mpz/add$U.lo mpz/add_ui$U.lo			\
   mpz/millerrabin$U.lo mpz/mod$U.lo mpz/mul$U.lo mpz/mul_2exp$U.lo	\
   mpz/mul_si$U.lo mpz/mul_ui$U.lo					\
   mpz/n_pow_ui$U.lo mpz/neg$U.lo mpz/nextprime$U.lo			\
-  mpz/out_raw$U.lo mpz/out_str$U.lo mpz/perfpow$U.lo mpz/perfsqr$U.lo	\
+  mpz/perfpow$U.lo mpz/perfsqr$U.lo	\
   mpz/popcount$U.lo mpz/pow_ui$U.lo mpz/powm$U.lo mpz/powm_sec$U.lo	\
   mpz/powm_ui$U.lo mpz/primorial_ui$U.lo				\
   mpz/pprime_p$U.lo mpz/random$U.lo mpz/random2$U.lo			\
@@ -703,8 +664,8 @@ MPQ_OBJECTS = mpq/abs$U.lo mpq/aors$U.lo				\
   mpq/canonicalize$U.lo mpq/clear$U.lo mpq/clears$U.lo			\
   mpq/cmp$U.lo mpq/cmp_si$U.lo mpq/cmp_ui$U.lo mpq/div$U.lo		\
   mpq/get_d$U.lo mpq/get_den$U.lo mpq/get_num$U.lo mpq/get_str$U.lo	\
-  mpq/init$U.lo mpq/inits$U.lo mpq/inp_str$U.lo mpq/inv$U.lo		\
-  mpq/md_2exp$U.lo mpq/mul$U.lo mpq/neg$U.lo mpq/out_str$U.lo		\
+  mpq/init$U.lo mpq/inits$U.lo mpq/inv$U.lo		\
+  mpq/md_2exp$U.lo mpq/mul$U.lo mpq/neg$U.lo		\
   mpq/set$U.lo mpq/set_den$U.lo mpq/set_num$U.lo			\
   mpq/set_si$U.lo mpq/set_str$U.lo mpq/set_ui$U.lo			\
   mpq/equal$U.lo mpq/set_z$U.lo mpq/set_d$U.lo				\
@@ -714,32 +675,23 @@ MPN_OBJECTS = mpn/fib_table$U.lo mpn/mp_bases$U.lo
 PRINTF_OBJECTS = \
   printf/asprintf$U.lo printf/asprntffuns$U.lo				\
   printf/doprnt$U.lo printf/doprntf$U.lo printf/doprnti$U.lo		\
-  printf/fprintf$U.lo							\
   printf/obprintf$U.lo printf/obvprintf$U.lo printf/obprntffuns$U.lo	\
-  printf/printf$U.lo printf/printffuns$U.lo				\
   printf/snprintf$U.lo printf/snprntffuns$U.lo				\
   printf/sprintf$U.lo printf/sprintffuns$U.lo				\
-  printf/vasprintf$U.lo printf/vfprintf$U.lo printf/vprintf$U.lo	\
+  printf/vasprintf$U.lo \
   printf/vsnprintf$U.lo printf/vsprintf$U.lo				\
   printf/repl-vsnprintf$U.lo
 
 SCANF_OBJECTS = \
-  scanf/doscan$U.lo scanf/fscanf$U.lo scanf/fscanffuns$U.lo	\
-  scanf/scanf$U.lo scanf/sscanf$U.lo scanf/sscanffuns$U.lo	\
-  scanf/vfscanf$U.lo scanf/vscanf$U.lo scanf/vsscanf$U.lo
+  scanf/doscan$U.lo	\
+  scanf/sscanf$U.lo scanf/sscanffuns$U.lo	\
+  scanf/vsscanf$U.lo
 
 RANDOM_OBJECTS = \
   rand/rand$U.lo rand/randclr$U.lo rand/randdef$U.lo rand/randiset$U.lo	\
   rand/randlc2s$U.lo rand/randlc2x$U.lo rand/randmt$U.lo		\
   rand/randmts$U.lo rand/rands$U.lo rand/randsd$U.lo rand/randsdui$U.lo	\
   rand/randbui$U.lo rand/randmui$U.lo
-
-
-# no $U for C++ files
-CXX_OBJECTS = \
-  cxx/isfuns.lo cxx/ismpf.lo cxx/ismpq.lo cxx/ismpz.lo cxx/ismpznw.lo	\
-  cxx/limits.lo cxx/osdoprnti.lo cxx/osfuns.lo				\
-  cxx/osmpf.lo cxx/osmpq.lo cxx/osmpz.lo
 
 
 # In libtool 1.5 it doesn't work to build libgmp.la from the convenience
@@ -770,22 +722,11 @@ libgmp_la_LIBADD = $(libgmp_la_DEPENDENCIES)
 libgmp_la_LDFLAGS = $(GMP_LDFLAGS) $(LIBGMP_LDFLAGS) \
   -version-info $(LIBGMP_LT_CURRENT):$(LIBGMP_LT_REVISION):$(LIBGMP_LT_AGE)
 
-
-# We need at least one .cc file in $(libgmpxx_la_SOURCES) so automake will
-# use $(CXXLINK) rather than the plain C $(LINK).  cxx/dummy.cc is that
-# file.
-@WANT_CXX_TRUE@GMPXX_LTLIBRARIES_OPTION = libgmpxx.la
-libgmpxx_la_SOURCES = cxx/dummy.cc
-libgmpxx_la_DEPENDENCIES = $(CXX_OBJECTS) libgmp.la
-libgmpxx_la_LIBADD = $(libgmpxx_la_DEPENDENCIES)
-libgmpxx_la_LDFLAGS = $(GMP_LDFLAGS) $(LIBGMPXX_LDFLAGS) \
-  -version-info $(LIBGMPXX_LT_CURRENT):$(LIBGMPXX_LT_REVISION):$(LIBGMPXX_LT_AGE)
-
 all: $(BUILT_SOURCES) config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
 .SUFFIXES:
-.SUFFIXES: .c .cc .lo .o .obj
+.SUFFIXES: .c .lo .o .obj
 am--refresh: Makefile
 	@:
 $(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am  $(am__configure_deps)
@@ -838,8 +779,6 @@ gmp.h: $(top_builddir)/config.status $(srcdir)/gmp-h.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 gmp.pc: $(top_builddir)/config.status $(srcdir)/gmp.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
-gmpxx.pc: $(top_builddir)/config.status $(srcdir)/gmpxx.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
 
 install-libLTLIBRARIES: $(lib_LTLIBRARIES)
 	@$(NORMAL_INSTALL)
@@ -878,18 +817,10 @@ clean-libLTLIBRARIES:
 
 libgmp.la: $(libgmp_la_OBJECTS) $(libgmp_la_DEPENDENCIES) $(EXTRA_libgmp_la_DEPENDENCIES) 
 	$(AM_V_CCLD)$(libgmp_la_LINK) -rpath $(libdir) $(libgmp_la_OBJECTS) $(libgmp_la_LIBADD) $(LIBS)
-cxx/$(am__dirstamp):
-	@$(MKDIR_P) cxx
-	@: > cxx/$(am__dirstamp)
-cxx/dummy.lo: cxx/$(am__dirstamp)
 
-libgmpxx.la: $(libgmpxx_la_OBJECTS) $(libgmpxx_la_DEPENDENCIES) $(EXTRA_libgmpxx_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(libgmpxx_la_LINK) $(am_libgmpxx_la_rpath) $(libgmpxx_la_OBJECTS) $(libgmpxx_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f cxx/*.$(OBJEXT)
-	-rm -f cxx/*.lo
 
 distclean-compile:
 	-rm -f *.tab.c
@@ -903,21 +834,11 @@ distclean-compile:
 .c.lo:
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $<
 
-.cc.o:
-	$(AM_V_CXX)$(CXXCOMPILE) -c -o $@ $<
-
-.cc.obj:
-	$(AM_V_CXX)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
-
-.cc.lo:
-	$(AM_V_CXX)$(LTCXXCOMPILE) -c -o $@ $<
-
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
-	-rm -rf cxx/.libs cxx/_libs
 
 distclean-libtool:
 	-rm -f libtool config.lt
@@ -1318,7 +1239,6 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
-	-rm -f cxx/$(am__dirstamp)
 	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
@@ -1498,9 +1418,6 @@ dist-hook:
 	-find $(distdir) \( -name CVS -type d \) -o -name "*~" -o -name ".#*" \
 		| xargs rm -rf
 	cp "$(srcdir)"/mini-gmp/tests/*.[ch] "$(distdir)/mini-gmp/tests"
-#	grep -F $(VERSION) $(srcdir)/Makefile.am \
-#		| grep -q "^# *$(VERSION) *$(LIBGMP_LT_CURRENT):$(LIBGMP_LT_REVISION):$(LIBGMP_LT_AGE) *$(LIBGMPXX_LT_CURRENT):$(LIBGMPXX_LT_REVISION):$(LIBGMPXX_LT_AGE)"
-#	test -z "`sed -n 's/^# *[0-9]*\.[0-9]*\.[0-9]* *\([0-9]*:[0-9]*:[0-9]*\) *\([0-9]*:[0-9]*:[0-9]*\) *\([0-9]*:[0-9]*:[0-9]*\).*/A\1\nB\2\nC\3/p' $(srcdir)/Makefile.am | grep -v 'A6:3:3\|B3:5:0\|C4:7:1' | sort | uniq -d`"
 
 .PHONY: check-mini-gmp clean-mini-gmp
 

@@ -106,12 +106,8 @@ LIBGMP_LT_CURRENT    = 14
 LIBGMP_LT_REVISION   = 0
 LIBGMP_LT_AGE        = 4
 
-LIBGMPXX_LT_CURRENT  = 10
-LIBGMPXX_LT_REVISION = 0
-LIBGMPXX_LT_AGE      = 6
 
-
-SUBDIRS = tests mpn mpz mpq mpf printf scanf rand cxx demos tune doc
+SUBDIRS = mpn mpz mpq mpf printf scanf rand tune
 
 EXTRA_DIST = configfsf.guess configfsf.sub .gdbinit INSTALL.autoconf \
 	     COPYING.LESSERv3 COPYINGv2 COPYINGv3
@@ -121,12 +117,6 @@ pkgconfig_DATA = gmp.pc
 
 # Put asl.h here for now.
 EXTRA_DIST += asl.h
-
-if WANT_CXX
-GMPXX_HEADERS_OPTION = gmpxx.h
-pkgconfig_DATA += gmpxx.pc
-endif
-EXTRA_DIST += gmpxx.h
 
 # gmp.h is architecture dependent, mainly since it encodes the limb size used
 # in libgmp.  For that reason it belongs under $exec_prefix not $prefix,
@@ -138,9 +128,8 @@ EXTRA_DIST += gmpxx.h
 # to address that.
 #
 includeexecdir = $(exec_prefix)/include
-include_HEADERS = $(GMPXX_HEADERS_OPTION)
 nodist_includeexec_HEADERS = gmp.h
-lib_LTLIBRARIES = libgmp.la $(GMPXX_LTLIBRARIES_OPTION)
+lib_LTLIBRARIES = libgmp.la
 
 BUILT_SOURCES = gmp.h
 
@@ -155,7 +144,7 @@ MPF_OBJECTS = mpf/init$U.lo mpf/init2$U.lo mpf/inits$U.lo mpf/set$U.lo	    \
   mpf/set_z$U.lo mpf/iset$U.lo mpf/iset_ui$U.lo mpf/iset_si$U.lo	    \
   mpf/iset_str$U.lo mpf/iset_d$U.lo mpf/clear$U.lo mpf/clears$U.lo	    \
   mpf/get_str$U.lo mpf/dump$U.lo mpf/size$U.lo mpf/eq$U.lo mpf/reldiff$U.lo \
-  mpf/sqrt$U.lo mpf/random2$U.lo mpf/inp_str$U.lo mpf/out_str$U.lo	    \
+  mpf/sqrt$U.lo mpf/random2$U.lo	    \
   mpf/add$U.lo mpf/add_ui$U.lo mpf/sub$U.lo mpf/sub_ui$U.lo mpf/ui_sub$U.lo \
   mpf/mul$U.lo mpf/mul_ui$U.lo mpf/div$U.lo mpf/div_ui$U.lo mpf/cmp_z$U.lo  \
   mpf/cmp$U.lo mpf/cmp_d$U.lo mpf/cmp_ui$U.lo mpf/cmp_si$U.lo		    \
@@ -195,7 +184,7 @@ MPZ_OBJECTS = mpz/abs$U.lo mpz/add$U.lo mpz/add_ui$U.lo			\
   mpz/get_si$U.lo mpz/get_str$U.lo mpz/get_ui$U.lo mpz/getlimbn$U.lo	\
   mpz/hamdist$U.lo							\
   mpz/import$U.lo mpz/init$U.lo mpz/init2$U.lo mpz/inits$U.lo		\
-  mpz/inp_raw$U.lo mpz/inp_str$U.lo mpz/invert$U.lo			\
+  mpz/invert$U.lo			\
   mpz/ior$U.lo mpz/iset$U.lo mpz/iset_d$U.lo mpz/iset_si$U.lo		\
   mpz/iset_str$U.lo mpz/iset_ui$U.lo mpz/jacobi$U.lo mpz/kronsz$U.lo	\
   mpz/kronuz$U.lo mpz/kronzs$U.lo mpz/kronzu$U.lo			\
@@ -205,7 +194,7 @@ MPZ_OBJECTS = mpz/abs$U.lo mpz/add$U.lo mpz/add_ui$U.lo			\
   mpz/millerrabin$U.lo mpz/mod$U.lo mpz/mul$U.lo mpz/mul_2exp$U.lo	\
   mpz/mul_si$U.lo mpz/mul_ui$U.lo					\
   mpz/n_pow_ui$U.lo mpz/neg$U.lo mpz/nextprime$U.lo			\
-  mpz/out_raw$U.lo mpz/out_str$U.lo mpz/perfpow$U.lo mpz/perfsqr$U.lo	\
+  mpz/perfpow$U.lo mpz/perfsqr$U.lo	\
   mpz/popcount$U.lo mpz/pow_ui$U.lo mpz/powm$U.lo mpz/powm_sec$U.lo	\
   mpz/powm_ui$U.lo mpz/primorial_ui$U.lo				\
   mpz/pprime_p$U.lo mpz/random$U.lo mpz/random2$U.lo			\
@@ -227,8 +216,8 @@ MPQ_OBJECTS = mpq/abs$U.lo mpq/aors$U.lo				\
   mpq/canonicalize$U.lo mpq/clear$U.lo mpq/clears$U.lo			\
   mpq/cmp$U.lo mpq/cmp_si$U.lo mpq/cmp_ui$U.lo mpq/div$U.lo		\
   mpq/get_d$U.lo mpq/get_den$U.lo mpq/get_num$U.lo mpq/get_str$U.lo	\
-  mpq/init$U.lo mpq/inits$U.lo mpq/inp_str$U.lo mpq/inv$U.lo		\
-  mpq/md_2exp$U.lo mpq/mul$U.lo mpq/neg$U.lo mpq/out_str$U.lo		\
+  mpq/init$U.lo mpq/inits$U.lo mpq/inv$U.lo		\
+  mpq/md_2exp$U.lo mpq/mul$U.lo mpq/neg$U.lo		\
   mpq/set$U.lo mpq/set_den$U.lo mpq/set_num$U.lo			\
   mpq/set_si$U.lo mpq/set_str$U.lo mpq/set_ui$U.lo			\
   mpq/equal$U.lo mpq/set_z$U.lo mpq/set_d$U.lo				\
@@ -239,31 +228,23 @@ MPN_OBJECTS = mpn/fib_table$U.lo mpn/mp_bases$U.lo
 PRINTF_OBJECTS =							\
   printf/asprintf$U.lo printf/asprntffuns$U.lo				\
   printf/doprnt$U.lo printf/doprntf$U.lo printf/doprnti$U.lo		\
-  printf/fprintf$U.lo							\
   printf/obprintf$U.lo printf/obvprintf$U.lo printf/obprntffuns$U.lo	\
-  printf/printf$U.lo printf/printffuns$U.lo				\
   printf/snprintf$U.lo printf/snprntffuns$U.lo				\
   printf/sprintf$U.lo printf/sprintffuns$U.lo				\
-  printf/vasprintf$U.lo printf/vfprintf$U.lo printf/vprintf$U.lo	\
+  printf/vasprintf$U.lo	\
   printf/vsnprintf$U.lo printf/vsprintf$U.lo				\
   printf/repl-vsnprintf$U.lo
 
 SCANF_OBJECTS =							\
-  scanf/doscan$U.lo scanf/fscanf$U.lo scanf/fscanffuns$U.lo	\
-  scanf/scanf$U.lo scanf/sscanf$U.lo scanf/sscanffuns$U.lo	\
-  scanf/vfscanf$U.lo scanf/vscanf$U.lo scanf/vsscanf$U.lo
+  scanf/doscan$U.lo	\
+  scanf/sscanf$U.lo scanf/sscanffuns$U.lo	\
+  scanf/vsscanf$U.lo
 
 RANDOM_OBJECTS =							\
   rand/rand$U.lo rand/randclr$U.lo rand/randdef$U.lo rand/randiset$U.lo	\
   rand/randlc2s$U.lo rand/randlc2x$U.lo rand/randmt$U.lo		\
   rand/randmts$U.lo rand/rands$U.lo rand/randsd$U.lo rand/randsdui$U.lo	\
   rand/randbui$U.lo rand/randmui$U.lo
-
-# no $U for C++ files
-CXX_OBJECTS =								\
-  cxx/isfuns.lo cxx/ismpf.lo cxx/ismpq.lo cxx/ismpz.lo cxx/ismpznw.lo	\
-  cxx/limits.lo cxx/osdoprnti.lo cxx/osfuns.lo				\
-  cxx/osmpf.lo cxx/osmpq.lo cxx/osmpz.lo
 
 # In libtool 1.5 it doesn't work to build libgmp.la from the convenience
 # libraries like mpz/libmpz.la.  Or rather it works, but it ends up putting
@@ -291,21 +272,6 @@ libgmp_la_DEPENDENCIES = @TAL_OBJECT@		\
 libgmp_la_LIBADD = $(libgmp_la_DEPENDENCIES)
 libgmp_la_LDFLAGS = $(GMP_LDFLAGS) $(LIBGMP_LDFLAGS) \
   -version-info $(LIBGMP_LT_CURRENT):$(LIBGMP_LT_REVISION):$(LIBGMP_LT_AGE)
-
-
-# We need at least one .cc file in $(libgmpxx_la_SOURCES) so automake will
-# use $(CXXLINK) rather than the plain C $(LINK).  cxx/dummy.cc is that
-# file.
-
-if WANT_CXX
-GMPXX_LTLIBRARIES_OPTION = libgmpxx.la
-endif
-libgmpxx_la_SOURCES = cxx/dummy.cc
-libgmpxx_la_DEPENDENCIES = $(CXX_OBJECTS) libgmp.la
-libgmpxx_la_LIBADD = $(libgmpxx_la_DEPENDENCIES)
-libgmpxx_la_LDFLAGS = $(GMP_LDFLAGS) $(LIBGMPXX_LDFLAGS) \
-  -version-info $(LIBGMPXX_LT_CURRENT):$(LIBGMPXX_LT_REVISION):$(LIBGMPXX_LT_AGE)
-
 
 
 install-data-hook:
@@ -426,9 +392,6 @@ dist-hook:
 	-find $(distdir) \( -name CVS -type d \) -o -name "*~" -o -name ".#*" \
 		| xargs rm -rf
 	cp "$(srcdir)"/mini-gmp/tests/*.[ch] "$(distdir)/mini-gmp/tests"
-#	grep -F $(VERSION) $(srcdir)/Makefile.am \
-#		| grep -q "^# *$(VERSION) *$(LIBGMP_LT_CURRENT):$(LIBGMP_LT_REVISION):$(LIBGMP_LT_AGE) *$(LIBGMPXX_LT_CURRENT):$(LIBGMPXX_LT_REVISION):$(LIBGMPXX_LT_AGE)"
-#	test -z "`sed -n 's/^# *[0-9]*\.[0-9]*\.[0-9]* *\([0-9]*:[0-9]*:[0-9]*\) *\([0-9]*:[0-9]*:[0-9]*\) *\([0-9]*:[0-9]*:[0-9]*\).*/A\1\nB\2\nC\3/p' $(srcdir)/Makefile.am | grep -v 'A6:3:3\|B3:5:0\|C4:7:1' | sort | uniq -d`"
 
 .PHONY: check-mini-gmp clean-mini-gmp
 
