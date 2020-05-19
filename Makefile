@@ -3,7 +3,6 @@ GMP_VERSION						?= 6.2.0
 ROOT							?= $(CURDIR)
 GMP_ROOT						?= $(ROOT)/gmp-$(GMP_VERSION)
 CONFIG_DIR						?= $(ROOT)/config
-TEST_ROOT						?= $(ROOT)/gmp_test
 
 CC								?= $(CROSS_COMPILE)gcc
 LD								?= $(CROSS_COMPILE)ld
@@ -37,14 +36,6 @@ configure:
 	./configure --disable-shared --disable-assembly --disable-cxx --host=aarch64-linu-gnu --prefix=$(TA_DEV_KIT_DIR) --exec-prefix=$(TA_DEV_KIT_DIR) && \
 	cp $(CONFIG_DIR)/config.h $(GMP_ROOT)/.
 
-.PHONY: test
-test:
-	$(MAKE) -C $(TEST_ROOT) \
-		CROSS_COMPILE=$(CROSS_COMPILE) \
-		TEEC_EXPORT=$(TEEC_EXPORT) \
-		PLATFORM=$(PLATFORM) \
-		TA_DEV_KIT_DIR=$(TA_DEV_KIT_DIR)
-
 .PHONY: clean
 clean:
 	$(MAKE) -C $(GMP_ROOT) distclean
@@ -52,8 +43,3 @@ clean:
 .PHONY: uninstall
 uninstall:
 	$(MAKE) -C $(GMP_ROOT) uninstall;
-
-.PHONY: test_clean
-test_clean:
-	$(MAKE) -C $(TEST_ROOT) clean \
-		TA_DEV_KIT_DIR=$(TA_DEV_KIT_DIR)
