@@ -33,7 +33,7 @@ configure:
 	CPATH=$(CPATH) LIBRARY_PATH=$(LIBRARY_PATH) \
 	CC=$(CC) LD=$(LD) AR=$(AR) NM=$(NM) OBJCOPY=$(OBJCOPY) OBJDUMP=$(OBJDUMP) READELF=$(READELF) \
 	CFLAGS=$(CFLAGS) \
-	./configure --disable-shared --disable-assembly --disable-cxx --host=aarch64-linu-gnu --prefix=$(TA_DEV_KIT_DIR) --exec-prefix=$(TA_DEV_KIT_DIR) && \
+	./configure --disable-shared --disable-assembly --disable-cxx --host=aarch64-linux-gnu --prefix=$(TA_DEV_KIT_DIR) --exec-prefix=$(TA_DEV_KIT_DIR) && \
 	cp $(CONFIG_DIR)/config.h $(GMP_ROOT)/.
 
 .PHONY: clean
